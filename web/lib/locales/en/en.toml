@@ -1,0 +1,63 @@
+{
+    "common": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "add": "Add",
+        "close": "Close"
+    },
+    "panel": {
+        "title": "Settings"
+    },
+    "profile": {
+        "title": "My Profile",
+        "fields": {},
+        "modal":{},
+        "error": {},
+        "placeholder": {}
+    },
+    "interface": {
+        "title": "Interface Management",
+        "fields": {}
+    },
+    "site": {
+        "title": "Site Management",
+        "fields": {},
+        "error": {},
+        "placeholder": {}
+    },
+    "module": {
+        "title": "Module Management",
+        "fields": {}
+    },
+    "user": {
+        "title": "User Management",
+        "fields": {},
+        "modal":{},
+        "error": {},
+        "placeholder": {}
+    },
+    "group": {
+        "title": "Group Management",
+        "fields": {},
+        "modal":{},
+        "error": {},
+        "placeholder": {}
+    },
+    "support": {
+        "title": "Support"
+    },
+    "about": {
+        "title": "About"
+    },
+    "login": {
+        "title": "Login",
+        "fields": {},
+        "error": {},
+        "placeholder": {}
+    },
+    "logout": {
+        "title": "Logout",
+        "modal":{}
+    }
+}

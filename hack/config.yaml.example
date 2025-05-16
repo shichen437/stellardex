@@ -1,0 +1,33 @@
+
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  build:
+    name:     "main"
+    arch:     "amd64"
+    system:   "linux"
+    mod:      "none"
+    packSrc:  "api,internal"
+    packDst:  "temp/pack.go"
+    path:     "./temp"
+  gen:
+    dao:
+      - link:            "sqlite::@file(resource/data/stellardex.db)"
+        tables:          "sys_user"
+        tablesEx:        ""
+        removePrefix:    ""
+        descriptionTag:  true
+        noModelComment:  true
+        path: "./internal/app/user"
+    service:
+      srcFolder: "internal/app/user/logic"
+      dstFolder:  "internal/app/user/service"
+
+  docker:
+    build:
+      name: "main"
+      arch: "amd64"
+      system: "linux"
+      extra: "--no-cache"
+    tagName: "stellardex:0.0.1"
+    TagPrefixes: "shichen437"

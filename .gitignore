@@ -1,0 +1,10 @@
+temp/
+resource/
+hack/config.yaml
+
+docker-compose.yaml
+
+*.db
+*.sqlite3
+
+main
