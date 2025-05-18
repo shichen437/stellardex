@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface InterfaceTabProps {
   settings: SettingsState;
@@ -13,11 +14,12 @@ interface InterfaceTabProps {
 }
 
 export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) {
+  const { t } = usePolyglot();
   return (
     <div className="grid grid-cols-2 gap-8">
       <div className="space-y-6">
         <div className="space-y-4">
-          <h3 className="text-base font-medium">界面模式</h3>
+          <h3 className="text-base font-medium">{t("apperance.interfaceMode")}</h3>
           <Select
             value={settings.interfaceConfig.interfaceMode}
             onValueChange={(value) =>
@@ -34,16 +36,16 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
               <SelectValue placeholder="选择界面模式" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="navigation">导航模式</SelectItem>
-              <SelectItem value="simplicity">极简模式</SelectItem>
-              <SelectItem value="homepage">主页模式</SelectItem>
-              <SelectItem value="starry">星空模式</SelectItem>
+              <SelectItem value="navigation">{t("apperance.navigationMode")}</SelectItem>
+              <SelectItem value="homepage">{t("apperance.homepageMode")}</SelectItem>
+              <SelectItem value="simplicity">{t("apperance.simplicityMode")}</SelectItem>
+              <SelectItem value="starry">{t("apperance.starryMode")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-base font-medium">主题</h3>
+          <h3 className="text-base font-medium">{t("apperance.theme")}</h3>
           <Select
             value={settings.interfaceConfig.themeMode}
             onValueChange={(value) =>
@@ -60,16 +62,16 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
               <SelectValue placeholder="选择主题" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="system">跟随系统</SelectItem>
-              <SelectItem value="light">浅色模式</SelectItem>
-              <SelectItem value="dark">深色模式</SelectItem>
+              <SelectItem value="system">{t("apperance.theme_system")}</SelectItem>
+              <SelectItem value="light">{t("apperance.theme_light")}</SelectItem>
+              <SelectItem value="dark">{t("apperance.theme_dark")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-base font-medium">语言</h3>
+        <h3 className="text-base font-medium">{t("apperance.language")}</h3>
         <Select
           value={settings.interfaceConfig.language}
           onValueChange={(value) =>

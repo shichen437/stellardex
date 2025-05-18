@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface DeleteGroupModalProps {
   open: boolean
@@ -18,18 +19,19 @@ interface DeleteGroupModalProps {
 }
 
 export function DeleteGroupModal({ open, onOpenChange, onConfirm }: DeleteGroupModalProps) {
+  const { t } = usePolyglot()
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>删除分组</AlertDialogTitle>
+          <AlertDialogTitle>{t("groups.delete")}</AlertDialogTitle>
           <AlertDialogDescription>
-            您确定要删除该分组吗？此操作不可恢复。
+            {t("groups.deleteMessage")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>取消</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>确认</AlertDialogAction>
+          <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>{t("common.confirm")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

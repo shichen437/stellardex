@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface GroupModalProps {
   open: boolean;
@@ -37,6 +38,7 @@ export const GroupModal: React.FC<GroupModalProps> = ({
 }) => {
   const [name, setName] = useState(initialName);
   const [style, setStyle] = useState<Group["displayType"]>(initialStyle);
+  const { t } = usePolyglot();
 
   useEffect(() => {
     setName(initialName);
@@ -47,21 +49,21 @@ export const GroupModal: React.FC<GroupModalProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-xs w-full rounded-xl shadow-2xl p-8 bg-popover dark:bg-popover">
         <DialogHeader>
-          <DialogTitle>{editing ? "编辑分组" : "添加分组"}</DialogTitle>
+          <DialogTitle>{editing ? t("groups.edit") : t("groups.add")}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-sm font-medium">分组名称</label>
+            <label className="block text-sm font-medium">{t("groups.groupName")}</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 border rounded-md dark:border-gray-600"
-              placeholder="请输入分组名称"
+              placeholder={t("groups.placeholder.groupName")}
             />
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium">显示样式</label>
+            <label className="block text-sm font-medium">{t("groups.showType")}</label>
             <Select
               value={style}
               onValueChange={(value) => setStyle(value as Group["displayType"])}
@@ -70,9 +72,9 @@ export const GroupModal: React.FC<GroupModalProps> = ({
                 <SelectValue placeholder="选择显示样式" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="details">详情</SelectItem>
-                <SelectItem value="icons">图标</SelectItem>
-                <SelectItem value="titles">标题</SelectItem>
+                <SelectItem value="details">{t("groups.showType_detail")}</SelectItem>
+                <SelectItem value="icons">{t("groups.showType_icon")}</SelectItem>
+                <SelectItem value="titles">{t("groups.showType_title")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -82,7 +84,7 @@ export const GroupModal: React.FC<GroupModalProps> = ({
             variant="outline"
             onClick={() => onOpenChange(false)}
           >
-            取消
+            {t("common.cancel")}
           </Button>
           <Button
             onClick={() => {
@@ -91,7 +93,7 @@ export const GroupModal: React.FC<GroupModalProps> = ({
               }
             }}
           >
-            {editing ? "保存" : "确定"}
+            {editing ? t("common.save") : t("common.confirm")}
           </Button>
         </DialogFooter>
       </DialogContent>

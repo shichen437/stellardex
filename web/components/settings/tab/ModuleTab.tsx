@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface PersonalizationTabProps {
   settings: SettingsState;
@@ -14,10 +15,11 @@ interface PersonalizationTabProps {
 }
 
 export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProps) {
+  const { t } = usePolyglot();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <span>显示流星雨效果</span>
+        <span>{t("module.showMeteors")}</span>
         <Switch
           checked={settings.moduleConfig.showMeteors || false}
           onCheckedChange={(checked) => onSettingsChange({
@@ -31,7 +33,7 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
       </div>
 
       <div className="flex items-center justify-between">
-        <span>显示搜索栏</span>
+        <span>{t("module.showSearchBar")}</span>
         <Switch
           checked={settings.moduleConfig.showSearchBar}
           onCheckedChange={(checked) => onSettingsChange({
@@ -45,7 +47,7 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
       </div>
 
       <div className="flex items-center justify-between">
-        <span>显示时钟</span>
+        <span>{t("module.showTime")}</span>
         <Switch
           checked={settings.moduleConfig.showClock}
           onCheckedChange={(checked) => onSettingsChange({
@@ -59,7 +61,7 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
       </div>
 
       <div className="flex items-center justify-between">
-        <span>显示日历</span>
+        <span>{t("module.showCalendar")}</span>
         <Switch
           checked={settings.moduleConfig.showCalendar}
           onCheckedChange={(checked) => onSettingsChange({
@@ -74,7 +76,7 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
 
       {settings.moduleConfig.showCalendar && (
         <div className="flex items-center justify-between">
-          <span>日历格式</span>
+          <span>{t("module.dateFormat")}</span>
           <Select
             value={settings.moduleConfig.calendarFormat}
             onValueChange={(value) => onSettingsChange({

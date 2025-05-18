@@ -1,0 +1,192 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "next": "Next",
+        "previous": "Previous",
+        "search": "Search",
+        "reset": "Reset",
+        "submit": "Submit",
+        "options": "Options"
+    },
+    "sidebar": {
+        "title": "Settings",
+        "profile": "My Profile",
+        "interface": "Apperance",
+        "site": "Site Manage",
+        "module": "Modules",
+        "groups": "Groups",
+        "users": "Users",
+        "support": "Support",
+        "about": "About"
+    },
+    "logout": {
+        "title": "Logout",
+        "message": "Are you sure you want to logout?"
+    },
+    "profile": {
+        "updatePwd": "Update Password",
+        "updateProfile": "Update Profile",
+        "oldPwd": "Old Password",
+        "newPwd": "New Password",
+        "confirmPwd": "Confirm Password",
+        "error": {
+            "oldPwd": "The old password is incorrect.",
+            "newPwd": "The new password length must be between 6 and 20 characters.",
+            "confirmPwd": "Please input the new password.",
+            "newPwdMatch": "The new password and confirm password do not match.",
+            "newPwdSame": "The new password can not be the same as the old password.",
+            "nickname": "The nickname can not be empty.",
+            "sex": "Please select sex.",
+            "email": "The email can not be empty.",
+            "emailValid": "The email is not valid.",
+            "phone": "The phone can not be empty.",
+            "phoneValid": "The phone is not valid."
+        },
+        "placeholder": {
+            "oldPwd": "Please input old password",
+            "newPwd": "Please input new password",
+            "confirmPwd": "Please input confirm password",
+            "nickname": "Please input nickname",
+            "email": "Please input email",
+            "phone": "Please input phone"
+        }
+    },
+    "apperance": {
+        "theme": "Theme",
+        "theme_light": "Light Mode",
+        "theme_dark": "Dark Mode",
+        "theme_system": "Follow System",
+        "language": "Language",
+        "interfaceMode": "Interface Mode",
+        "navigationMode": "Navigation Mode",
+        "starryMode": "Starry Mode",
+        "homepageMode": "Homepage Mode",
+        "simplicityMode": "Simplicity Mode"
+    },
+    "site": {
+        "title": "Site Title",
+        "footer": "Site Footer"
+    },
+    "module": {
+        "showTime": "Show Time",
+        "showCalendar": "Show Calendar",
+        "showSearchBar": "Show Search Bar",
+        "dateFormat": "Date Format",
+        "showMeteors": "Show Meteors"
+    },
+    "groups": {
+        "list": "Group List",
+        "grid": "Grid View",
+        "row": "Row View",
+        "add": "Add Group",
+        "edit": "Edit Group",
+        "delete": "Delete Group",
+        "deleteMessage": "Are you sure you want to delete this group?",
+        "groupName": "Group Name",
+        "showType": "Show Type",
+        "showType_detail": "Detail Card",
+        "showType_icon": "Icon",
+        "showType_title": "Title",
+        "placeholder": {
+            "groupName": "Please input group name"
+        }
+    },
+    "users": {
+        "list": "User List",
+        "add": "Add User",
+        "edit": "Edit User",
+        "delete": "Delete User",
+        "deleteMessage": "Are you sure you want to delete this user?",
+        "resetPwd": "Reset Password",
+        "resetPwdMessage": "Are you sure you want to reset this user password?",
+        "error": {
+            "username": "Username can not be empty.",
+            "usernameLimit": "Username length can not be more than 12 characters.",
+            "nickname": "Nickname can not be empty.",
+            "nicknameLimit": "Nickname length can not be more than 12 characters.",
+            "role": "Please select user role."
+        },
+        "placeholder": {
+            "username": "Please input username",
+            "nickname": "Please input nickname",
+            "role": "Please select user role"
+        }
+    },
+    "userField": {
+        "username": "Username",
+        "nickname": "Nickname",
+        "email": "Email",
+        "phone": "Phone",
+        "sex": "Sex",
+        "sex_male": "Male",
+        "sex_female": "Female",
+        "status": "Status",
+        "status_active": "Active",
+        "status_inactive": "Disabled",
+        "role": "Role",
+        "role_admin": "Admin",
+        "role_user": "User"
+    },
+    "support": {
+        "title": "Support Developer",
+        "message": "Stellardex will always remain free and open-source. If you find it helpful, consider supporting its development in any of these ways.",
+        "wechat": "Wechat",
+        "alipay": "Alipay"
+    },
+    "about": {
+        "viewCode": "View Code",
+        "version": "Version",
+        "concact": "shichen437@gmail.com"
+    },
+    "groupItem": {
+        "add": "Add Item",
+        "edit": "Edit Item",
+        "delete": "Delete Item",
+        "preview": "Preview",
+        "getIcon": "Get Icon",
+        "fields": {
+            "title": "Item Title",
+            "url": "Item Url",
+            "lanUrl": "Lan Url",
+            "desc": "Item Description",
+            "iconType": "Icon Type",
+            "iconType_text": "Text",
+            "iconType_online": "Online",
+            "iconType_lucide": "Lucide Icons",
+            "bgColor": "Background Color",
+            "imageUrl": "Image Url",
+            "lucide": "Svg Code"
+        },
+        "placeholder": {
+            "title": "Please input item title",
+            "url": "Please input item link",
+            "lanUrl": "Please input lan url",
+            "desc": "Please input item description",
+            "imageUrl": "Please input image url",
+            "lucide": "Please input lucide icon (or other svg icon) svg code"
+        },
+        "error": {
+            "title": "Item title can not be empty.",
+            "titleLimit": "Item title length can not be more than 10 characters.",
+            "descLimit": "Item description length can not be more than 30 characters.",
+            "url": "Item url can not be empty.",
+            "urlValid": "Item url is not valid.",
+            "lanUrlValid": "Item lan url is not valid."
+        }
+    },
+    "contextMenu": {
+        "newTab": "Open in New Tab",
+        "lanUrl": "Open in Lan Url"
+    },
+    "toast": {
+        "success": "The operation is successful",
+        "error": "The operation failed",
+        "retry": "The operation failed, please try again later"
+    }
+}

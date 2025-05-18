@@ -1,7 +1,9 @@
 import { Github, Mail } from "lucide-react";
 import { SparklesText } from "@/components/magicui/sparkles-text";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export function AboutTab() {
+  const { t } = usePolyglot();
   return (
     <div className="flex flex-col items-center justify-center h-full space-y-12 py-8">
       {/* 项目名称 */}
@@ -14,7 +16,7 @@ export function AboutTab() {
       {/* 版本号 */}
       <div className="text-center">
         <span className="text-lg text-gray-600 dark:text-gray-400">
-          version 0.0.1
+          {t("about.version")} {process.env.NEXT_PUBLIC_VERSION}
         </span>
       </div>
 
@@ -27,15 +29,14 @@ export function AboutTab() {
           className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
         >
           <Github className="w-5 h-5" />
-          <span>查看源码</span>
+          <span>{t("about.viewCode")}</span>
         </a>
 
         <a
-          href="shichen437@gmail.com"
           className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
         >
           <Mail className="w-5 h-5" />
-          <span>联系作者</span>
+          <span>{t("about.concact")}</span>
         </a>
       </div>
     </div>

@@ -1,46 +1,63 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
   DragEndEvent,
   PointerSensor,
   useSensor,
-  useSensors
-} from '@dnd-kit/core';
+  useSensors,
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { PlusCircle, GripVertical, Trash2, Eye, EyeOff, LayoutGrid, LayoutList, Edit } from 'lucide-react';
-import type { SettingsState } from '@/lib/types/settings';
-import type { Group } from '@/lib/types/group';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  PlusCircle,
+  GripVertical,
+  Trash2,
+  Eye,
+  EyeOff,
+  LayoutGrid,
+  LayoutList,
+  Edit,
+} from "lucide-react";
+import type { SettingsState } from "@/lib/types/settings";
+import type { Group } from "@/lib/types/group";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { GroupModal } from "@/components/settings/modal/GroupModal";
 import { DeleteGroupModal } from "@/components/settings/modal/DeleteGroupModal";
-import { addGroup, updateGroup, deleteGroup, sortGroup, visiableGroup } from "@/api/group";
-import { useGroupStore } from '@/lib/store/group';
+import {
+  addGroup,
+  updateGroup,
+  deleteGroup,
+  sortGroup,
+  visiableGroup,
+} from "@/api/group";
+import { useGroupStore } from "@/lib/store/group";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface GroupsTabProps {
   settings: SettingsState;
   onSettingsChange: (settings: SettingsState) => void;
 }
 
-function SortableGroupItem({ group, onDelete, onToggleVisibility, onEdit }: {
+function SortableGroupItem({
+  group,
+  onDelete,
+  onToggleVisibility,
+  onEdit,
+}: {
   group: Group;
   onDelete: (id: number) => void;
   onToggleVisibility: (id: number) => void;
   onEdit: (group: Group) => void;
 }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: group.id });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: group.id });
+  const { t } = usePolyglot();
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -62,9 +79,9 @@ function SortableGroupItem({ group, onDelete, onToggleVisibility, onEdit }: {
         <div className="flex-1 text-left truncate">
           <span className="font-medium">{group.groupName}</span>
           <span className="ml-2 text-sm text-gray-500">
-            {group.displayType === 'details' && '详情'}
-            {group.displayType === 'icons' && '图标'}
-            {group.displayType === 'titles' && '标题'}
+            {group.displayType === "details" && t("groups.showType_detail")}
+            {group.displayType === "icons" && t("groups.showType_icon")}
+            {group.displayType === "titles" && t("groups.showType_title")}
           </span>
         </div>
       </TableCell>
@@ -73,7 +90,6 @@ function SortableGroupItem({ group, onDelete, onToggleVisibility, onEdit }: {
           <button
             onClick={() => onEdit(group)}
             className="p-2 rounded-lg text-gray-500 hover:text-gray-700"
-            title="编辑分组"
           >
             <Edit className="w-4 h-4" />
           </button>
@@ -109,12 +125,16 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
   );
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [pendingDeleteGroupId, setPendingDeleteGroupId] = useState<number | null>(null);
+  const [pendingDeleteGroupId, setPendingDeleteGroupId] = useState<
+    number | null
+  >(null);
   const [editingGroup, setEditingGroup] = useState<Group | null>(null);
   const [modalInitialName, setModalInitialName] = useState("");
-  const [modalInitialStyle, setModalInitialStyle] = useState<Group["displayType"]>("details");
-  const groups = useGroupStore(state => state.groups);
-  const fetchGroups = useGroupStore(state => state.fetchGroups);
+  const [modalInitialStyle, setModalInitialStyle] =
+    useState<Group["displayType"]>("details");
+  const groups = useGroupStore((state) => state.groups);
+  const fetchGroups = useGroupStore((state) => state.fetchGroups);
+  const { t } = usePolyglot();
   useEffect(() => {
     fetchGroups();
   }, [fetchGroups]);
@@ -134,7 +154,7 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
   };
 
   const toggleGroupVisibility = async (groupId: number) => {
-    const group = groups.find(g => g.id === groupId);
+    const group = groups.find((g) => g.id === groupId);
     if (!group) return;
     await visiableGroup({
       id: Number(groupId),
@@ -172,7 +192,11 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
     setModalOpen(true);
   };
 
-  const handleSaveGroup = async (data: { id?: number; name: string; displayType: Group["displayType"] }) => {
+  const handleSaveGroup = async (data: {
+    id?: number;
+    name: string;
+    displayType: Group["displayType"];
+  }) => {
     if (editingGroup) {
       await updateGroup({
         id: editingGroup.id,
@@ -197,32 +221,38 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-medium">分组列表</h3>
+        <h3 className="text-lg font-medium">{t("groups.list")}</h3>
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => onSettingsChange({
-              ...settings,
-              groupConfig: { ...settings.groupConfig, groupLayout: 'grid' }
-            })}
-            className={`p-2 rounded-lg transition-colors ${settings.groupConfig.groupLayout === 'grid'
-              ? 'bg-black text-white dark:bg-white dark:text-black'
-              : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            title="网格布局"
+            onClick={() =>
+              onSettingsChange({
+                ...settings,
+                groupConfig: { ...settings.groupConfig, groupLayout: "grid" },
+              })
+            }
+            className={`p-2 rounded-lg transition-colors ${
+              settings.groupConfig.groupLayout === "grid"
+                ? "bg-black text-white dark:bg-white dark:text-black"
+                : "hover:bg-gray-100 dark:hover:bg-gray-800"
+            }`}
+            title={t("groups.grid")}
           >
             <LayoutGrid className="w-5 h-5" />
           </button>
           <div className="w-px h-5 bg-gray-200 dark:bg-gray-700" />
           <button
-            onClick={() => onSettingsChange({
-              ...settings,
-              groupConfig: { ...settings.groupConfig, groupLayout: 'row' }
-            })}
-            className={`p-2 rounded-lg transition-colors ${settings.groupConfig.groupLayout === 'row'
-              ? 'bg-black text-white dark:bg-white dark:text-black'
-              : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            title="行布局"
+            onClick={() =>
+              onSettingsChange({
+                ...settings,
+                groupConfig: { ...settings.groupConfig, groupLayout: "row" },
+              })
+            }
+            className={`p-2 rounded-lg transition-colors ${
+              settings.groupConfig.groupLayout === "row"
+                ? "bg-black text-white dark:bg-white dark:text-black"
+                : "hover:bg-gray-100 dark:hover:bg-gray-800"
+            }`}
+            title={t("groups.row")}
           >
             <LayoutList className="w-5 h-5" />
           </button>
@@ -244,7 +274,7 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={groups.map(g => g.id)}
+            items={groups.map((g) => g.id)}
             strategy={verticalListSortingStrategy}
           >
             <div className="overflow-y-auto overflow-x-hidden h-full">

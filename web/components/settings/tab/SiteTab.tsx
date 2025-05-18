@@ -1,5 +1,6 @@
 import type { SettingsState } from '@/lib/types/settings';
 import { useState, useEffect } from 'react';
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface SiteManagementTabProps {
   settings: SettingsState;
@@ -9,6 +10,7 @@ interface SiteManagementTabProps {
 export function SiteManagementTab({ settings, onSettingsChange }: SiteManagementTabProps) {
   const [siteTitle, setSiteTitle] = useState(settings.siteConfig.siteTitle || '');
   const [siteFooter, setSiteFooter] = useState(settings.siteConfig.siteFooter || '');
+  const { t } = usePolyglot();
 
   useEffect(() => {
     const newTitle = settings.siteConfig.siteTitle || '';
@@ -50,7 +52,7 @@ export function SiteManagementTab({ settings, onSettingsChange }: SiteManagement
     <div className="space-y-6">
       <div>
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-base font-medium">站点标题</h3>
+          <h3 className="text-base font-medium">{t("site.title")}</h3>
           <span className="text-sm text-gray-500">{siteTitle.length}/20</span>
         </div>
         <input
@@ -65,7 +67,7 @@ export function SiteManagementTab({ settings, onSettingsChange }: SiteManagement
 
       <div>
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-base font-medium">站点脚注</h3>
+          <h3 className="text-base font-medium">{t("site.footer")}</h3>
           <span className="text-sm text-gray-500">{siteFooter.length}/50</span>
         </div>
         <input

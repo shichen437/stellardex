@@ -1,21 +1,23 @@
 
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export function SupportTab() {
+  const { t } = usePolyglot();
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 py-8">
       <div className="flex flex-col items-center gap-2 text-center">
-        <h2 className="text-2xl font-bold">支持我们</h2>
+        <h2 className="text-2xl font-bold">{t("support.title")}</h2>
         <p className="text-muted-foreground max-w-md">
-          感谢您的支持！扫描下方二维码即可通过微信或支付宝进行捐赠
+          {t("support.message")}
         </p>
       </div>
 
       <div className="flex flex-row gap-6">
         <Card className="w-[300px]">
           <CardHeader>
-            <CardTitle className="text-center">微信</CardTitle>
+            <CardTitle className="text-center">{t("support.wechat")}</CardTitle>
           </CardHeader>
           <CardContent className="flex justify-center">
             <Image
@@ -30,7 +32,7 @@ export function SupportTab() {
 
         <Card className="w-[300px]">
           <CardHeader>
-            <CardTitle className="text-center">支付宝</CardTitle>
+            <CardTitle className="text-center">{t("support.alipay")}</CardTitle>
           </CardHeader>
           <CardContent className="flex justify-center">
             <Image

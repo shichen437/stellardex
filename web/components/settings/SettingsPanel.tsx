@@ -37,6 +37,7 @@ import { SidebarInset } from "@/components/ui/sidebar";
 import { LogoutModal } from "./modal/LogoutModal";
 import { useUserStore } from "@/lib/store/user";
 import { UsersTab } from "./tab/UsersTab";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface SettingsPanelProps {
   settings: SettingsState;
@@ -52,10 +53,9 @@ export function SettingsPanel({
   const [activeTab, setActiveTab] = useState("profile");
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
-
   const [logoutOpen, setLogoutOpen] = useState(false);
-
   const logoutStore = useUserStore((state) => state.logout);
+  const { t } = usePolyglot();
 
   const handleLogout = async () => {
     try {
@@ -107,24 +107,24 @@ export function SettingsPanel({
   };
 
   const menuItems = [
-    { id: "profile", label: "我的信息", icon: <CircleUserRound className="w-4 h-4" /> },
+    { id: "profile", label: t("sidebar.profile"), icon: <CircleUserRound className="w-4 h-4" /> },
     {
       id: "interface",
-      label: "界面管理",
+      label: t("sidebar.interface"),
       icon: <Palette className="w-4 h-4" />,
     },
     {
       id: "site",
-      label: "站点管理",
+      label: t("sidebar.site"),
       icon: <LayoutDashboard className="w-4 h-4" />,
     },
-    { id: "module", label: "组件管理", icon: <Puzzle className="w-4 h-4" /> },
-    { id: "groups", label: "分组管理", icon: <Group className="w-4 h-4" /> },
+    { id: "module", label: t("sidebar.module"), icon: <Puzzle className="w-4 h-4" /> },
+    { id: "groups", label: t("sidebar.groups"), icon: <Group className="w-4 h-4" /> },
     ...(userInfo?.isAdmin
-      ? [{ id: "users", label: "用户管理", icon: <Users className="w-4 h-4" /> }]
+      ? [{ id: "users", label: t("sidebar.users"), icon: <Users className="w-4 h-4" /> }]
       : []),
-    { id: "support", label: "支持", icon: <Coffee className="w-4 h-4" /> },
-    { id: "about", label: "关于", icon: <Info className="w-4 h-4" /> },
+    { id: "support", label: t("sidebar.support"), icon: <Coffee className="w-4 h-4" /> },
+    { id: "about", label: t("sidebar.about"), icon: <Info className="w-4 h-4" /> },
   ];
 
   return (
@@ -145,7 +145,7 @@ export function SettingsPanel({
                 </div>
                 {!isCollapsed && (
                   <h2 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                    设置
+                    {t("sidebar.title")}
                   </h2>
                 )}
               </div>
@@ -186,7 +186,7 @@ export function SettingsPanel({
                     >
                       {" "}
                       <LogOut className="w-5 h-5" />
-                      {!isCollapsed && " 退出登录"}
+                      {!isCollapsed && t("logout.title")}
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -209,7 +209,7 @@ export function SettingsPanel({
                   )}
                 </button>
                 <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
-                  {menuItems.find((item) => item.id === activeTab)?.label}
+                  {t(`sidebar.${activeTab}`)}
                 </h2>
               </div>
               <button

@@ -5,13 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { PasswordModal } from "@/components/settings/modal/PasswordModal";
 import { ProfileModal } from "@/components/settings/modal/ProfileModal";
-import { UserInfo } from "@/lib/types/user"
+import { UserInfo } from "@/lib/types/user";
 import { useUserStore } from "@/lib/store/user";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export function ProfileTab() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const getUserInfo = useUserStore((state) => state.getUserInfo);
+  const { t } = usePolyglot();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -63,7 +65,6 @@ export function ProfileTab() {
           {userInfo.avatar ? (
             <AvatarImage
               src={userInfo.avatar}
-              alt="用户头像"
               className="w-full h-full filter grayscale"
             />
           ) : (
@@ -77,7 +78,11 @@ export function ProfileTab() {
             <div>
               <h3 className="text-2xl font-bold mb-1">{userInfo.nickname}</h3>
               <Badge className="text-base font-medium">
-                {userInfo.roleName || "普通用户"}
+                {userInfo.roleId === 1
+                  ? t("userField.role_admin")
+                  : userInfo.roleId === 2
+                  ? t("userField.role_user")
+                  : userInfo.roleName}
               </Badge>
             </div>
             <div className="mt-2 md:mt-0">
@@ -89,14 +94,16 @@ export function ProfileTab() {
                     : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                 }
               >
-                {userInfo.status === 1 ? "正常" : "禁用"}
+                {userInfo.status === 1
+                  ? t("userField.status_active")
+                  : t("userField.status_inactive")}
               </Badge>
             </div>
           </div>
           <div className="flex flex-wrap gap-6 mt-4">
             <div className="bg-gray-50 dark:bg-black/20 rounded-lg px-4 py-3 shadow-sm flex-1 min-w-[180px] flex items-center">
               <span className="text-gray-500 dark:text-gray-400 text-xs mr-2 min-w-[48px] text-left">
-                用户名
+                {t("userField.username")}
               </span>
               <span className="font-semibold text-base text-gray-900 dark:text-white mx-auto">
                 {userInfo.username}
@@ -104,16 +111,18 @@ export function ProfileTab() {
             </div>
             <div className="bg-gray-50 dark:bg-black/20 rounded-lg px-4 py-3 shadow-sm flex-1 min-w-[180px] flex items-center">
               <span className="text-gray-500 dark:text-gray-400 text-xs mr-2 min-w-[48px] text-left">
-                性别
+                {t("userField.sex")}
               </span>
               <span className="font-semibold text-base text-gray-900 dark:text-white mx-auto">
-                {userInfo.sex === 0 ? "女" : "男"}
+                {userInfo.sex === 0
+                  ? t("userField.sex_famale")
+                  : t("userField.sex_male")}
               </span>
             </div>
             {userInfo.mobile && (
               <div className="bg-gray-50 dark:bg-black/20 rounded-lg px-4 py-3 shadow-sm flex-1 min-w-[180px] flex items-center">
                 <span className="text-gray-500 dark:text-gray-400 text-xs mr-2 min-w-[48px] text-left">
-                  手机号
+                  {t("userField.phone")}
                 </span>
                 <span className="font-semibold text-base text-gray-900 dark:text-white mx-auto">
                   {userInfo.mobile}
@@ -123,7 +132,7 @@ export function ProfileTab() {
             {userInfo.email && (
               <div className="bg-gray-50 dark:bg-black/20 rounded-lg px-4 py-3 shadow-sm flex-1 min-w-[180px] flex items-center">
                 <span className="text-gray-500 dark:text-gray-400 text-xs mr-2 min-w-[48px] text-left">
-                  邮箱
+                  {t("userField.email")}
                 </span>
                 <span className="font-semibold text-base text-gray-900 dark:text-white mx-auto truncate max-w-[160px] overflow-hidden whitespace-nowrap">
                   {userInfo.email}

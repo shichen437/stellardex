@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface LogoutModalProps {
   open: boolean
@@ -18,18 +19,19 @@ interface LogoutModalProps {
 }
 
 export function LogoutModal({ open, onOpenChange, onConfirm }: LogoutModalProps) {
+  const { t } = usePolyglot();
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>退出登录</AlertDialogTitle>
+          <AlertDialogTitle>{t("logout.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            您确定要退出当前账号吗？
+          {t("logout.message")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>我再想想</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>确认退出</AlertDialogAction>
+          <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>{t("common.confirm")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
