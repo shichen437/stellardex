@@ -10,7 +10,7 @@ import type { SettingsState } from "@/lib/types/settings";
 import type { GroupItem } from "@/lib/types/group";
 import { GroupNavigation } from "@/components/modes/module/GroupNavigation";
 import { GroupItemGrid } from "@/components/modes/common/GroupItemGrid";
-import { useContextMenu } from "@/hooks/useContextMenu";
+import { useGroupItemContextMenu } from "@/hooks/useGroupItemContextMenu";
 import { useGroupStore } from "@/lib/store/group";
 import {
   allGroupItems,
@@ -32,8 +32,8 @@ export function HomepageModeView() {
   useEffect(() => {
     setMounted(true);
   }, []);
-  const { contextMenu, contextMenuRef, setContextMenu, handleContextMenu } =
-    useContextMenu();
+  const { contextMenu, setContextMenu, handleContextMenu } =
+    useGroupItemContextMenu();
 
   const groupList = useGroupStore((state) => state.groups);
   const fetchGroups = useGroupStore((state) => state.fetchGroups);
@@ -137,6 +137,13 @@ export function HomepageModeView() {
                 displayType={currentGroup.displayType}
                 groupId={currentGroup.id}
                 onContextMenu={handleContextMenu}
+                contextMenu={contextMenu}
+                onEdit={(item) => {
+                  setEditingGroupItem(item);
+                  setShowGroupItemModal(true);
+                }}
+                onDelete={(item) => handleDeleteGroupItem(item.groupId, item.id)}
+                setContextMenu={setContextMenu}
               />
             </div>
           )}
@@ -175,50 +182,7 @@ export function HomepageModeView() {
         />
       )}
 
-      {contextMenu && (
-        <div
-          ref={contextMenuRef}
-          className="fixed bg-white dark:bg-gray-800 shadow-lg rounded-lg py-1 z-50"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
-        >
-          <button
-            onClick={() => {
-              window.open(
-                groupItems.find((w) => w.id === contextMenu.itemId)?.url,
-                "_blank"
-              );
-              setContextMenu(null);
-            }}
-            className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            新窗口打开
-          </button>
-          <button
-            onClick={() => {
-              const item = groupItems.find((w) => w.id === contextMenu.itemId);
-              if (item) {
-                setEditingGroupItem(item);
-                setSelectedGroupId(contextMenu.groupId);
-                setShowGroupItemModal(true);
-              }
-              setContextMenu(null);
-            }}
-            className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            编辑
-          </button>
-          <button
-            onClick={async () => {
-              if (!settings || !currentGroup) return;
-              await handleDeleteGroupItem(currentGroup.id, contextMenu.itemId);
-              setContextMenu(null);
-            }}
-            className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
-          >
-            删除
-          </button>
-        </div>
-      )}
+
     </div>
   );
 }

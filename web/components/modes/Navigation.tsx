@@ -10,8 +10,7 @@ import type { SettingsState } from "@/lib/types/settings";
 import type { GroupItem } from "@/lib/types/group";
 import { useGroupStore } from "@/lib/store/group";
 import { GroupItemList } from "./common/GroupItemList";
-import { GroupItemContextMenu } from "./context/GroupItemContextMenu";
-import { useGroupItemContextMenu } from "../../hooks/useGroupItemContextMenu";
+import { useGroupItemContextMenu } from "@/hooks/useGroupItemContextMenu";
 import { useSettingsStore } from "@/lib/store/settings";
 import {
   allGroupItems,
@@ -34,7 +33,7 @@ export function NavigationModeView() {
   useEffect(() => {
     setMounted(true);
   }, []);
-  const { contextMenu, contextMenuRef, setContextMenu, handleContextMenu } =
+  const { contextMenu, setContextMenu, handleContextMenu } =
     useGroupItemContextMenu();
   const groupList = useGroupStore((state) => state.groups);
   const fetchGroups = useGroupStore((state) => state.fetchGroups);
@@ -197,6 +196,10 @@ export function NavigationModeView() {
                     groupLayout={settings.groupConfig?.groupLayout || "row"}
                     onContextMenu={handleContextMenu}
                     groupId={group.id}
+                    contextMenu={contextMenu}
+                    onEdit={(item) => handleEditGroupItem(item.groupId, item.id)}
+                    onDelete={(item) => handleDeleteGroupItem(item.groupId, item.id)}
+                    setContextMenu={setContextMenu}
                   />
                 </div>
               ))
@@ -229,17 +232,6 @@ export function NavigationModeView() {
               handleAddGroupItem(selectedGroupId, item);
             }
           }}
-        />
-      )}
-
-      {contextMenu && (
-        <GroupItemContextMenu
-          groupList={groupList}
-          contextMenu={contextMenu}
-          contextMenuRef={contextMenuRef}
-          onEdit={handleEditGroupItem}
-          onDelete={handleDeleteGroupItem}
-          setContextMenu={setContextMenu}
         />
       )}
     </div>

@@ -1,15 +1,26 @@
 import type { GroupItem } from "@/lib/types/group";
 import { RowItemIcon } from "./GroupItemRow";
 import { getContrastColor } from "../../../lib/utils";
+import { GroupItemContextMenu } from "../context/GroupItemContextMenu";
 
 interface GroupItemGridProps {
   items: GroupItem[];
   displayType: string;
   onContextMenu: (e: React.MouseEvent, item: GroupItem, groupId: number) => void;
   groupId: number;
+  contextMenu: { item: GroupItem; groupId: number } | null;
+  onEdit: (item: GroupItem) => void;
+  onDelete: (item: GroupItem) => void;
+  setContextMenu: (value: null) => void;
 }
 
-export function GroupItemGrid({ items, displayType, onContextMenu, groupId }: GroupItemGridProps) {
+export function GroupItemGrid({ 
+  items, 
+  displayType, 
+  onEdit,
+  onDelete,
+  groupId
+}: GroupItemGridProps) {
   const renderGroupItem = (item: GroupItem) => {
     if (displayType === "titles") {
       return (
@@ -96,18 +107,24 @@ export function GroupItemGrid({ items, displayType, onContextMenu, groupId }: Gr
           : "grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4"
       }`}>
       {items.map((item) => (
-        <div
+        <GroupItemContextMenu
           key={item.id}
-          className={`${displayType === "titles"
-              ? "inline-block mr-2 mb-2"
-              : displayType === "icons"
-                ? "flex flex-col items-center"
-                : "h-[88px]"
-            }`}
-          onContextMenu={(e) => onContextMenu(e, item, groupId)}
+          item={item}
+          groupId={groupId}
+          onEdit={onEdit}
+          onDelete={onDelete}
         >
-          {renderGroupItem(item)}
-        </div>
+          <div
+            className={`${displayType === "titles"
+                ? "inline-block mr-2 mb-2"
+                : displayType === "icons"
+                  ? "flex flex-col items-center"
+                  : "h-[88px]"
+              }`}
+          >
+            {renderGroupItem(item)}
+          </div>
+        </GroupItemContextMenu>
       ))}
     </div>
   );
