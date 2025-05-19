@@ -10,18 +10,18 @@ type GetProfileRes struct {
 
 type PutProfileReq struct {
 	g.Meta   `path:"/user/profile" method:"put" tags:"个人信息" summary:"修改个人信息"`
-	Nickname string `v:"required" json:"nickname"`
-	Email    string `v:"required" json:"email"`
-	Mobile   string `v:"required" json:"mobile"`
-	Sex      int    `v:"required" json:"sex"`
+	Nickname string `v:"required|length:1,10#user.valid.NickNameEmpty|user.valid.NickNameLength" json:"nickname"`
+	Email    string `v:"required|email#user.valid.EmailEmpty|user.valid.EmailFormat" json:"email"`
+	Mobile   string `v:"required#user.valid.PhoneEmpty" json:"mobile"`
+	Sex      int    `v:"required#user.valid.SexEmpty" json:"sex"`
 }
 type PutProfileRes struct {
 }
 
 type PutPasswordReq struct {
 	g.Meta `path:"/user/password" method:"put" tags:"个人信息" summary:"修改密码"`
-	OldPwd string `v:"required" json:"oldPwd"`
-	NewPwd string `v:"required" json:"newPwd"`
+	OldPwd string `v:"required|length:6,20#user.valid.PasswordEmpty|user.valid.PasswordLength" json:"oldPwd"`
+	NewPwd string `v:"required|length:6,20|not-eq:OldPwd#user.valid.PasswordNewEmpty|user.valid.PasswordLength|user.valid.PasswordSame" json:"newPwd"`
 }
 type PutPasswordRes struct {
 }

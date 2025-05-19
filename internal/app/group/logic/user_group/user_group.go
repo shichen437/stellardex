@@ -31,7 +31,7 @@ func (s *sUserGroup) List(ctx context.Context, req *v1.GetGroupListReq) (res *v1
 	res = &v1.GetGroupListRes{}
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	var list []*entity.UserGroup
@@ -51,11 +51,7 @@ func (c *sUserGroup) Get(ctx context.Context, req *v1.GetGroupReq) (res *v1.GetG
 func (c *sUserGroup) Add(ctx context.Context, req *v1.PostGroupReq) (res *v1.PostGroupRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
-		return
-	}
-	if req.Name == "" || req.DisplayType == "" {
-		err = gerror.New("group name or display style is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	orderNum, _ := dao.UserGroup.Ctx(ctx).
@@ -75,7 +71,7 @@ func (c *sUserGroup) Add(ctx context.Context, req *v1.PostGroupReq) (res *v1.Pos
 func (c *sUserGroup) Update(ctx context.Context, req *v1.PutGroupReq) (res *v1.PutGroupRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	_, err = dao.UserGroup.Ctx(ctx).
@@ -92,7 +88,7 @@ func (c *sUserGroup) Update(ctx context.Context, req *v1.PutGroupReq) (res *v1.P
 func (c *sUserGroup) Delete(ctx context.Context, req *v1.DeleteGroupReq) (res *v1.DeleteGroupRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	_, err = dao.UserGroup.Ctx(ctx).
@@ -105,7 +101,7 @@ func (c *sUserGroup) Delete(ctx context.Context, req *v1.DeleteGroupReq) (res *v
 func (c *sUserGroup) UpdateVisible(ctx context.Context, req *v1.PutGroupVisibleReq) (res *v1.PutGroupVisibleRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	_, err = dao.UserGroup.Ctx(ctx).
@@ -122,7 +118,7 @@ func (c *sUserGroup) UpdateOrder(ctx context.Context, req *v1.PutGroupOrderReq) 
 	groups := req.Groups
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	if groups == nil || len(groups) == 0 {

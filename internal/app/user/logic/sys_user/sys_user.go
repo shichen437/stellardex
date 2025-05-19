@@ -56,7 +56,7 @@ func (s *sSysUser) List(ctx context.Context, req *v1.GetUserListReq) (res *v1.Ge
 	res = &v1.GetUserListRes{}
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if !hasUserPermit(ctx, uid) {
-		err = gerror.New("没有权限")
+		err = gerror.New("auth.NoPermission")
 		return
 	}
 	m := dao.SysUser.Ctx(ctx).
@@ -79,7 +79,15 @@ func (s *sSysUser) List(ctx context.Context, req *v1.GetUserListReq) (res *v1.Ge
 func (s *sSysUser) Add(ctx context.Context, req *v1.PostUserReq) (res *v1.PostUserRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if !hasUserPermit(ctx, uid) {
-		err = gerror.New("没有权限")
+		err = gerror.New("auth.NoPermission")
+		return
+	}
+	if !checkUsername(ctx, req.Username, 0) {
+		err = gerror.New("user.valid.UserNameExist")
+		return
+	}
+	if !checkNickname(ctx, req.Nickname, 0) {
+		err = gerror.New("user.valid.NickNameExist")
 		return
 	}
 	enc, _ := utils.Encrypt(ctx, commonConsts.DefaultPassword)
@@ -102,13 +110,17 @@ func (s *sSysUser) Add(ctx context.Context, req *v1.PostUserReq) (res *v1.PostUs
 }
 
 func (s *sSysUser) Update(ctx context.Context, req *v1.PutUserReq) (res *v1.PutUserRes, err error) {
-	if req.Id == 0 {
-		err = gerror.New("用户ID不能为空")
-		return
-	}
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if !hasUserPermit(ctx, uid) {
-		err = gerror.New("没有权限")
+		err = gerror.New("auth.NoPermission")
+		return
+	}
+	if !checkUsername(ctx, req.Username, *req.Id) {
+		err = gerror.New("user.valid.UserNameExist")
+		return
+	}
+	if !checkNickname(ctx, req.Nickname, *req.Id) {
+		err = gerror.New("user.valid.NickNameExist")
 		return
 	}
 	dao.SysUser.Ctx(ctx).WherePri(req.Id).Update(do.SysUser{
@@ -125,10 +137,6 @@ func (s *sSysUser) Update(ctx context.Context, req *v1.PutUserReq) (res *v1.PutU
 }
 
 func (s *sSysUser) Get(ctx context.Context, req *v1.GetUserByIdReq) (res *v1.GetUserByIdRes, err error) {
-	if req.Id == 0 {
-		err = gerror.New("用户ID不能为空")
-		return
-	}
 	var info *model.UserInfo
 	dao.SysRole.Ctx(ctx).WherePri(req.Id).Scan(&info)
 	gconv.Struct(info, &res)
@@ -138,7 +146,7 @@ func (s *sSysUser) Get(ctx context.Context, req *v1.GetUserByIdReq) (res *v1.Get
 func (s *sSysUser) Delete(ctx context.Context, req *v1.DeleteUserReq) (res *v1.DeleteUserRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if !hasUserPermit(ctx, uid) {
-		err = gerror.New("没有权限")
+		err = gerror.New("auth.NoPermission")
 		return
 	}
 	_, err = dao.SysUser.Ctx(ctx).WherePri(req.Id).Delete()
@@ -153,11 +161,11 @@ func (s *sSysUser) GetProfile(ctx context.Context, req *v1.GetProfileReq) (res *
 func (s *sSysUser) UpdateProfile(ctx context.Context, req *v1.PutProfileReq) (res *v1.PutProfileRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("用户ID不能为空")
+		err = gerror.New("user.valid.UserIdEmpty")
 		return
 	}
-	if req.Nickname == "" || req.Email == "" || req.Mobile == "" {
-		err = gerror.New("存在空参数")
+	if !checkNickname(ctx, req.Nickname, uid) {
+		err = gerror.New("user.valid.NickNameExist")
 		return
 	}
 	user := getUserById(ctx, uid)
@@ -177,26 +185,22 @@ func (s *sSysUser) UpdateProfile(ctx context.Context, req *v1.PutProfileReq) (re
 func (s *sSysUser) UpdatePwd(ctx context.Context, req *v1.PutPasswordReq) (res *v1.PutPasswordRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("用户ID不能为空")
-		return
-	}
-	if req.OldPwd == "" || req.NewPwd == "" || req.OldPwd == req.NewPwd {
-		err = gerror.New("存在空参数")
+		err = gerror.New("user.valid.UserIdEmpty")
 		return
 	}
 	op, err := utils.Encrypt(ctx, req.OldPwd)
 	if err != nil {
-		err = gerror.New("密码加密失败")
+		err = gerror.New("encrypt.EncryptError")
 		return
 	}
 	user := getUserById(ctx, uid)
 	if user == nil || user.Password != op {
-		err = gerror.New("原密码错误")
+		err = gerror.New("user.valid.PasswordError")
 		return
 	}
 	np, err := utils.Encrypt(ctx, req.NewPwd)
 	if err != nil {
-		err = gerror.New("密码加密失败")
+		err = gerror.New("encrypt.EncryptError")
 		return
 	}
 	_, err = dao.SysUser.Ctx(ctx).WherePri(uid).Update(do.SysUser{
@@ -276,4 +280,26 @@ func fillRoleFields(ctx context.Context, list []*model.UserInfo) {
 			u.IsAdmin = true
 		}
 	}
+}
+
+func checkUsername(ctx context.Context, username string, uid int) bool {
+	count, err := dao.SysUser.Ctx(ctx).
+		Where(dao.SysUser.Columns().Username, username).
+		WhereNot(dao.SysUser.Columns().Id, uid).
+		Count()
+	if err != nil || count > 0 {
+		return false
+	}
+	return true
+}
+
+func checkNickname(ctx context.Context, nickname string, uid int) bool {
+	count, err := dao.SysUser.Ctx(ctx).
+		Where(dao.SysUser.Columns().Nickname, nickname).
+		WhereNot(dao.SysUser.Columns().Id, uid).
+		Count()
+	if err != nil || count > 0 {
+		return false
+	}
+	return true
 }

@@ -49,7 +49,7 @@ func (c *sUserGroupItem) Get(ctx context.Context, req *v1.GetGroupItemReq) (res 
 
 func (c *sUserGroupItem) Add(ctx context.Context, req *v1.PostGroupItemReq) (res *v1.PostGroupItemRes, err error) {
 	if !hasPermit(ctx, req.GroupId) {
-		err = gerror.New("no permission")
+		err = gerror.New("auth.NoPermission")
 		return
 	}
 	num, err := dao.UserGroupItem.Ctx(ctx).
@@ -57,11 +57,11 @@ func (c *sUserGroupItem) Add(ctx context.Context, req *v1.PostGroupItemReq) (res
 		Count()
 
 	if err != nil {
-		err = gerror.New("get group item count error")
+		err = gerror.New("groupItem.error.Get")
 		return
 	}
 	if num >= 99 {
-		err = gerror.New("group item count reach limit")
+		err = gerror.New("groupItem.error.NumLimit")
 		return
 	}
 	dao.UserGroupItem.Ctx(ctx).Insert(do.UserGroupItem{
@@ -82,7 +82,7 @@ func (c *sUserGroupItem) Add(ctx context.Context, req *v1.PostGroupItemReq) (res
 
 func (c *sUserGroupItem) Update(ctx context.Context, req *v1.PutGroupItemReq) (res *v1.PutGroupItemRes, err error) {
 	if !hasPermit(ctx, req.GroupId) {
-		err = gerror.New("no permission")
+		err = gerror.New("auth.NoPermission")
 		return
 	}
 	dao.UserGroupItem.Ctx(ctx).

@@ -88,7 +88,7 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
             })}
           >
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="选择格式" />
+              <SelectValue placeholder={t("module.placeholder.dateFormat")} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="YYYY-MM-DD">YYYY-MM-DD</SelectItem>

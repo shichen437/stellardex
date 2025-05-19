@@ -12,7 +12,10 @@
         "search": "搜索",
         "reset": "重置",
         "submit": "提交",
-        "options": "操作"
+        "options": "操作",
+        "placeholder": {
+            "search": "请输入搜索内容"
+        }
     },
     "sidebar": {
         "title": "设置",
@@ -67,18 +70,30 @@
         "navigationMode": "导航模式",
         "starryMode": "星空模式",
         "homepageMode": "主页模式",
-        "simplicityMode": "极简模式"
+        "simplicityMode": "极简模式",
+        "placeholder": {
+            "theme": "请选择主题",
+            "language": "请选择语言",
+            "interfaceMode": "请选择界面模式"
+        }
     },
     "site": {
         "title": "站点标题",
-        "footer": "站点脚注"
+        "footer": "站点脚注",
+        "placeholder": {
+            "title": "请输入站点标题",
+            "footer": "请输入站点脚注"
+        }
     },
     "module": {
         "showTime": "显示时间",
         "showCalendar": "显示日期",
         "showSearchBar": "显示搜索栏",
         "dateFormat": "日期格式",
-        "showMeteors": "显示流星雨效果"
+        "showMeteors": "显示流星雨效果",
+        "placeholder": {
+            "dateFormat": "请选择日期格式"
+        }
     },
     "groups": {
         "list": "分组列表",
@@ -94,7 +109,8 @@
         "showType_icon": "图标",
         "showType_title": "标题",
         "placeholder": {
-            "groupName": "请输入分组名称"
+            "groupName": "请输入分组名称",
+            "displayType": "请选择显示样式"
         }
     },
     "users": {
@@ -169,7 +185,8 @@
             "lanUrl": "请输入项目内网链接",
             "desc": "请输入项目描述",
             "imageUrl": "请输入图片链接",
-            "lucide": "请输入Lucide图标(或其它SVG图标)的SVG代码"
+            "lucide": "请输入Lucide图标(或其它SVG图标)的SVG代码",
+            "iconType": "请选择图标类型"
         },
         "error": {
             "title": "项目标题不能为空",
@@ -187,6 +204,7 @@
     "toast": {
         "success": "操作成功",
         "error": "操作失败",
-        "retry": "操作失败，请重试"
+        "retry": "操作失败，请重试",
+        "welcome": "欢迎使用 Stellardex"
     }
 }

@@ -6,17 +6,6 @@ import (
 	"github.com/shichen437/stellardex/internal/app/user/model"
 )
 
-type SignInReq struct {
-	g.Meta   `path:"/signin" method:"post" tags:"用户管理" summary:"用户登录"`
-	Username string `v:"required"`
-	Password string `v:"required"`
-}
-
-type SignInRes struct {
-	g.Meta `mime:"application/json"`
-	Token  string `json:"token"`
-}
-
 type GetUserListReq struct {
 	g.Meta `path:"/user/list" method:"get" tags:"用户管理" summary:"获取用户列表"`
 	common.PageReq
@@ -29,9 +18,9 @@ type GetUserListRes struct {
 
 type PostUserReq struct {
 	g.Meta   `path:"/user" method:"post" tags:"用户管理" summary:"创建用户"`
-	Username string `v:"required" p:"username"`
-	Nickname string `v:"required" p:"nickname"`
-	RoleId   int    `v:"required" p:"roleId"`
+	Username string `v:"required|length:1,10#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
+	Nickname string `v:"required|length:1,10#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
+	RoleId   int    `v:"required#user.valid.RoleIdEmpty" p:"roleId"`
 }
 
 type PostUserRes struct {
@@ -40,7 +29,7 @@ type PostUserRes struct {
 
 type GetUserByIdReq struct {
 	g.Meta `path:"/user/{id}" method:"get" tags:"用户管理" summary:"获取用户信息"`
-	Id     uint `v:"required"`
+	Id     uint `v:"required#user.valid.UserIdEmpty" json:"id"`
 }
 type GetUserByIdRes struct {
 	g.Meta `mime:"application/json"`
@@ -48,10 +37,10 @@ type GetUserByIdRes struct {
 
 type PutUserReq struct {
 	g.Meta   `path:"/user" method:"put" tags:"用户管理" summary:"更新用户信息"`
-	Id       uint   `v:"required"`
-	Username string `v:"required" p:"username"`
-	Nickname string `v:"required" p:"nickname"`
-	RoleId   int    `v:"required" p:"roleId"`
+	Id       *int   `v:"required#user.valid.UserIdEmpty"`
+	Username string `v:"required|length:1,10#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
+	Nickname string `v:"required|length:1,10#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
+	RoleId   int    `v:"required#user.valid.RoleIdEmpty" p:"roleId"`
 }
 type PutUserRes struct {
 	g.Meta `mime:"application/json"`
@@ -59,7 +48,7 @@ type PutUserRes struct {
 
 type DeleteUserReq struct {
 	g.Meta `path:"/user/{id}" method:"delete" tags:"用户管理" summary:"删除用户"`
-	Id     uint `v:"required"`
+	Id     uint `v:"required#user.valid.UserIdEmpty" json:"id"`
 }
 type DeleteUserRes struct {
 	g.Meta `mime:"application/json"`
@@ -75,7 +64,7 @@ type GetUserInfoRes struct {
 
 type ResetPwdReq struct {
 	g.Meta `path:"/user/resetPwd" method:"put" tags:"用户管理" summary:"重置密码"`
-	UserId int `v:"required" json:"userId"`
+	UserId int `v:"required#user.valid.UserIdEmpty" json:"userId"`
 }
 type ResetPwdRes struct {
 	g.Meta `mime:"application/json"`
@@ -83,7 +72,7 @@ type ResetPwdRes struct {
 
 type PutUserStatusReq struct {
 	g.Meta `path:"/user/changeStatus" method:"put" tags:"用户管理" summary:"修改用户状态"`
-	Id     int `v:"required" json:"id"`
+	Id     int `v:"required#user.valid.UserIdEmpty" json:"id"`
 	Status int `v:"required" json:"status"`
 }
 type PutUserStatusRes struct {

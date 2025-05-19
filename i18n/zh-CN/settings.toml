@@ -1,0 +1,5 @@
+"settings.valid.SettingsIDEmpty" = "配置ID不能为空"
+
+"settings.error.Get" = "获取用户配置失败"
+"settings.error.Update" = "更新用户配置失败"
+"settings.error.NotFound" = "用户配置不存在"

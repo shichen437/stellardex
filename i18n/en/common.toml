@@ -1,0 +1,14 @@
+"auth.PassportEmpty"="Username or password cannot be empty"
+"auth.PassportError"="Username or password error"
+"auth.UserDisabled"="User is disabled"
+"auth.Unauthorized"="Unauthorized"
+"auth.NoPermission"="No permission"
+"auth.UserIDEmpty"="User ID cannot be empty"
+
+"encrypt.EncryptError"="Password encryption failed"
+
+"data.AddFailed"="Add failed"
+"data.UpdateFailed"="Update failed"
+"data.DeleteFailed"="Delete failed"
+"data.RecordNotFound"="Record not found"
+"data.ListFailed"="Get list failed"

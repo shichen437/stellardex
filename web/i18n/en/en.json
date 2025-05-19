@@ -12,7 +12,10 @@
         "search": "Search",
         "reset": "Reset",
         "submit": "Submit",
-        "options": "Options"
+        "options": "Options",
+        "placeholder": {
+            "search": "Please input search content"
+        }
     },
     "sidebar": {
         "title": "Settings",
@@ -67,18 +70,30 @@
         "navigationMode": "Navigation Mode",
         "starryMode": "Starry Mode",
         "homepageMode": "Homepage Mode",
-        "simplicityMode": "Simplicity Mode"
+        "simplicityMode": "Simplicity Mode",
+        "placeholder": {
+            "theme": "Please select theme",
+            "language": "Please select language",
+            "interfaceMode": "Please select interface mode"
+        }
     },
     "site": {
         "title": "Site Title",
-        "footer": "Site Footer"
+        "footer": "Site Footer",
+        "placeholder": {
+            "title": "Please input site title",
+            "footer": "Please input site footer"
+        }
     },
     "module": {
         "showTime": "Show Time",
         "showCalendar": "Show Calendar",
         "showSearchBar": "Show Search Bar",
         "dateFormat": "Date Format",
-        "showMeteors": "Show Meteors"
+        "showMeteors": "Show Meteors",
+        "placeholder": {
+            "dateFormat": "Please select date format"
+        }
     },
     "groups": {
         "list": "Group List",
@@ -94,7 +109,8 @@
         "showType_icon": "Icon",
         "showType_title": "Title",
         "placeholder": {
-            "groupName": "Please input group name"
+            "groupName": "Please input group name",
+            "displayType": "Please select display type"
         }
     },
     "users": {
@@ -169,7 +185,8 @@
             "lanUrl": "Please input lan url",
             "desc": "Please input item description",
             "imageUrl": "Please input image url",
-            "lucide": "Please input lucide icon (or other svg icon) svg code"
+            "lucide": "Please input lucide icon (or other svg icon) svg code",
+            "iconType": "Please select icon type"
         },
         "error": {
             "title": "Item title can not be empty.",
@@ -187,6 +204,7 @@
     "toast": {
         "success": "The operation is successful",
         "error": "The operation failed",
-        "retry": "The operation failed, please try again later"
+        "retry": "The operation failed, please try again later",
+        "welcome": "Welcome to Stellardex"
     }
 }

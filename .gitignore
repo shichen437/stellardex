@@ -1,5 +1,6 @@
 temp/
-resource/
+resource/data/
+resource/log/
 hack/config.yaml
 
 docker-compose.yaml

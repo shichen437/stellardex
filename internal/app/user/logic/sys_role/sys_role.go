@@ -28,12 +28,12 @@ func (s *sSysRole) All(ctx context.Context, req *v1.GetAllRolesReq) (res *v1.Get
 	res = &v1.GetAllRolesRes{}
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("Invalid user")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	role, err := s.GetUserRole(ctx, uid)
 	if role == nil || err != nil || role.Id != commonConsts.SuperRoleId {
-		err = gerror.New("Permission denied")
+		err = gerror.New("auth.NoPermission")
 		return
 	}
 	dao.SysRole.Ctx(ctx).Scan(&res.Rows)

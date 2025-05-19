@@ -431,7 +431,7 @@ export function GroupItemModal({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full dark:bg-popover dark:border-gray-600">
-                          <SelectValue placeholder="选择图标类型" />
+                          <SelectValue placeholder={t("groupItem.placeholder.iconType")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

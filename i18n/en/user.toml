@@ -1,0 +1,27 @@
+"user.valid.UserIdEmpty"="User ID can not be empty"
+
+"user.valid.UserNameEmpty"="User name can not be empty"
+"user.valid.UserNameLength"="Username maximum length is 10"
+"user.valid.UserNameExist"="User name already exists"
+
+"user.valid.NickNameEmpty"="Nickname can not be empty"
+"user.valid.NickNameLength"="Nickname maximum length is 10"
+"user.valid.NickNameExist"="Nickname already exists"
+
+"user.valid.PasswordEmpty"="Password can not be empty"
+"user.valid.PasswordError"="Original password is incorrect"
+"user.valid.PasswordLength"="Password length is 6-20"
+"user.valid.PasswordSame"="New password can not be the same as the old password"
+"user.valid.PasswordNewEmpty"="New password can not be empty"
+"user.valid.PasswordConfirmEmpty"="Confirm password can not be empty"
+"user.valid.PasswordNotMatch"="Two passwords do not match"
+
+"user.valid.EmailEmpty"="Email can not be empty"
+"user.valid.EmailFormat"="Email format is incorrect"
+
+"user.valid.PhoneEmpty"="Phone can not be empty"
+"user.valid.PhoneFormat"="Phone format is incorrect"
+
+"user.valid.RoleIdEmpty"="User role can not be empty"
+
+"user.valid.SexEmpty"="User sex can not be empty"

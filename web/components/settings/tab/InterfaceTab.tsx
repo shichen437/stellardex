@@ -21,7 +21,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
         <div className="space-y-4">
           <h3 className="text-base font-medium">{t("apperance.interfaceMode")}</h3>
           <Select
-            value={settings.interfaceConfig.interfaceMode}
+            value={settings.interfaceConfig?.interfaceMode}
             onValueChange={(value) =>
               onSettingsChange({
                 ...settings,
@@ -33,7 +33,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
             }
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="选择界面模式" />
+              <SelectValue placeholder={t("apperance.placeholder.interfaceMode")} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="navigation">{t("apperance.navigationMode")}</SelectItem>
@@ -59,7 +59,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
             }
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="选择主题" />
+              <SelectValue placeholder={t("apperance.placeholder.theme")} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="system">{t("apperance.theme_system")}</SelectItem>
@@ -85,7 +85,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
           }
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="选择语言" />
+            <SelectValue placeholder={t("apperance.placeholder.language")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="zh-CN">简体中文</SelectItem>

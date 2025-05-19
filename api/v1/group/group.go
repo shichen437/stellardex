@@ -15,7 +15,7 @@ type GetGroupListRes struct {
 
 type GetGroupReq struct {
 	g.Meta `path:"/group/{id}" method:"get" tags:"分组管理" summary:"获取分组信息"`
-	Id     int `v:"required" json:"id"`
+	Id     int `v:"required#group.valid.GroupIdEmpty" json:"id"`
 }
 type GetGroupRes struct {
 	g.Meta `mime:"application/json"`
@@ -24,8 +24,8 @@ type GetGroupRes struct {
 
 type PostGroupReq struct {
 	g.Meta      `path:"/group" method:"post" tags:"分组管理" summary:"创建分组"`
-	Name        string `v:"required" json:"name"`
-	DisplayType string `v:"required" json:"displayType"`
+	Name        string `v:"required|length:1,12#group.valid.GroupNameEmpty|group.valid.GroupNameLength" json:"name"`
+	DisplayType string `v:"required#group.valid.DisplayTypeEmpty" json:"displayType"`
 }
 type PostGroupRes struct {
 	g.Meta `mime:"application/json"`
@@ -33,9 +33,9 @@ type PostGroupRes struct {
 
 type PutGroupReq struct {
 	g.Meta      `path:"/group" method:"put" tags:"分组管理" summary:"修改分组"`
-	Id          int    `v:"required" json:"id"`
-	Name        string `v:"required" json:"name"`
-	DisplayType string `v:"required" json:"displayType"`
+	Id          int    `v:"required#group.valid.GroupIdEmpty" json:"id"`
+	Name        string `v:"required|length:1,12#group.valid.GroupNameEmpty|group.valid.GroupNameLength" json:"name"`
+	DisplayType string `v:"required#group.valid.DisplayTypeEmpty" json:"displayType"`
 }
 type PutGroupRes struct {
 	g.Meta `mime:"application/json"`
@@ -43,7 +43,7 @@ type PutGroupRes struct {
 
 type DeleteGroupReq struct {
 	g.Meta `path:"/group/{id}" method:"delete" tags:"分组管理" summary:"删除分组"`
-	Id     int `v:"required" json:"id"`
+	Id     int `v:"required#group.valid.GroupIdEmpty" json:"id"`
 }
 type DeleteGroupRes struct {
 	g.Meta `mime:"application/json"`
@@ -51,8 +51,8 @@ type DeleteGroupRes struct {
 
 type PutGroupVisibleReq struct {
 	g.Meta `path:"/group/isShow" method:"put" tags:"分组管理" summary:"修改分组可见性"`
-	Id     int `v:"required" json:"id"`
-	IsShow int `v:"required" json:"isShow"`
+	Id     int `v:"required#group.valid.GroupIdEmpty" json:"id"`
+	IsShow int `v:"required#group.valid.IsShowEmpty" json:"isShow"`
 }
 type PutGroupVisibleRes struct {
 	g.Meta `mime:"application/json"`

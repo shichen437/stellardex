@@ -19,4 +19,7 @@ const (
 	SuperRoleId  = 1
 
 	DefaultPassword = "stellardex"
+
+	ActiveStatus  = 1
+	DisableStatus = 0
 )

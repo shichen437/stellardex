@@ -7,7 +7,7 @@ import (
 
 type GetGroupItemListReq struct {
 	g.Meta  `path:"/group/item/list" method:"get" tags:"项目管理" summary:"获取项目列表"`
-	GroupId int `p:"groupId" v:"required#分组id不能为空"`
+	GroupId int `p:"groupId" v:"required#group.valid.GroupIdEmpty"`
 }
 type GetGroupItemListRes struct {
 	g.Meta `mime:"application/json"`
@@ -16,15 +16,15 @@ type GetGroupItemListRes struct {
 
 type PostGroupItemReq struct {
 	g.Meta      `path:"/group/item" method:"post" tags:"项目管理" summary:"新增项目"`
-	GroupId     int     `p:"groupId" v:"required#分组id不能为空"`
-	Title       string  `p:"title" v:"required#项目名称不能为空"`
-	Url         string  `p:"url" v:"required#项目url不能为空"`
-	LanUrl      string  `p:"lanUrl"`
-	Description string  `p:"description"`
-	IconType    string  `p:"iconType" v:"required#项目iconType不能为空"`
+	GroupId     int     `p:"groupId" v:"required#group.valid.GroupIdEmpty" json:"groupId"`
+	Title       string  `p:"title" v:"required|length:1,10#groupItem.valid.TitleEmpty|groupItem.valid.TitleLength" json:"title"`
+	Url         string  `p:"url" v:"required|url#groupItem.valid.UrlEmpty|groupItem.valid.UrlFormat" json:"url"`
+	LanUrl      string  `p:"lanUrl" v:"url#groupItem.valid.LanUrlFormat" json:"lanUrl"`
+	Description string  `p:"description" v:"max-length:30#groupItem.valid.DescMaxLength" json:"description"`
+	IconType    string  `p:"iconType" v:"required#groupItem.valid.IconTypeEmpty"`
 	IconUrl     string  `p:"iconUrl"`
-	BgColor     string  `p:"bgColor" v:"required#项目bgColor不能为空"`
-	Opacity     float32 `p:"opacity" v:"required#项目opacity不能为空"`
+	BgColor     string  `p:"bgColor" v:"required#groupItem.valid.BgColorEmpty"`
+	Opacity     float32 `p:"opacity" v:"required#groupItem.valid.OpacityEmpty"`
 }
 type PostGroupItemRes struct {
 	g.Meta `mime:"application/json"`
@@ -32,7 +32,7 @@ type PostGroupItemRes struct {
 
 type GetGroupItemReq struct {
 	g.Meta `path:"/group/item/{id}" method:"get" tags:"项目管理" summary:"获取项目"`
-	Id     int `p:"id" v:"required#项目id不能为空"`
+	Id     int `p:"id" v:"required#groupItem.valid.GroupItemIdEmpty"`
 }
 type GetGroupItemRes struct {
 	g.Meta `mime:"application/json"`
@@ -41,16 +41,16 @@ type GetGroupItemRes struct {
 
 type PutGroupItemReq struct {
 	g.Meta      `path:"/group/item" method:"put" tags:"项目管理" summary:"修改项目"`
-	Id          int     `p:"id" v:"required#项目id不能为空"`
-	GroupId     int     `p:"groupId" v:"required#分组id不能为空"`
-	Title       string  `p:"title" v:"required#项目名称不能为空"`
-	Url         string  `p:"url" v:"required#项目url不能为空"`
-	LanUrl      string  `p:"lanUrl"`
-	Description string  `p:"description"`
-	IconType    string  `p:"iconType" v:"required#项目iconType不能为空"`
+	Id          int     `p:"id" v:"required#groupItem.valid.GroupItemIdEmpty"`
+	GroupId     int     `p:"groupId" v:"required#group.valid.GroupIdEmpty" json:"groupId"`
+	Title       string  `p:"title" v:"required|length:1,10#groupItem.valid.TitleEmpty|groupItem.valid.TitleLength" json:"title"`
+	Url         string  `p:"url" v:"required|url#groupItem.valid.UrlEmpty|groupItem.valid.UrlFormat" json:"url"`
+	LanUrl      string  `p:"lanUrl" v:"url#groupItem.valid.LanUrlFormat" json:"lanUrl"`
+	Description string  `p:"description" v:"max-length:30#groupItem.valid.DescMaxLength" json:"description"`
+	IconType    string  `p:"iconType" v:"required#groupItem.valid.IconTypeEmpty"`
 	IconUrl     string  `p:"iconUrl"`
-	BgColor     string  `p:"bgColor" v:"required#项目bgColor不能为空"`
-	Opacity     float32 `p:"opacity" v:"required#项目opacity不能为空"`
+	BgColor     string  `p:"bgColor" v:"required#groupItem.valid.BgColorEmpty"`
+	Opacity     float32 `p:"opacity" v:"required#groupItem.valid.OpacityEmpty"`
 }
 type PutGroupItemRes struct {
 	g.Meta `mime:"application/json"`
@@ -58,7 +58,7 @@ type PutGroupItemRes struct {
 
 type DeleteGroupItemReq struct {
 	g.Meta `path:"/group/item/{id}" method:"delete" tags:"项目管理" summary:"删除项目"`
-	Id     int `p:"id" v:"required#项目id不能为空"`
+	Id     int `p:"id" v:"required#groupItem.valid.GroupItemIdEmpty"`
 }
 type DeleteGroupItemRes struct {
 	g.Meta `mime:"application/json"`

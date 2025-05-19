@@ -1,0 +1,29 @@
+"group.valid.GroupIdEmpty"="Group ID can not be empty"
+
+"group.valid.GroupNameEmpty"="Group name can not be empty"
+"group.valid.GroupNameLength"="Group name length is 1-12"
+
+"group.valid.DisplayTypeEmpty"="Group display type can not be empty"
+
+"group.valid.IsShowEmpty"="Group show status can not be empty"
+
+"groupItem.valid.GroupItemIdEmpty"="Group item ID can not be empty"
+
+"groupItem.valid.TitleEmpty"="Group item title can not be empty"
+"groupItem.valid.TitleLength"="Group item title length is 1-10"
+
+"groupItem.valid.DescMaxLength"="Group item description maximum length is 30"
+
+"groupItem.valid.UrlEmpty"="Group item URL can not be empty"
+"groupItem.valid.UrlFormat"="Group item URL format is incorrect"
+
+"groupItem.valid.LanUrlFormat"="Group item LAN URL format is incorrect"
+
+"groupItem.valid.IconTypeEmpty"="Group item icon type can not be empty"
+
+"groupItem.valid.BgColorEmpty"="Group item background color can not be empty"
+
+"groupItem.valid.OpacityEmpty"="Group item background transparency can not be empty"
+
+"groupItem.error.Get"="Get group item failed"
+"groupItem.error.NumLimit"="Group item number exceeds the limit"

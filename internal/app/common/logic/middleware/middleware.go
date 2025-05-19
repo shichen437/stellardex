@@ -10,6 +10,7 @@ import (
 	"github.com/shichen437/stellardex/internal/app/common/consts"
 	"github.com/shichen437/stellardex/internal/app/common/model"
 	"github.com/shichen437/stellardex/internal/app/common/service"
+	"github.com/shichen437/stellardex/internal/pkg/utils"
 )
 
 type (
@@ -69,7 +70,11 @@ func (s *sMiddleware) HandlerResponse(r *ghttp.Request) {
 		if code == gcode.CodeNil {
 			code = gcode.CodeInternalError
 		}
-		msg = err.Error()
+		if len(err.Error()) >= 60 {
+			msg = err.Error()
+		} else {
+			msg = utils.T(r.Context(), err.Error())
+		}
 	} else {
 		if r.Response.Status > 0 && r.Response.Status/100 != 2 {
 			msg = http.StatusText(r.Response.Status)

@@ -39,7 +39,7 @@ func (s *sUserSettings) Get(ctx context.Context, req *v1.GetSettingsReq) (res *v
 	}
 	settings, err := dao.UserSettings.Ctx(ctx).Where(dao.UserSettings.Columns().UserId, uid).One()
 	if err != nil {
-		err = gerror.New("get user settings failed")
+		err = gerror.New("settings.error.Get")
 		return
 	}
 	if settings == nil {
@@ -72,17 +72,17 @@ func (s *sUserSettings) Get(ctx context.Context, req *v1.GetSettingsReq) (res *v
 func (s *sUserSettings) Update(ctx context.Context, req *v1.PutSettingsReq) (res *v1.PutSettingsRes, err error) {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
-		err = gerror.New("user id is empty")
+		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
 	if req.Id == 0 {
-		err = gerror.New("settings id is empty")
+		err = gerror.New("settings.valid.SettingsIDEmpty")
 		return
 	}
 	var settings *do.UserSettings
 	dao.UserSettings.Ctx(ctx).WherePri(req.Id).Scan(&settings)
 	if settings == nil || gconv.Int(settings.UserId) != uid {
-		err = gerror.New("settings not found")
+		err = gerror.New("settings.error.NotFound")
 		return
 	}
 	_, err = dao.UserSettings.Ctx(ctx).WherePri(req.Id).Update(do.UserSettings{
@@ -93,7 +93,7 @@ func (s *sUserSettings) Update(ctx context.Context, req *v1.PutSettingsReq) (res
 		UpdateAt:        utils.Now(),
 	})
 	if err != nil {
-		err = gerror.New("update settings failed")
+		err = gerror.New("settings.error.Update")
 		return
 	}
 	gcache.Set(ctx, consts.CacheKeyPrefix+gconv.String(uid), req, 0)

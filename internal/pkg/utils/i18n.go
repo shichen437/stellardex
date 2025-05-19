@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"context"
 	"sync"
 
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/i18n/gi18n"
 )
@@ -34,4 +36,20 @@ func getInstance() *SingleI18n {
 		instance.m = i18n
 	})
 	return instance
+}
+
+func T(ctx context.Context, key string) string {
+	return getInstance().m.T(ctx, key)
+}
+
+func Tf(ctx context.Context, key string, format ...interface{}) string {
+	return getInstance().m.Tf(ctx, key, format...)
+}
+
+func TError(ctx context.Context, key string) error {
+	return gerror.New(T(ctx, key))
+}
+
+func TfError(ctx context.Context, key string, format ...interface{}) error {
+	return gerror.New(Tf(ctx, key, format))
 }

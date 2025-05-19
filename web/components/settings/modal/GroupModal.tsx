@@ -69,7 +69,7 @@ export const GroupModal: React.FC<GroupModalProps> = ({
               onValueChange={(value) => setStyle(value as Group["displayType"])}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="选择显示样式" />
+                <SelectValue placeholder={t("groups.placeholder.displayType")} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="details">{t("groups.showType_detail")}</SelectItem>

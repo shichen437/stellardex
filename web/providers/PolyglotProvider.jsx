@@ -12,13 +12,13 @@ const locales = {
 
 const PolyglotContext = createContext({
   t: (key, options) => key,
-  lang: 'en',
+  lang: 'zh-CN',
   setLanguage: () => {},
 });
 
 export const PolyglotProvider = ({ children }) => {
   // 通过 zustand 获取当前语言
-  const language = useSettingsStore(state => state.settings?.interfaceConfig?.language || 'en');
+  const language = useSettingsStore(state => state.settings?.interfaceConfig?.language || 'zh-CN');
   const [lang, setLang] = useState(language);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export const PolyglotProvider = ({ children }) => {
   const setLanguage = (newLang) => {
     if (locales[newLang]) {
       setLang(newLang);
-      // 这里不直接修改 settings，settings 应通过业务逻辑统一修改
     }
   };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { SearchEngine } from '@/lib/types/settings';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { usePolyglot } from '@/providers/PolyglotProvider';
 
 interface SearchBarProps {
   searchEngine: SearchEngine;
@@ -14,6 +15,7 @@ export function SearchBar({ searchEngine: defaultEngine, searchEngineLogo }: Sea
   const [currentEngine, setCurrentEngine] = useState<SearchEngine>(defaultEngine);
   const [showDropdown, setShowDropdown] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { t } = usePolyglot();
 
   useEffect(() => {
     setMounted(true);
@@ -39,7 +41,7 @@ export function SearchBar({ searchEngine: defaultEngine, searchEngineLogo }: Sea
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="输入搜索内容..."
+            placeholder={t("common.placeholder.search")}
             className="w-full pl-28 pr-12 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 
                      focus:outline-none focus:ring-2 focus:ring-blue-500/20
                      bg-popover dark:bg-popover

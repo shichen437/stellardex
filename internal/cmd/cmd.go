@@ -77,13 +77,13 @@ func GetGtoken(ctx context.Context) (gfToken *gtoken.GfToken, err error) {
 }
 
 func LoginFunc(r *ghttp.Request) (string, interface{}) {
+	ctx := context.TODO()
 	username := r.Get("username").String()
 	password := r.Get("password").String()
 	if username == "" || password == "" {
-		r.Response.WriteJson(gtoken.Fail("账号或密码不能为空"))
+		r.Response.WriteJson(gtoken.Fail(utils.T(r.Context(), "auth.PassportEmpty")))
 		r.ExitAll()
 	}
-	ctx := context.TODO()
 	var users *entity.SysUser
 	enc, _ := utils.Encrypt(ctx, password)
 	err := dao.SysUser.Ctx(ctx).Where(do.SysUser{
@@ -91,7 +91,11 @@ func LoginFunc(r *ghttp.Request) (string, interface{}) {
 		Password: enc,
 	}).Scan(&users)
 	if err != nil || users == nil {
-		r.Response.WriteJson(gtoken.Fail("账号或密码错误"))
+		r.Response.WriteJson(gtoken.Fail(utils.T(ctx, "auth.PassportError")))
+		r.ExitAll()
+	}
+	if users.Status == consts.DisableStatus {
+		r.Response.WriteJson(gtoken.Fail(utils.T(ctx, "auth.UserDisabled")))
 		r.ExitAll()
 	}
 	return fmt.Sprintf("%s%d", consts.GTokenAdminPrefix, users.Id), users
@@ -106,8 +110,8 @@ func AuthAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
 	var users entity.SysUser
 	err := gconv.Struct(respData.GetString("data"), &users)
 	if err != nil {
-		g.Log().Error(context.Background(), err)
-		return
+		r.Response.WriteJson(gtoken.Unauthorized(utils.T(r.Context(), "auth.Unauthorized"), nil))
+		r.ExitAll()
 	}
 	service.Session().SetUser(r.Context(), &users)
 	r.SetCtxVar(consts.CtxAdminId, users.Id)

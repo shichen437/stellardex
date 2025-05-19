@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { Meteors } from "@/components/magicui/meteors";
 import { useUserStore } from '@/lib/store/user';
+import { toast } from "sonner";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -16,6 +18,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
   const login = useUserStore((state) => state.login);
+  const { t } = usePolyglot();
 
   useEffect(() => {
     const match = document.cookie.match(/(?:^|;\s*)username=([^;]*)/);
@@ -40,6 +43,7 @@ export default function LoginPage() {
     try {
       await login(username, password);
       router.push('/');
+      toast.success(t("toast.welcome"));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || '登录失败，请稍后重试');
@@ -48,7 +52,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen h-screen w-screen flex items-center justify-center bg-white dark:bg-black/30 relative overflow-hidden">
-      <Meteors number={25} minDuration={2.5} maxDuration={10} />
+      <Meteors number={25} minDuration={2.5} maxDuration={12} />
       <Card className="relative w-[350px] overflow-hidden">
         <CardHeader>
           <CardTitle>登录</CardTitle>
