@@ -13,8 +13,24 @@
         "reset": "重置",
         "submit": "提交",
         "options": "操作",
+        "empty": "暂无数据",
+        "developing": "开发中...",
         "placeholder": {
             "search": "请输入搜索内容"
+        }
+    },
+    "login": {
+        "title": "登录",
+        "username": "用户名",
+        "password": "密码",
+        "error": {
+            "username": "用户名不能为空",
+            "password": "密码不能为空",
+            "failed": "登录失败，请稍后重试"
+        },
+        "placeholder": {
+            "username": "请输入用户名",
+            "password": "请输入密码"
         }
     },
     "sidebar": {
@@ -60,7 +76,7 @@
             "phone": "请输入手机号"
         }
     },
-    "apperance": {
+    "appearance": {
         "theme": "主题",
         "theme_light": "浅色模式",
         "theme_dark": "深色模式",
@@ -206,5 +222,8 @@
         "error": "操作失败",
         "retry": "操作失败，请重试",
         "welcome": "欢迎使用 Stellardex"
+    },
+    "other": {
+        "searchEngine": "搜索引擎"
     }
 }

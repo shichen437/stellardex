@@ -1,11 +1,9 @@
 temp/
 resource/data/
 resource/log/
+
 hack/config.yaml
-
 docker-compose.yaml
-
 *.db
 *.sqlite3
-
 main

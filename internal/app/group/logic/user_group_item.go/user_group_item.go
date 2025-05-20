@@ -102,9 +102,29 @@ func (c *sUserGroupItem) Update(ctx context.Context, req *v1.PutGroupItemReq) (r
 }
 
 func (c *sUserGroupItem) Delete(ctx context.Context, req *v1.DeleteGroupItemReq) (res *v1.DeleteGroupItemRes, err error) {
+	var sourceData *entity.UserGroupItem
+	dao.UserGroupItem.Ctx(ctx).WherePri(req.Id).Scan(&sourceData)
+	if sourceData == nil {
+		return
+	}
+	if !hasPermit(ctx, sourceData.GroupId) {
+		err = gerror.New("auth.NoPermission")
+		return
+	}
+	var needUpdateData []*entity.UserGroupItem
+	dao.UserGroupItem.Ctx(ctx).Where(dao.UserGroupItem.Columns().GroupId, sourceData.GroupId).
+		WhereGT(dao.UserGroupItem.Columns().OrderNum, sourceData.OrderNum).Scan(&needUpdateData)
 	_, err = dao.UserGroupItem.Ctx(ctx).
 		WherePri(req.Id).
 		Delete()
+	for _, item := range needUpdateData {
+		dao.UserGroupItem.Ctx(ctx).
+			WherePri(item.Id).
+			Update(do.UserGroupItem{
+				OrderNum: item.OrderNum - 1,
+				UpdateAt: utils.Now(),
+			})
+	}
 	return
 }
 

@@ -15,6 +15,7 @@ type (
 	IUserSettings interface {
 		Get(ctx context.Context, req *v1.GetSettingsReq) (res *v1.GetSettingsRes, err error)
 		Update(ctx context.Context, req *v1.PutSettingsReq) (res *v1.PutSettingsRes, err error)
+		GetDefaultLang(ctx context.Context, req *v1.GetDefaultLangReq) (res *v1.GetDefaultLangRes, err error)
 	}
 )
 

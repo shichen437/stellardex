@@ -13,15 +13,31 @@
         "reset": "Reset",
         "submit": "Submit",
         "options": "Options",
+        "empty": "No data",
+        "developing": "Developing...",
         "placeholder": {
             "search": "Please input search content"
+        }
+    },
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "error": {
+            "username": "Username can not be empty.",
+            "password": "Password can not be empty.",
+            "failed": "Login failed, please try again later."
+        },
+        "placeholder": {
+            "username": "Please input username",
+            "password": "Please input password"
         }
     },
     "sidebar": {
         "title": "Settings",
         "profile": "My Profile",
-        "interface": "Apperance",
-        "site": "Site Manage",
+        "interface": "Appearance",
+        "site": "Site Management",
         "module": "Modules",
         "groups": "Groups",
         "users": "Users",
@@ -34,7 +50,7 @@
     },
     "profile": {
         "updatePwd": "Update Password",
-        "updateProfile": "Update Profile",
+        "updateProfile": "Edit Profile",
         "oldPwd": "Old Password",
         "newPwd": "New Password",
         "confirmPwd": "Confirm Password",
@@ -60,7 +76,7 @@
             "phone": "Please input phone"
         }
     },
-    "apperance": {
+    "appearance": {
         "theme": "Theme",
         "theme_light": "Light Mode",
         "theme_dark": "Dark Mode",
@@ -202,9 +218,12 @@
         "lanUrl": "Open in Lan Url"
     },
     "toast": {
-        "success": "The operation is successful",
+        "success": "Success",
         "error": "The operation failed",
         "retry": "The operation failed, please try again later",
         "welcome": "Welcome to Stellardex"
+    },
+    "other": {
+        "searchEngine": "Search Engine"
     }
 }

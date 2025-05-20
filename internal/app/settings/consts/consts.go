@@ -1,5 +1,7 @@
 package consts
 
+import "github.com/gogf/gf/v2/frame/g"
+
 const (
 	CacheKeyPrefix = "user_settings_"
 
@@ -12,3 +14,8 @@ const (
 	DefaultSiteTitle     = "StellarDex"
 	DefaultSiteFooter    = "Copyright 2025 shichen437"
 )
+
+var AllowLangMap = g.Map{
+	"zh-CN": "zh-CN",
+	"en":    "en",
+}

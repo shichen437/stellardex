@@ -94,7 +94,6 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
               <SelectItem value="YYYY-MM-DD">YYYY-MM-DD</SelectItem>
               <SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem>
               <SelectItem value="DD.MM.YYYY">DD.MM.YYYY</SelectItem>
-              <SelectItem value="YYYY年MM月DD日">YYYY年MM月DD日</SelectItem>
             </SelectContent>
           </Select>
         </div>

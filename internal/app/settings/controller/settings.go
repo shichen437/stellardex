@@ -19,3 +19,7 @@ func (c *userSettingsController) Get(ctx context.Context, req *v1.GetSettingsReq
 func (c *userSettingsController) Update(ctx context.Context, req *v1.PutSettingsReq) (res *v1.PutSettingsRes, err error) {
 	return service.UserSettings().Update(ctx, req)
 }
+
+func (c *userSettingsController) GetDefaultLang(ctx context.Context, req *v1.GetDefaultLangReq) (res *v1.GetDefaultLangRes, err error) {
+	return service.UserSettings().GetDefaultLang(ctx, req)
+}

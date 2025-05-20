@@ -13,7 +13,9 @@ const locales = {
 const PolyglotContext = createContext({
   t: (key, options) => key,
   lang: 'zh-CN',
-  setLanguage: () => {},
+  setLanguage: (newLang) => {
+    setLang(newLang);
+  },
 });
 
 export const PolyglotProvider = ({ children }) => {

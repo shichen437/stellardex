@@ -105,7 +105,7 @@ export function UsersTab() {
             </TableRow>
           ) : users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5}>暂无数据</TableCell>
+              <TableCell colSpan={5}>{t("common.empty")}</TableCell>
             </TableRow>
           ) : (
             users.map((user) => (

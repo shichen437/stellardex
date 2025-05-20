@@ -8,21 +8,33 @@ import { NavigationModeView } from "@/components/modes/Navigation";
 import { HomepageModeView } from "@/components/modes/Homepage";
 import { StarryModeView } from "@/components/modes/Starry";
 import type { SettingsState } from "@/lib/types/settings";
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import { useCallback } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { useCallback } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { useSettingsStore } from "@/lib/store/settings";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export default function Home() {
   useAuth();
   const [showSettings, setShowSettings] = useState(false);
-  const settings = useSettingsStore(state => state.settings);
-  const getSettings = useSettingsStore(state => state.getSettings);
-  const updateSettings = useSettingsStore(state => state.updateSettings);
+  const settings = useSettingsStore((state) => state.settings);
+  const getSettings = useSettingsStore((state) => state.getSettings);
+  const updateSettings = useSettingsStore((state) => state.updateSettings);
+  const { setLanguage } = usePolyglot();
 
   useEffect(() => {
     getSettings();
   }, [getSettings]);
+
+  if (settings?.siteConfig?.siteTitle) {
+    document.title = settings.siteConfig.siteTitle;
+  }
+
+  useEffect(() => {
+    if (settings.interfaceConfig?.language) {
+      setLanguage(settings.interfaceConfig.language);
+    }
+  }, [settings.interfaceConfig?.language, setLanguage]);
 
   useEffect(() => {
     if (settings?.siteConfig?.siteTitle) {
@@ -30,9 +42,12 @@ export default function Home() {
     }
   }, [settings?.siteConfig?.siteTitle]);
 
-  const handleSettingsChange = useCallback((newSettings: SettingsState) => {
-    updateSettings(newSettings);
-  }, [updateSettings]);
+  const handleSettingsChange = useCallback(
+    (newSettings: SettingsState) => {
+      updateSettings(newSettings);
+    },
+    [updateSettings]
+  );
 
   const renderContent = useCallback(() => {
     if (!settings) return null;
@@ -68,9 +83,7 @@ export default function Home() {
       )}
 
       {settings && (
-        <ThemeProvider settings={settings}>
-          {renderContent()}
-        </ThemeProvider>
+        <ThemeProvider settings={settings}>{renderContent()}</ThemeProvider>
       )}
     </>
   );

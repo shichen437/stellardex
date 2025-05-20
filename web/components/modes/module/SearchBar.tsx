@@ -42,8 +42,8 @@ export function SearchBar({ searchEngine: defaultEngine, searchEngineLogo }: Sea
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t("common.placeholder.search")}
-            className="w-full pl-28 pr-12 py-4 rounded-2xl border border-gray-200 dark:border-gray-700 
-                     focus:outline-none focus:ring-2 focus:ring-blue-500/20
+            className="w-full pl-28 pr-12 py-4 rounded-2xl border border-gray-200 dark:border-popover
+                     focus:outline-none focus:ring-1 focus:ring-gray-300
                      bg-popover dark:bg-popover
                      text-gray-900 dark:text-gray-100
                      shadow-lg text-lg"
@@ -82,7 +82,7 @@ export function SearchBar({ searchEngine: defaultEngine, searchEngineLogo }: Sea
             />
             <div className="absolute top-full left-0 right-0 mt-1 bg-popover dark:bg-popover rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-20">
               <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">搜索引擎</h3>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">{t("other.searchEngine")}</h3>
               </div>
               <div className="p-2">
                 {(['baidu', 'google', 'bing'] as SearchEngine[]).map((engine) => (

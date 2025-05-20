@@ -19,3 +19,11 @@ type GetSettingsRes struct {
 	g.Meta `mime:"application/json" example:"json"`
 	*model.UserSettings
 }
+
+type GetDefaultLangReq struct {
+	g.Meta `path:"/settings/lang" method:"get" tags:"用户设置" summary:"获取默认语言"`
+}
+type GetDefaultLangRes struct {
+	g.Meta `mime:"application/json" example:"json"`
+	Lang   string `json:"lang"`
+}

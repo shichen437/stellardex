@@ -6,7 +6,7 @@ server:
 project:
   data: "resource/data"
   sm4key: "abcdefghijklmnopqrstuvwxyz123456" #sm4 加密key, 需要保证 32 位
-  lang: "zh-CN"
+  lang: "en"
 
 logger:
   path: "resource/log/system/"

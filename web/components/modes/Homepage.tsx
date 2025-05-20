@@ -117,6 +117,7 @@ export function HomepageModeView() {
             (settings.moduleConfig.showClock ||
               settings.moduleConfig.showCalendar) && (
               <DateTime
+                language={settings.interfaceConfig?.language}
                 showClock={settings.moduleConfig.showClock}
                 showCalendar={settings.moduleConfig.showCalendar}
                 calendarFormat={settings.moduleConfig.calendarFormat}

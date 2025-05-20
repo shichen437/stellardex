@@ -22,7 +22,7 @@ interface ModuleConfig {
   searchEngine: SearchEngine;
   showClock: boolean;
   showCalendar: boolean;
-  calendarFormat: "YYYY-MM-DD" | "MM/DD/YYYY" | "DD.MM.YYYY" | "YYYY年MM月DD日";
+  calendarFormat: "YYYY-MM-DD" | "MM/DD/YYYY" | "DD.MM.YYYY";
 }
 
 interface GroupCofnig {

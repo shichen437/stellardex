@@ -19,7 +19,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
     <div className="grid grid-cols-2 gap-8">
       <div className="space-y-6">
         <div className="space-y-4">
-          <h3 className="text-base font-medium">{t("apperance.interfaceMode")}</h3>
+          <h3 className="text-base font-medium">{t("appearance.interfaceMode")}</h3>
           <Select
             value={settings.interfaceConfig?.interfaceMode}
             onValueChange={(value) =>
@@ -33,21 +33,21 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
             }
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={t("apperance.placeholder.interfaceMode")} />
+              <SelectValue placeholder={t("appearance.placeholder.interfaceMode")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="navigation">{t("apperance.navigationMode")}</SelectItem>
-              <SelectItem value="homepage">{t("apperance.homepageMode")}</SelectItem>
-              <SelectItem value="simplicity">{t("apperance.simplicityMode")}</SelectItem>
-              <SelectItem value="starry">{t("apperance.starryMode")}</SelectItem>
+              <SelectItem value="navigation">{t("appearance.navigationMode")}</SelectItem>
+              <SelectItem value="homepage">{t("appearance.homepageMode")}</SelectItem>
+              <SelectItem value="simplicity">{t("appearance.simplicityMode")}</SelectItem>
+              <SelectItem value="starry">{t("appearance.starryMode")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-base font-medium">{t("apperance.theme")}</h3>
+          <h3 className="text-base font-medium">{t("appearance.theme")}</h3>
           <Select
-            value={settings.interfaceConfig.themeMode}
+            value={settings.interfaceConfig?.themeMode}
             onValueChange={(value) =>
               onSettingsChange({
                 ...settings,
@@ -59,21 +59,21 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
             }
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={t("apperance.placeholder.theme")} />
+              <SelectValue placeholder={t("appearance.placeholder.theme")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="system">{t("apperance.theme_system")}</SelectItem>
-              <SelectItem value="light">{t("apperance.theme_light")}</SelectItem>
-              <SelectItem value="dark">{t("apperance.theme_dark")}</SelectItem>
+              <SelectItem value="system">{t("appearance.theme_system")}</SelectItem>
+              <SelectItem value="light">{t("appearance.theme_light")}</SelectItem>
+              <SelectItem value="dark">{t("appearance.theme_dark")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-base font-medium">{t("apperance.language")}</h3>
+        <h3 className="text-base font-medium">{t("appearance.language")}</h3>
         <Select
-          value={settings.interfaceConfig.language}
+          value={settings.interfaceConfig?.language}
           onValueChange={(value) =>
             onSettingsChange({
               ...settings,
@@ -85,7 +85,7 @@ export function InterfaceTab({ settings, onSettingsChange }: InterfaceTabProps) 
           }
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={t("apperance.placeholder.language")} />
+            <SelectValue placeholder={t("appearance.placeholder.language")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="zh-CN">简体中文</SelectItem>

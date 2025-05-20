@@ -62,7 +62,7 @@ var (
 func GetGtoken(ctx context.Context) (gfToken *gtoken.GfToken, err error) {
 	gfToken = &gtoken.GfToken{
 		AuthAfterFunc:    AuthAfterFunc,
-		AuthExcludePaths: g.SliceStr{"/logout"},
+		AuthExcludePaths: g.SliceStr{"/logout", "/settings/lang"},
 		AuthPaths:        g.SliceStr{"/*"},
 		CacheMode:        3,
 		LoginBeforeFunc:  LoginFunc,

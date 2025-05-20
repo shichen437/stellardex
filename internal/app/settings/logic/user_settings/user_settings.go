@@ -100,6 +100,16 @@ func (s *sUserSettings) Update(ctx context.Context, req *v1.PutSettingsReq) (res
 	return
 }
 
+func (s *sUserSettings) GetDefaultLang(ctx context.Context, req *v1.GetDefaultLangReq) (res *v1.GetDefaultLangRes, err error) {
+	res = &v1.GetDefaultLangRes{}
+	lang := utils.LANG
+	if lang == "" || consts.AllowLangMap[lang] == "" {
+		lang = "zh-CN"
+	}
+	res.Lang = lang
+	return
+}
+
 func saveDefaultSettings(ctx context.Context, userId int) *model.UserSettings {
 	var engine string
 	if utils.LANG == "zh-CN" {

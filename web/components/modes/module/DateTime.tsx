@@ -2,20 +2,27 @@
 
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 
 interface DateTimeProps {
+  language: string;
   showClock: boolean;
   showCalendar: boolean;
-  calendarFormat: 'YYYY-MM-DD' | 'MM/DD/YYYY' | 'DD.MM.YYYY' | 'YYYY年MM月DD日';
+  calendarFormat: 'YYYY-MM-DD' | 'MM/DD/YYYY' | 'DD.MM.YYYY';
 }
 
-export function DateTime({ showClock, showCalendar, calendarFormat }: DateTimeProps) {
+export function DateTime({ language, showClock, showCalendar, calendarFormat }: DateTimeProps) {
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (language === 'zh-CN') {
+      dayjs.locale('zh-cn');
+    } else {
+      dayjs.locale('en');
+    }
+  }, [language]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -27,14 +34,14 @@ export function DateTime({ showClock, showCalendar, calendarFormat }: DateTimePr
     return () => clearInterval(timer);
   }, [mounted]);
 
+  if (!showClock && !showCalendar) {
+    return null;
+  }
+
   const formattedDate = () => {
     if (!currentTime) return '';
     return currentTime.format(`${calendarFormat} dddd`);
   };
-
-  if (!showClock && !showCalendar) {
-    return null;
-  }
 
   if (!mounted) return null;
 
