@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { Particles } from "@/components/magicui/particles";
-import { SettingsPanel } from "@/components/settings/SettingsPanel";
 import { calculatePosition } from "@/components/modes/starry/starry-utils";
 import { CenterGroup } from "@/components/modes/starry/CenterGroup";
 import { SideGroup } from "@/components/modes/starry/SideGroup";
 import { useGroupStore } from "@/lib/store/group";
 import { useSettingsStore } from "@/lib/store/settings";
-import type { SettingsState } from "@/lib/types/settings";
 import type { Group, GroupItem } from "@/lib/types/group";
 import { allGroupItems } from "@/api/group_item";
 
@@ -20,8 +18,6 @@ function fibonacci(n: number): number[] {
 
 export function StarryModeView() {
   const settings = useSettingsStore((state) => state.settings);
-  const updateSettings = useSettingsStore((state) => state.updateSettings);
-  const [showSettings, setShowSettings] = useState(false);
 
   const isDarkMode =
     settings.interfaceConfig?.themeMode === "dark" ||
@@ -49,10 +45,6 @@ export function StarryModeView() {
       setGroupItemsMap(itemsMap);
     });
   }, [fetchGroups]);
-
-  const handleSettingsChange = (newSettings: SettingsState) => {
-    updateSettings(newSettings);
-  };
 
   function getFibonacciLayers(items: GroupItem[]): GroupItem[][] {
     if (items.length <= 1) return [items];
@@ -149,13 +141,6 @@ export function StarryModeView() {
         })()}
       </div>
 
-      {showSettings && (
-        <SettingsPanel
-          settings={settings}
-          onSettingsChange={handleSettingsChange}
-          onClose={() => setShowSettings(false)}
-        />
-      )}
     </div>
   );
 }

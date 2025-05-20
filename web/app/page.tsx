@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Settings, LogOut } from "lucide-react";
+import { Settings, LogOut, Orbit } from "lucide-react";
 import { SettingsPanel } from "@/components/settings/SettingsPanel";
 import { SimpleModeView } from "@/components/modes/Simplicity";
 import { NavigationModeView } from "@/components/modes/Navigation";
@@ -28,6 +28,11 @@ export default function Home() {
   const logoutStore = useUserStore((state) => state.logout);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     getSettings();
@@ -80,6 +85,10 @@ export default function Home() {
     }
   }, [settings]);
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <>
       <div className="fixed top-4 right-4 z-50">
@@ -95,7 +104,11 @@ export default function Home() {
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             onClick={() => setShowSettings(!showSettings)}
           >
-            <Settings className="w-6 h-6" />
+            {settings.interfaceConfig?.interfaceMode === "starry" ? (
+              <Orbit className="w-6 h-6" />
+            ) : (
+              <Settings className="w-6 h-6" />
+            )}
           </button>
         )}
       </div>
