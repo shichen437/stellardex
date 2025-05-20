@@ -59,7 +59,8 @@ export function SettingsPanel({
 
   useEffect(() => {
     // 只在弹窗挂载时执行
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
     const originalOverflow = document.body.style.overflow;
     const originalPaddingRight = document.body.style.paddingRight;
     document.body.style.overflow = "hidden";
@@ -122,7 +123,11 @@ export function SettingsPanel({
   };
 
   const menuItems = [
-    { id: "profile", label: t("sidebar.profile"), icon: <CircleUserRound className="w-4 h-4" /> },
+    {
+      id: "profile",
+      label: t("sidebar.profile"),
+      icon: <CircleUserRound className="w-4 h-4" />,
+    },
     {
       id: "interface",
       label: t("sidebar.interface"),
@@ -133,13 +138,35 @@ export function SettingsPanel({
       label: t("sidebar.site"),
       icon: <LayoutDashboard className="w-4 h-4" />,
     },
-    { id: "module", label: t("sidebar.module"), icon: <Puzzle className="w-4 h-4" /> },
-    { id: "groups", label: t("sidebar.groups"), icon: <Group className="w-4 h-4" /> },
+    {
+      id: "module",
+      label: t("sidebar.module"),
+      icon: <Puzzle className="w-4 h-4" />,
+    },
+    {
+      id: "groups",
+      label: t("sidebar.groups"),
+      icon: <Group className="w-4 h-4" />,
+    },
     ...(userInfo?.isAdmin
-      ? [{ id: "users", label: t("sidebar.users"), icon: <Users className="w-4 h-4" /> }]
+      ? [
+          {
+            id: "users",
+            label: t("sidebar.users"),
+            icon: <Users className="w-4 h-4" />,
+          },
+        ]
       : []),
-    { id: "support", label: t("sidebar.support"), icon: <Coffee className="w-4 h-4" /> },
-    { id: "about", label: t("sidebar.about"), icon: <Info className="w-4 h-4" /> },
+    {
+      id: "support",
+      label: t("sidebar.support"),
+      icon: <Coffee className="w-4 h-4" />,
+    },
+    {
+      id: "about",
+      label: t("sidebar.about"),
+      icon: <Info className="w-4 h-4" />,
+    },
   ];
 
   return (

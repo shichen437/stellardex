@@ -34,7 +34,7 @@ export function SearchBar({ searchEngine: defaultEngine, searchEngineLogo }: Sea
   if (!mounted) return null;
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 md:px-0">
       <div className="relative">
         <form onSubmit={handleSearch} className="relative">
           <input

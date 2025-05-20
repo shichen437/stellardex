@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
-import { Settings, Plus } from "lucide-react";
-import { SearchBar } from "@/components/modes/module/SearchBar";
-import { SettingsPanel } from "@/components/settings/SettingsPanel";
-import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
-import { DateTime } from "@/components/modes/module/DateTime";
+import { Plus } from "lucide-react";
 import { Meteors } from "@/components/magicui/meteors";
+import { DateTime } from "@/components/modes/module/DateTime";
+import { SearchBar } from "@/components/modes/module/SearchBar";
+import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
+import { GroupItemList } from "@/components/modes/common/GroupItemList";
 import { SEARCH_ENGINE_LOGO } from "@/lib/search";
-import type { SettingsState } from "@/lib/types/settings";
 import type { GroupItem } from "@/lib/types/group";
-import { useGroupStore } from "@/lib/store/group";
-import { GroupItemList } from "./common/GroupItemList";
 import { useGroupItemContextMenu } from "@/hooks/useGroupItemContextMenu";
+import { useGroupStore } from "@/lib/store/group";
 import { useSettingsStore } from "@/lib/store/settings";
 import {
   allGroupItems,
@@ -20,7 +18,6 @@ import {
 } from "@/api/group_item";
 
 export function NavigationModeView() {
-  const [showSettings, setShowSettings] = useState(false);
   const [showGroupItemModal, setShowGroupItemModal] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [editingGroupItem, setEditingGroupItem] = useState<GroupItem | null>(
@@ -39,11 +36,6 @@ export function NavigationModeView() {
   const fetchGroups = useGroupStore((state) => state.fetchGroups);
 
   const settings = useSettingsStore((state) => state.settings);
-  const updateSettings = useSettingsStore((state) => state.updateSettings);
-
-  const handleSettingsChange = (newSettings: SettingsState) => {
-    updateSettings(newSettings);
-  };
 
   useEffect(() => {
     fetchGroups();
@@ -123,23 +115,6 @@ export function NavigationModeView() {
         <Meteors number={20} minDuration={2.5} maxDuration={10} />
       )}
 
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          onClick={() => setShowSettings(!showSettings)}
-        >
-          <Settings className="w-6 h-6" />
-        </button>
-      </div>
-
-      {showSettings && settings && (
-        <SettingsPanel
-          settings={settings}
-          onSettingsChange={handleSettingsChange}
-          onClose={() => setShowSettings(false)}
-        />
-      )}
-
       <div className="flex flex-col items-center justify-start pt-12 px-4 space-y-12 pb-12 flex-grow">
         {(settings.moduleConfig?.showClock ||
           settings.moduleConfig?.showCalendar) && (
@@ -198,8 +173,12 @@ export function NavigationModeView() {
                     onContextMenu={handleContextMenu}
                     groupId={group.id}
                     contextMenu={contextMenu}
-                    onEdit={(item) => handleEditGroupItem(item.groupId, item.id)}
-                    onDelete={(item) => handleDeleteGroupItem(item.groupId, item.id)}
+                    onEdit={(item) =>
+                      handleEditGroupItem(item.groupId, item.id)
+                    }
+                    onDelete={(item) =>
+                      handleDeleteGroupItem(item.groupId, item.id)
+                    }
                     setContextMenu={setContextMenu}
                   />
                 </div>

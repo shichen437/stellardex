@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
-import { Settings } from "lucide-react";
-import { SearchBar } from "@/components/modes/module/SearchBar";
-import { SettingsPanel } from "@/components/settings/SettingsPanel";
-import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
-import { DateTime } from "@/components/modes/module/DateTime";
-import { SEARCH_ENGINE_LOGO } from "@/lib/search";
 import { Meteors } from "@/components/magicui/meteors";
-import type { SettingsState } from "@/lib/types/settings";
-import type { GroupItem } from "@/lib/types/group";
+import { SearchBar } from "@/components/modes/module/SearchBar";
+import { DateTime } from "@/components/modes/module/DateTime";
+import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
 import { GroupNavigation } from "@/components/modes/module/GroupNavigation";
 import { GroupItemGrid } from "@/components/modes/common/GroupItemGrid";
+import { SEARCH_ENGINE_LOGO } from "@/lib/search";
+import type { GroupItem } from "@/lib/types/group";
 import { useGroupItemContextMenu } from "@/hooks/useGroupItemContextMenu";
+import { useSettingsStore } from "@/lib/store/settings";
 import { useGroupStore } from "@/lib/store/group";
 import {
   allGroupItems,
@@ -18,10 +16,8 @@ import {
   updateGroupItem,
   deleteGroupItem,
 } from "@/api/group_item";
-import { useSettingsStore } from "@/lib/store/settings";
 
 export function HomepageModeView() {
-  const [showSettings, setShowSettings] = useState(false);
   const [showGroupItemModal, setShowGroupItemModal] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [editingGroupItem, setEditingGroupItem] = useState<GroupItem | null>(
@@ -29,21 +25,17 @@ export function HomepageModeView() {
   );
   const [groupItems, setGroupItems] = useState<GroupItem[]>([]);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  const { contextMenu, setContextMenu, handleContextMenu } =
-    useGroupItemContextMenu();
 
   const groupList = useGroupStore((state) => state.groups);
   const fetchGroups = useGroupStore((state) => state.fetchGroups);
 
   const settings = useSettingsStore((state) => state.settings);
-  const updateSettings = useSettingsStore((state) => state.updateSettings);
 
-  const handleSettingsChange = (newSettings: SettingsState) => {
-    updateSettings(newSettings);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  const { contextMenu, setContextMenu, handleContextMenu } =
+    useGroupItemContextMenu();
 
   useEffect(() => {
     fetchGroups();
@@ -101,17 +93,6 @@ export function HomepageModeView() {
       )}
 
       <div className="flex-1 flex flex-col">
-        {mounted && (
-          <div className="fixed top-4 right-4 z-50">
-            <button
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              onClick={() => setShowSettings(!showSettings)}
-            >
-              <Settings className="w-6 h-6" />
-            </button>
-          </div>
-        )}
-
         <div className="flex flex-col items-center justify-start pt-12 px-4 space-y-12 pb-12 flex-grow">
           {mounted &&
             (settings.moduleConfig.showClock ||
@@ -143,7 +124,9 @@ export function HomepageModeView() {
                   setEditingGroupItem(item);
                   setShowGroupItemModal(true);
                 }}
-                onDelete={(item) => handleDeleteGroupItem(item.groupId, item.id)}
+                onDelete={(item) =>
+                  handleDeleteGroupItem(item.groupId, item.id)
+                }
                 setContextMenu={setContextMenu}
               />
             </div>
@@ -157,14 +140,6 @@ export function HomepageModeView() {
         )}
       </div>
 
-      {/* Modals */}
-      {showSettings && settings && (
-        <SettingsPanel
-          settings={settings}
-          onSettingsChange={handleSettingsChange}
-          onClose={() => setShowSettings(false)}
-        />
-      )}
 
       {showGroupItemModal && selectedGroupId && (
         <GroupItemModal
@@ -182,8 +157,6 @@ export function HomepageModeView() {
           }
         />
       )}
-
-
     </div>
   );
 }

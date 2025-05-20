@@ -1,14 +1,14 @@
+import { useState, useEffect } from "react";
 import { Particles } from "@/components/magicui/particles";
 import { SettingsPanel } from "@/components/settings/SettingsPanel";
-import { useState, useEffect } from "react";
-import { useSettingsStore } from "@/lib/store/settings";
+import { calculatePosition } from "@/components/modes/starry/starry-utils";
+import { CenterGroup } from "@/components/modes/starry/CenterGroup";
+import { SideGroup } from "@/components/modes/starry/SideGroup";
 import { useGroupStore } from "@/lib/store/group";
-import { allGroupItems } from "@/api/group_item";
+import { useSettingsStore } from "@/lib/store/settings";
 import type { SettingsState } from "@/lib/types/settings";
 import type { Group, GroupItem } from "@/lib/types/group";
-import { CenterGroup } from "./starry/CenterGroup";
-import { SideGroup } from "./starry/SideGroup";
-import { calculatePosition } from "./starry/starry-utils";
+import { allGroupItems } from "@/api/group_item";
 
 function fibonacci(n: number): number[] {
   const fib = [2, 3];

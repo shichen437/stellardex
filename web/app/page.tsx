@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Settings } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { Settings, LogOut } from "lucide-react";
 import { SettingsPanel } from "@/components/settings/SettingsPanel";
 import { SimpleModeView } from "@/components/modes/Simplicity";
 import { NavigationModeView } from "@/components/modes/Navigation";
@@ -9,10 +10,12 @@ import { HomepageModeView } from "@/components/modes/Homepage";
 import { StarryModeView } from "@/components/modes/Starry";
 import type { SettingsState } from "@/lib/types/settings";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { useCallback } from "react";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { useSettingsStore } from "@/lib/store/settings";
-import { usePolyglot } from "@/providers/PolyglotProvider";
+import { useUserStore } from "@/lib/store/user";
+import { useIsMobile } from "@/hooks/useMobile";
+import { LogoutModal } from "@/components/settings/modal/LogoutModal";
 
 export default function Home() {
   useAuth();
@@ -21,6 +24,10 @@ export default function Home() {
   const getSettings = useSettingsStore((state) => state.getSettings);
   const updateSettings = useSettingsStore((state) => state.updateSettings);
   const { setLanguage } = usePolyglot();
+  const isMobile = useIsMobile();
+  const logoutStore = useUserStore((state) => state.logout);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     getSettings();
@@ -49,6 +56,16 @@ export default function Home() {
     [updateSettings]
   );
 
+  const handleLogout = async () => {
+    try {
+      await logoutStore();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      router.push("/login");
+    }
+  };
+
   const renderContent = useCallback(() => {
     if (!settings) return null;
     switch (settings.interfaceConfig?.interfaceMode) {
@@ -66,12 +83,21 @@ export default function Home() {
   return (
     <>
       <div className="fixed top-4 right-4 z-50">
-        <button
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          onClick={() => setShowSettings(!showSettings)}
-        >
-          <Settings className="w-6 h-6" />
-        </button>
+        {isMobile ? (
+          <button
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-red-600 dark:text-red-500"
+            onClick={() => setLogoutOpen(true)}
+          >
+            <LogOut className="w-6 h-6" />
+          </button>
+        ) : (
+          <button
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            <Settings className="w-6 h-6" />
+          </button>
+        )}
       </div>
 
       {showSettings && settings && (
@@ -85,6 +111,12 @@ export default function Home() {
       {settings && (
         <ThemeProvider settings={settings}>{renderContent()}</ThemeProvider>
       )}
+
+      <LogoutModal
+        open={logoutOpen}
+        onOpenChange={setLogoutOpen}
+        onConfirm={handleLogout}
+      />
     </>
   );
 }
