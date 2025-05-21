@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Upload } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,9 @@ import { ProfileModal } from "@/components/settings/modal/ProfileModal";
 import { UserInfo } from "@/lib/types/user";
 import { useUserStore } from "@/lib/store/user";
 import { usePolyglot } from "@/providers/PolyglotProvider";
+import { toast } from "sonner";
+import { updateAvatar } from "@/api/profile";
+import { Input } from "@/components/ui/input";
 
 export function ProfileTab() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -54,24 +58,65 @@ export function ProfileTab() {
     );
   }
 
+  const handleAvatarUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log("====");
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (file.size > 1 * 1024 * 1024) {
+      alert("文件大小不能超过1MB");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    try {
+      const response = await updateAvatar(formData);
+      if (response.code === 0) {
+        toast.success(t("toast.uploadSuccess"));
+        // 更新用户信息
+        const updatedUserInfo = await getUserInfo(true);
+        setUserInfo(updatedUserInfo);
+      } else {
+        toast.error(t("toast.uploadError"));
+      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error(t("toast.uploadError"));
+    }
+  };
+
   if (!userInfo) {
-    return <div>无法获取用户信息</div>;
+    return <div className="items-center">{t("users.noData")}</div>;
   }
 
   return (
     <Card className="max-w-2xl mx-auto p-6 bg-popover dark:bg-popover rounded-xl shadow-md space-y-8 relative">
       <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-8 space-y-4 md:space-y-0">
-        <Avatar className="w-24 h-24 shadow-lg border-4 border-blue-100 dark:border-blue-900 filter grayscale">
+        <Avatar className="w-24 h-24 shadow-lg border-2 border-grey-100 dark:border-grey-900 relative group">
           {userInfo.avatar ? (
             <AvatarImage
-              src={userInfo.avatar}
-              className="w-full h-full filter grayscale"
+              src={`${process.env.NEXT_PUBLIC_API_PREFIX}${userInfo.avatar}`}
+              className="w-full h-full"
             />
           ) : (
             <AvatarFallback className="text-3xl font-bold text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-800 filter grayscale">
               {userInfo.username.slice(0, 2)}
             </AvatarFallback>
           )}
+          <label className="absolute inset-0 cursor-pointer">
+            <Input
+              type="file"
+              accept="image/*"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              onChange={handleAvatarUpload}
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Upload className="text-white" />
+            </div>
+          </label>
         </Avatar>
         <div className="flex-1 w-full">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">

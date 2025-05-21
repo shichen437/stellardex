@@ -16,6 +16,7 @@ import {
   deleteGroupItem,
   updateGroupItem,
 } from "@/api/group_item";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export function NavigationModeView() {
   const [showGroupItemModal, setShowGroupItemModal] = useState(false);
@@ -109,6 +110,7 @@ export function NavigationModeView() {
     }));
   };
 
+  const { t } = usePolyglot();
   return (
     <div className="min-h-screen w-full relative flex flex-col">
       {settings.moduleConfig?.showMeteors && (
@@ -143,10 +145,10 @@ export function NavigationModeView() {
           {!mounted ? null : groupList.length === 0 ? (
             <div className="col-span-full text-center py-12 break-inside-avoid">
               <h3 className="text-xl font-medium text-gray-600 dark:text-gray-400">
-                还没有添加任何分组
+                {t("other.noGroup")}
               </h3>
               <p className="mt-2 text-gray-500 dark:text-gray-500">
-                点击右上角设置按钮添加分组
+                {t("other.noGroupMessage")}
               </p>
             </div>
           ) : (

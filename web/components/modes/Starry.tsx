@@ -1,121 +1,13 @@
-import { useEffect, useState } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Html } from "@react-three/drei";
+import { useEffect, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 import { Particles } from "@/components/magicui/particles";
-import { GroupItemIcon } from "@/components/modes/starry/GroupItemIcon";
+import { Galaxy } from "@/components/modes/starry/Galaxy";
 import { useGroupStore } from "@/lib/store/group";
 import { useSettingsStore } from "@/lib/store/settings";
 import { allGroupItems } from "@/api/group_item";
 import type { Group, GroupItem } from "@/lib/types/group";
-
-function fibonacci(n: number): number[] {
-  const fib = [3, 5];
-  while (fib.length < n) {
-    fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
-  }
-  return fib.slice(0, n);
-}
-
-function getFibonacciLayers(items: GroupItem[]): GroupItem[][] {
-  if (items.length <= 1) return [items];
-  const fib = fibonacci(10);
-  const layers: GroupItem[][] = [];
-  let idx = 1;
-  let remain = items.length - 1;
-  while (remain > 0) {
-    const count = Math.min(fib[layers.length], remain);
-    layers.push(items.slice(idx, idx + count));
-    idx += count;
-    remain -= count;
-  }
-  return layers;
-}
-
-function Galaxy({
-  group,
-  items,
-  position,
-}: {
-  group: Group;
-  items: GroupItem[];
-  position: [number, number, number];
-}) {
-  const layers = getFibonacciLayers(items);
-  const mainItem = items[0];
-  const planets = layers;
-  const [angles, setAngles] = useState<number[][]>(() =>
-    planets.map((layer) =>
-      layer.map((_, i) => (2 * Math.PI * i) / layer.length)
-    )
-  );
-  useFrame((state, delta) => {
-    setAngles((prev) =>
-      prev.map((layerAngles, layerIdx) =>
-        layerAngles.map((angle) => {
-          const speed = 0.25 + layerIdx * 0.12;
-          const direction = group.id % 2 === 0 ? -1 : 1;
-          return angle + direction * speed * delta * 0.25;
-        })
-      )
-    );
-  });
-  return (
-    <group position={position}>
-      {mainItem && <HtmlIcon item={mainItem} size={42} position={[0, 0, 0]} />}
-      {planets.map((layer, layerIdx) => {
-        const radius = 2.5 + layerIdx * 2.2;
-        return layer.map((item, i) => {
-          const angle =
-            angles[layerIdx]?.[i] ?? (2 * Math.PI * i) / layer.length;
-          const x = Math.cos(angle) * radius;
-          const z = Math.sin(angle) * radius;
-          return (
-            <HtmlIcon
-              key={item.id}
-              item={item}
-              size={36}
-              position={[x, 0, z]}
-            />
-          );
-        });
-      })}
-      {planets.map((layer, layerIdx) => {
-        const radius = 2.5 + layerIdx * 2.2;
-        return (
-          <mesh
-            key={layerIdx}
-            position={[0, 0, 0]}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <torusGeometry args={[radius, 0.01, 16, 100]} />
-            <meshBasicMaterial color="#888" transparent opacity={0.18} />
-          </mesh>
-        );
-      })}
-    </group>
-  );
-}
-
-function HtmlIcon({
-  item,
-  size,
-  position,
-}: {
-  item: GroupItem;
-  size: number;
-  position: [number, number, number];
-}) {
-  return (
-    <group position={position}>
-      <Html center style={{ pointerEvents: "auto" }}>
-        <div style={{ width: size, height: size }}>
-          <GroupItemIcon item={item} size={size} />
-        </div>
-      </Html>
-    </group>
-  );
-}
 
 export function StarryModeView() {
   const settings = useSettingsStore((state) => state.settings);

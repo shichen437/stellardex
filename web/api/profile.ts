@@ -20,3 +20,11 @@ export async function updatePwd(oldPwd: string, newPwd: string) {
         data: data,
     });
 }
+
+export async function updateAvatar(data: FormData) {
+    return request({
+        url: '/user/avatar',
+        method: 'put',
+        data: data,
+    });
+}

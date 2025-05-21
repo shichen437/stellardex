@@ -86,13 +86,13 @@ export function UsersTab() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>{t("userField.username")}</TableHead>
-            <TableHead>{t("userField.nickname")}</TableHead>
-            <TableHead>{t("userField.sex")}</TableHead>
-            <TableHead>{t("userField.status")}</TableHead>
-            <TableHead>{t("userField.role")}</TableHead>
-            <TableHead>
-              <div className="flex justify-end items-center h-10">
+            <TableHead className="text-center">{t("userField.username")}</TableHead>
+            <TableHead className="text-center">{t("userField.nickname")}</TableHead>
+            <TableHead className="text-center">{t("userField.sex")}</TableHead>
+            <TableHead className="text-center">{t("userField.status")}</TableHead>
+            <TableHead className="text-center">{t("userField.role")}</TableHead>
+            <TableHead className="text-center">
+              <div className="flex justify-center items-center h-10">
                 {t("common.options")}
               </div>
             </TableHead>
@@ -101,23 +101,23 @@ export function UsersTab() {
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={5}>{t("common.loading")}</TableCell>
+              <TableCell colSpan={6} className="text-center">{t("common.loading")}</TableCell>
             </TableRow>
           ) : users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5}>{t("common.empty")}</TableCell>
+              <TableCell colSpan={6} className="text-center">{t("common.empty")}</TableCell>
             </TableRow>
           ) : (
             users.map((user) => (
               <TableRow key={user.id}>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.nickname}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">{user.username}</TableCell>
+                <TableCell className="text-center">{user.nickname}</TableCell>
+                <TableCell className="text-center">
                   {user.sex === 1
                     ? t("userField.sex_male")
                     : t("userField.sex_female")}
                 </TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   {user.status === 1 ? (
                     <span className="text-green-600">
                       {t("userField.status_active")}
@@ -128,13 +128,13 @@ export function UsersTab() {
                     </span>
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   {user.roleId === 1
                     ? t("userField.role_admin")
                     : t("userField.role_user")}
                 </TableCell>
-                <TableCell>
-                  <div className="flex justify-end items-center space-x-2 h-10">
+                <TableCell className="text-center">
+                  <div className="flex justify-center items-center space-x-2 h-10">
                     <button
                       onClick={() => setEditingUser(user)}
                       className="p-2 rounded-lg text-gray-500 hover:text-gray-700"

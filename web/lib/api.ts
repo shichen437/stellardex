@@ -16,7 +16,7 @@ type RequestConfig = {
   url: string;
   params?: Record<string, any>;
   headers?: Record<string, any>;
-  body?: string;
+  body?: string | FormData;
 };
 
 async function requestInterceptor(
@@ -80,14 +80,26 @@ export const request = async function (config: {
     const requestConfig: RequestConfig = {
       method: config.method.toUpperCase(),
       url: config.url,
-      headers: {
-        ...serviceConfig.headers,
-        ...config.headers,
-      },
+      headers: {},
     };
 
+    if (!(config.data instanceof FormData)) {
+      requestConfig.headers = {
+        ...serviceConfig.headers,
+        ...config.headers,
+      };
+    } else {
+      requestConfig.headers = {
+        ...config.headers,
+      };
+    }
+
     if (config.data) {
-      requestConfig.body = JSON.stringify(config.data);
+      if (config.data instanceof FormData) {
+        requestConfig.body = config.data;
+      } else {
+        requestConfig.body = JSON.stringify(config.data);
+      }
     }
 
     if (config.params) {

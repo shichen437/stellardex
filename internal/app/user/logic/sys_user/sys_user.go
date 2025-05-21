@@ -227,6 +227,33 @@ func (s *sSysUser) ResetPwd(ctx context.Context, req *v1.ResetPwdReq) (res *v1.R
 }
 
 func (s *sSysUser) UpdateAvatar(ctx context.Context, req *v1.PutAvatarReq) (res *v1.PutAvatarRes, err error) {
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("user.valid.UserIdEmpty")
+		return
+	}
+	user := getUserById(ctx, uid)
+	if user == nil {
+		err = gerror.New("data.RecordNotFound")
+		return
+	}
+	file := req.Avatar
+	file.Filename = "aaa.png"
+	name, err := file.Save(utils.AVATAR_PATH, true)
+	if err != nil {
+		err = gerror.New("file.uploadError")
+		return
+	}
+	_, err = dao.SysUser.Ctx(ctx).WherePri(uid).Update(do.SysUser{
+		Avatar:   "/avatar/" + name,
+		UpdateAt: utils.Now(),
+	})
+	if err == nil && user.Avatar != "" {
+		utils.RemoveFile(user.Avatar)
+	}
+	res = &v1.PutAvatarRes{
+		ImgUrl: user.Avatar,
+	}
 	return
 }
 

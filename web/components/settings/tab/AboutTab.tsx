@@ -1,11 +1,21 @@
 import { Github, Mail } from "lucide-react";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import { usePolyglot } from "@/providers/PolyglotProvider";
+import Image from "next/image";
 
 export function AboutTab() {
   const { t } = usePolyglot();
   return (
-    <div className="flex flex-col items-center justify-center h-full space-y-12 py-8">
+    <div className="flex flex-col items-center justify-center h-full space-y-8 py-8">
+      <div className="w-32 h-32 relative">
+        <Image
+          src="/logo/logo.png"
+          alt="Stellardex Logo"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
       {/* 项目名称 */}
       <div className="text-center">
         <SparklesText sparklesCount={10}>

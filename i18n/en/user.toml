@@ -25,3 +25,5 @@
 "user.valid.RoleIdEmpty"="User role can not be empty"
 
 "user.valid.SexEmpty"="User sex can not be empty"
+
+"user.valid.FileEmpty"="File can not be empty"

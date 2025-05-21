@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"github.com/goflyfox/gtoken/gtoken"
 	"github.com/gogf/gf/v2/frame/g"
@@ -34,9 +35,13 @@ var (
 				g.Log().Error(ctx, err)
 				return err
 			}
+			initDir()
 			s := g.Server()
 			s.SetGraceful(true)
 			s.SetIndexFolder(true)
+			s.SetServerRoot(utils.UPLOAD_PATH)
+			s.AddSearchPath(utils.UPLOAD_PATH)
+			s.AddStaticPath("/upload", utils.UPLOAD_PATH)
 			s.SetSwaggerUITemplate(consts.MySwaggerUITemplate)
 			s.Use(service.Middleware().HandlerResponse)
 			s.BindHandler("/sse", sse.HandleSSE)
@@ -117,6 +122,10 @@ func AuthAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
 	r.SetCtxVar(consts.CtxAdminId, users.Id)
 	r.SetCtxVar(consts.CtxAdminName, users.Username)
 	r.Middleware.Next()
+}
+
+func initDir() {
+	os.MkdirAll(utils.AVATAR_PATH, os.ModePerm)
 }
 
 func bindRoute(group *ghttp.RouterGroup) {

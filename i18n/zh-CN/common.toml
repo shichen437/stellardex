@@ -12,3 +12,5 @@
 "data.DeleteFailed"="删除失败"
 "data.RecordNotFound"="记录不存在"
 "data.ListFailed"="获取列表失败"
+
+"file.uploadError"="上传失败"

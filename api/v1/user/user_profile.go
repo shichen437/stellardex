@@ -1,6 +1,9 @@
 package v1
 
-import "github.com/gogf/gf/v2/frame/g"
+import (
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+)
 
 type GetProfileReq struct {
 	g.Meta `path:"/user/profile" method:"get" tags:"个人信息" summary:"获取个人信息"`
@@ -28,7 +31,9 @@ type PutPasswordRes struct {
 
 type PutAvatarReq struct {
 	g.Meta `path:"/user/avatar" method:"put" tags:"个人信息" summary:"修改头像"`
-	Avatar string `v:"required" json:"avatar"`
+	Avatar *ghttp.UploadFile `v:"required#user.valid.FileEmpty" json:"avatar" type:"file"`
 }
 type PutAvatarRes struct {
+	g.Meta `mime:"application/json"`
+	ImgUrl string `json:"imgUrl"`
 }

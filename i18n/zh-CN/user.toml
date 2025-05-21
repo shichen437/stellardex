@@ -25,3 +25,5 @@
 "user.valid.RoleIdEmpty"="角色不能为空"
 
 "user.valid.SexEmpty"="性别不能为空"
+
+"user.valid.FileEmpty"="文件不能为空"

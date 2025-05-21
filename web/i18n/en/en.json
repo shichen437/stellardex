@@ -73,7 +73,8 @@
             "confirmPwd": "Please input confirm password",
             "nickname": "Please input nickname",
             "email": "Please input email",
-            "phone": "Please input phone"
+            "phone": "Please input phone",
+            "sex": "Please select sex"
         }
     },
     "appearance": {
@@ -103,7 +104,7 @@
     },
     "module": {
         "showTime": "Show Time",
-        "showCalendar": "Show Calendar",
+        "showCalendar": "Show Date",
         "showSearchBar": "Show Search Bar",
         "dateFormat": "Date Format",
         "showMeteors": "Show Meteors",
@@ -137,6 +138,7 @@
         "deleteMessage": "Are you sure you want to delete this user?",
         "resetPwd": "Reset Password",
         "resetPwdMessage": "Are you sure you want to reset this user password?",
+        "noData": "Get user info failed",
         "error": {
             "username": "Username can not be empty.",
             "usernameLimit": "Username length can not be more than 12 characters.",
@@ -221,9 +223,13 @@
         "success": "Success",
         "error": "The operation failed",
         "retry": "The operation failed, please try again later",
-        "welcome": "Welcome to Stellardex"
+        "welcome": "Welcome to Stellardex",
+        "uploadSuccess": "Upload success",
+        "uploadError": "Upload failed"
     },
     "other": {
-        "searchEngine": "Search Engine"
+        "searchEngine": "Search Engine",
+        "noGroup": "No groups have been added yet",
+        "noGroupMessage": "Click settings button to add a group"
     }
 }

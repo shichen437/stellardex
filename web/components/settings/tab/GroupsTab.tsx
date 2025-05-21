@@ -260,7 +260,7 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
           <button
             onClick={handleAddGroup}
             className={`p-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800`}
-            title="添加分组"
+            title={t("groups.add")}
           >
             <PlusCircle className="w-5 h-5" />
           </button>

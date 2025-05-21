@@ -54,7 +54,7 @@
         "oldPwd": "旧密码",
         "newPwd": "新密码",
         "confirmPwd": "确认密码",
-        "error" :{
+        "error": {
             "oldPwd": "旧密码不能为空",
             "newPwd": "新密码长度需为6-20位字符",
             "confirmPwd": "请再次输入新密码",
@@ -73,7 +73,8 @@
             "confirmPwd": "请再次输入新密码",
             "nickname": "请输入昵称",
             "email": "请输入邮箱",
-            "phone": "请输入手机号"
+            "phone": "请输入手机号",
+            "sex": "请选择性别"
         }
     },
     "appearance": {
@@ -137,6 +138,7 @@
         "deleteMessage": "您确定要删除该用户吗？",
         "resetPwd": "重置密码",
         "resetPwdMessage": "您确定要重置该用户密码吗？",
+        "noData": "获取用户信息失败",
         "error": {
             "username": "用户名不能为空",
             "usernameLimit": "用户名长度需为1-12位字符",
@@ -221,9 +223,13 @@
         "success": "操作成功",
         "error": "操作失败",
         "retry": "操作失败，请重试",
-        "welcome": "欢迎使用 Stellardex"
+        "welcome": "欢迎使用 Stellardex",
+        "uploadSuccess": "上传成功",
+        "uploadError": "上传失败"
     },
     "other": {
-        "searchEngine": "搜索引擎"
+        "searchEngine": "搜索引擎",
+        "noGroup": "还没有添加任何分组",
+        "noGroupMessage": "点击右上角设置按钮添加分组"
     }
 }

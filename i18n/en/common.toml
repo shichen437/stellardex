@@ -12,3 +12,5 @@
 "data.DeleteFailed"="Delete failed"
 "data.RecordNotFound"="Record not found"
 "data.ListFailed"="Get list failed"
+
+"file.uploadError"="Upload failed"
