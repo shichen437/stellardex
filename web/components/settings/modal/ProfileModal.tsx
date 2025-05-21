@@ -45,7 +45,7 @@ export const ProfileModal = ({ userInfo }: ProfileModalProps) => {
   const [loading, setLoading] = useState(false);
   const { t } = usePolyglot();
   const formSchema = z.object({
-    nickname: z.string().min(1, t("profile.error.nickname")),
+    nickname: z.string().min(1, t("profile.error.nickname")).max(12, t("users.error.nicknameLimit")),
     email: z.string().min(1, t("profile.error.email")).email(t("profile.error.emailValid")),
     gender: z.enum(["0", "1"], {
       required_error: t("profile.error.sex"),

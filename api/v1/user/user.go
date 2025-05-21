@@ -18,8 +18,8 @@ type GetUserListRes struct {
 
 type PostUserReq struct {
 	g.Meta   `path:"/user" method:"post" tags:"用户管理" summary:"创建用户"`
-	Username string `v:"required|length:1,10#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
-	Nickname string `v:"required|length:1,10#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
+	Username string `v:"required|length:1,12#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
+	Nickname string `v:"required|length:1,12#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
 	RoleId   int    `v:"required#user.valid.RoleIdEmpty" p:"roleId"`
 }
 
@@ -38,8 +38,8 @@ type GetUserByIdRes struct {
 type PutUserReq struct {
 	g.Meta   `path:"/user" method:"put" tags:"用户管理" summary:"更新用户信息"`
 	Id       *int   `v:"required#user.valid.UserIdEmpty"`
-	Username string `v:"required|length:1,10#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
-	Nickname string `v:"required|length:1,10#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
+	Username string `v:"required|length:1,12#user.valid.UserNameEmpty|user.valid.UserNameLength" p:"username"`
+	Nickname string `v:"required|length:1,12#user.valid.NickNameEmpty|user.valid.NickNameLength" p:"nickname"`
 	RoleId   int    `v:"required#user.valid.RoleIdEmpty" p:"roleId"`
 }
 type PutUserRes struct {

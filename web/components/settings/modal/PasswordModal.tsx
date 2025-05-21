@@ -30,7 +30,7 @@ export const PasswordModal = () => {
   const { t } = usePolyglot();
   const formSchema = z
     .object({
-      oldPwd: z.string().min(1, t("profile.error.oldPwd")),
+      oldPwd: z.string().min(6, t("profile.error.oldPwd")).max(20, t("profile.error.oldPwd")),
       newPwd: z
         .string()
         .min(6, t("profile.error.newPwd"))

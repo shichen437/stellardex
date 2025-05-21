@@ -1,11 +1,11 @@
 "user.valid.UserIdEmpty"="User ID can not be empty"
 
 "user.valid.UserNameEmpty"="User name can not be empty"
-"user.valid.UserNameLength"="Username maximum length is 10"
+"user.valid.UserNameLength"="Username maximum length is 12"
 "user.valid.UserNameExist"="User name already exists"
 
 "user.valid.NickNameEmpty"="Nickname can not be empty"
-"user.valid.NickNameLength"="Nickname maximum length is 10"
+"user.valid.NickNameLength"="Nickname maximum length is 12"
 "user.valid.NickNameExist"="Nickname already exists"
 
 "user.valid.PasswordEmpty"="Password can not be empty"

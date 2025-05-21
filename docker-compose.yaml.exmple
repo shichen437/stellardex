@@ -1,0 +1,12 @@
+services:
+  stellardex:
+    container_name: stellardex
+    image: shichen437/stellardex:latest
+    restart: always
+    ports:
+      - '9527:9527'
+    volumes:
+      - your-data-path:/stellardex/resource/data
+    environment:
+      - PROJECT_SM4KEY=abcdefghijklmnopqrstuvwxyz123456 # SM4加密密钥, 32位字符, 可选
+      - PROJECT_LANG=zh-CN # 支持 (zh-CN, en), 默认中文, 可选

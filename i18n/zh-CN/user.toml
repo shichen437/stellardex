@@ -1,11 +1,11 @@
 "user.valid.UserIdEmpty"="用户ID不能为空"
 
 "user.valid.UserNameEmpty"="用户名不能为空"
-"user.valid.UserNameLength"="用户名最大长度为10"
+"user.valid.UserNameLength"="用户名最大长度为12"
 "user.valid.UserNameExist"="用户名已存在"
 
 "user.valid.NickNameEmpty"="昵称不能为空"
-"user.valid.NickNameLength"="昵称长度最大长度为10"
+"user.valid.NickNameLength"="昵称长度最大长度为12"
 "user.valid.NickNameExist"="昵称已存在"
 
 "user.valid.PasswordEmpty"="密码不能为空"

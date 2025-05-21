@@ -2,7 +2,12 @@ module github.com/shichen437/stellardex
 
 go 1.23.0
 
-require github.com/gogf/gf/v2 v2.9.0
+require (
+	github.com/goflyfox/gtoken v1.5.10
+	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.9.0
+	github.com/gogf/gf/v2 v2.9.0
+	github.com/golang-migrate/migrate/v4 v4.18.3
+)
 
 require (
 	github.com/BurntSushi/toml v1.5.0 // indirect
@@ -14,9 +19,6 @@ require (
 	github.com/glebarez/go-sqlite v1.22.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/goflyfox/gtoken v1.5.10 // indirect
-	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.9.0 // indirect
-	github.com/golang-migrate/migrate/v4 v4.18.3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/grokify/html-strip-tags-go v0.1.0 // indirect
