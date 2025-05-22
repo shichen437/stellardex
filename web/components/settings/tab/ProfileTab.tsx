@@ -61,11 +61,10 @@ export function ProfileTab() {
   const handleAvatarUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("====");
     const file = event.target.files?.[0];
     if (!file) return;
     if (file.size > 1 * 1024 * 1024) {
-      alert("文件大小不能超过1MB");
+      toast.error(t("profile.error.uploadLimit"));
       return;
     }
 

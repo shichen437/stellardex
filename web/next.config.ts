@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   swcMinify: true,
   productionBrowserSourceMaps: false,
   images: {

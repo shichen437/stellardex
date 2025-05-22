@@ -1,8 +1,13 @@
+.vscode/
+.trae/
+.DS_Store
+
 temp/
 resource/data/
 resource/log/
 
 hack/config.yaml
+manifest/config/config.yaml
 docker-compose.yaml
 *.db
 *.sqlite3

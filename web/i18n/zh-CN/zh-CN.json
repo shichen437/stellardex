@@ -65,7 +65,8 @@
             "email": "邮箱不能为空",
             "emailValid": "邮箱格式不正确",
             "phone": "手机号不能为空",
-            "phoneValid": "手机号格式不正确"
+            "phoneValid": "手机号格式不正确",
+            "uploadLimit": "上传文件大小不能超过1M"
         },
         "placeholder": {
             "oldPwd": "请输入旧密码",

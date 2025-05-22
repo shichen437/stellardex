@@ -65,7 +65,8 @@
             "email": "The email can not be empty.",
             "emailValid": "The email is not valid.",
             "phone": "The phone can not be empty.",
-            "phoneValid": "The phone is not valid."
+            "phoneValid": "The phone is not valid.",
+            "uploadLimit": "Upload file size can not be more than 1M"
         },
         "placeholder": {
             "oldPwd": "Please input old password",

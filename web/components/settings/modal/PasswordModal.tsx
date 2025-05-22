@@ -59,11 +59,11 @@ export const PasswordModal = () => {
     try {
       const res = await updatePwd(values.oldPwd, values.newPwd);
       if (res.code === 0) {
-        toast.success("修改成功");
+        toast.success(t("toast.success"));
         setOpen(false);
         form.reset();
       } else {
-        form.setError("root", { message: res.msg });
+        toast.error(res.msg);
       }
     } catch (e) {
       console.error(e);
