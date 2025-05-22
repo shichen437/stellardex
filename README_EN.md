@@ -26,9 +26,9 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 ## 📸 Preview
 
-## 📦 Deployment
+## 📦 Develop & Deployment
 
-### Local Development
+### Local Develop
 1. Clone this repository:
 ```bash
 git clone github.com/shichen437/stellardex.git

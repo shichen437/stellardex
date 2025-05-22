@@ -29,8 +29,17 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
 - 响应式设计，适配多终端
 
 ## 📸 预览
+<div align="center">
+  <img src="resource/assets/screenshots/navigation-grid.png" alt="navigation-grid" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/navigation-row.png" alt="navigation-row" width="45%">
+</div>
 
-## 📦 部署
+<div align="center" style="margin-top: 20px">
+  <img src="resource/assets/screenshots/homepage-dark.png" alt="homepage-dark" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/starry-dark.png" alt="starry-dark" width="45%">
+</div>
+
+## 📦 开发&部署
 
 ### 本地开发
 1. 克隆本仓库到本地：

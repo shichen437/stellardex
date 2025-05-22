@@ -15,8 +15,8 @@ COPY main.go $WORKDIR/main.go
 
 ENV GOPROXY=https://goproxy.cn,direct
 
-RUN go mod tidy
-RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o main .
+RUN go mod tidy && \
+    CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main .
 
 ###############################################################################
 #                                next-build
@@ -24,15 +24,16 @@ RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o main .
 FROM node:20-alpine AS next-builder
 WORKDIR /app
 COPY web .
-RUN rm -rf node_modules
-RUN rm -rf .next
-RUN npm install
-RUN npm run build:prod
+RUN rm -rf node_modules .next && \
+    npm install && \
+    npm run build:prod && \
+    npm prune --production && \
+    rm -rf /app/.next/cache
 
 ###############################################################################
 #                                stellardex-build
 ###############################################################################
-FROM --platform=linux/amd64 node:20-alpine
+FROM --platform=linux/amd64 alpine:3.19
 
 LABEL maintainer="shichen437 <shichen437@126.com>"
 LABEL version="0.0.1"
@@ -46,9 +47,10 @@ ENV PROJECT_DATA=$WORKDIR/resource/data
 
 USER root
 RUN mkdir -p $PROJECT_DATA && \
-    apk --no-cache add tzdata coreutils build-base sqlite-dev && \
+    apk --no-cache add tzdata sqlite-libs nodejs npm && \
     ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone
+    echo $TZ > /etc/timezone && \
+    rm -rf /var/cache/apk/*
 
 COPY web/.env.production /web/.env.production
 COPY --from=next-builder /app/.next/standalone /web

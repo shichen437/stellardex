@@ -27,8 +27,10 @@ export default function LoginPage() {
   const router = useRouter();
   const login = useUserStore((state) => state.login);
   const { t, setLanguage } = usePolyglot();
-
   useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.title = "Stellardex";
+    }
     getDefaultLang().then((res) => {
       if (res?.code === 0 && res?.data?.lang) {
         setLanguage(res.data.lang);
