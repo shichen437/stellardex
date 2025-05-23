@@ -174,7 +174,7 @@ func checkGroupName(ctx context.Context, uid, groupId int, name string) bool {
 		Where(dao.UserGroup.Columns().UserId, uid).
 		Where(dao.UserGroup.Columns().GroupName, name)
 	if groupId != 0 {
-		m.WhereNot(dao.UserGroup.Columns().Id, groupId)
+		m = m.WhereNot(dao.UserGroup.Columns().Id, groupId)
 	}
 	num, _ := m.Count()
 	return num == 0
