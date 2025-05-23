@@ -17,8 +17,12 @@ import { useUserStore } from "@/lib/store/user";
 import { useIsMobile } from "@/hooks/useMobile";
 import { LogoutModal } from "@/components/settings/modal/LogoutModal";
 
-export default function Home() {
+function GlobalAuthListener() {
   useAuth();
+  return null;
+}
+
+export default function Home() {
   const [showSettings, setShowSettings] = useState(false);
   const settings = useSettingsStore((state) => state.settings);
   const getSettings = useSettingsStore((state) => state.getSettings);
@@ -93,6 +97,7 @@ export default function Home() {
 
   return (
     <>
+    <GlobalAuthListener />
       <div className="fixed top-4 right-4 z-50">
         {isMobile ? (
           <button

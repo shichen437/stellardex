@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getToken } from "@/lib/store/auth";
-
-const isRelogin = { show: false };
+import { useUserStore } from "@/lib/store/user";
 
 const serviceConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_PREFIX,
@@ -42,14 +41,13 @@ async function responseInterceptor(response: Response) {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-
   const data = await response.json();
-  if (data.code === 401) {
-    if (!isRelogin.show) {
-      isRelogin.show = true;
-      window.dispatchEvent(new CustomEvent("unauthorized", { detail: data }));
+  if (data.code === 401 || data.code === -401) {
+    if (typeof window !== "undefined") {
+      useUserStore.getState().logout();
+      window.location.href = "/login";
     }
-    throw new Error("登录已过期，请重新登录。");
+    return Promise.reject(data);
   }
 
   return data;
@@ -59,9 +57,9 @@ function errorHandler(error: Error) {
   let message = error.message;
 
   if (message.includes("Failed to fetch")) {
-    message = "后端接口连接异常";
+    message = "Server connection failed";
   } else if (message.includes("timeout")) {
-    message = "系统接口请求超时";
+    message = "Request timed out";
   } else if (message.includes("HTTP error")) {
     message = `系统接口${message.split(": ")[1]}异常`;
   }
