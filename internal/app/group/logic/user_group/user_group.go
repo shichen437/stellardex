@@ -54,6 +54,11 @@ func (c *sUserGroup) Add(ctx context.Context, req *v1.PostGroupReq) (res *v1.Pos
 		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
+	checked := checkGroupName(ctx, uid, 0, req.Name)
+	if !checked {
+		err = gerror.New("group.valid.GroupNameExists")
+		return
+	}
 	orderNum, _ := dao.UserGroup.Ctx(ctx).
 		Where(dao.UserGroup.Columns().UserId, uid).
 		Count()
@@ -61,7 +66,7 @@ func (c *sUserGroup) Add(ctx context.Context, req *v1.PostGroupReq) (res *v1.Pos
 		GroupName:   req.Name,
 		DisplayType: req.DisplayType,
 		IsShow:      1,
-		OrderNum:    gconv.Int(orderNum) + 1,
+		OrderNum:    orderNum + 1,
 		UserId:      uid,
 		CreateAt:    utils.Now(),
 	})
@@ -72,6 +77,11 @@ func (c *sUserGroup) Update(ctx context.Context, req *v1.PutGroupReq) (res *v1.P
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {
 		err = gerror.New("auth.UserIDEmpty")
+		return
+	}
+	checked := checkGroupName(ctx, uid, req.Id, req.Name)
+	if !checked {
+		err = gerror.New("group.valid.GroupNameExists")
 		return
 	}
 	_, err = dao.UserGroup.Ctx(ctx).
@@ -91,10 +101,18 @@ func (c *sUserGroup) Delete(ctx context.Context, req *v1.DeleteGroupReq) (res *v
 		err = gerror.New("auth.UserIDEmpty")
 		return
 	}
-	_, err = dao.UserGroup.Ctx(ctx).
+	result, err := dao.UserGroup.Ctx(ctx).
 		Where(dao.UserGroup.Columns().Id, req.Id).
 		Where(dao.UserGroup.Columns().UserId, uid).
 		Delete()
+	if err == nil {
+		num, err := result.RowsAffected()
+		if err == nil && num > 0 {
+			dao.UserGroupItem.Ctx(ctx).
+				Where(dao.UserGroupItem.Columns().GroupId, req.Id).
+				Delete()
+		}
+	}
 	return
 }
 
@@ -149,4 +167,15 @@ func (c *sUserGroup) UpdateOrder(ctx context.Context, req *v1.PutGroupOrderReq) 
 		return nil
 	})
 	return
+}
+
+func checkGroupName(ctx context.Context, uid, groupId int, name string) bool {
+	m := dao.UserGroup.Ctx(ctx).
+		Where(dao.UserGroup.Columns().UserId, uid).
+		Where(dao.UserGroup.Columns().GroupName, name)
+	if groupId != 0 {
+		m.WhereNot(dao.UserGroup.Columns().Id, groupId)
+	}
+	num, _ := m.Count()
+	return num == 0
 }

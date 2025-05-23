@@ -2,6 +2,7 @@
 
 "group.valid.GroupNameEmpty"="Group name can not be empty"
 "group.valid.GroupNameLength"="Group name length is 1-12"
+"group.valid.GroupNameExists"="Group name already exists"
 
 "group.valid.DisplayTypeEmpty"="Group display type can not be empty"
 
