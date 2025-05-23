@@ -182,7 +182,7 @@ export function GroupItemModal({
             {watchedIconUrl}
           </div>
         ) : (
-          <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md overflow-hidden bg-white dark:bg-gray-800">
+          <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md overflow-hidden">
             {watchedIconType === "image" && watchedIconUrl && (
               <Image
                 src={watchedIconUrl}
@@ -199,7 +199,7 @@ export function GroupItemModal({
             )}
             {watchedIconType === "lucide" && watchedIconUrl && (
               <div
-                className="text-gray-700 dark:text-gray-300 w-6 h-6"
+                className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center overflow-hidden"
                 dangerouslySetInnerHTML={{
                   __html: watchedIconUrl,
                 }}
@@ -261,10 +261,14 @@ export function GroupItemModal({
                 <div className="w-[120px] flex flex-col items-center">
                   <div
                     className="w-16 h-16 flex items-center justify-center rounded-lg overflow-hidden mb-2"
-                    style={{
-                      backgroundColor: watchedBgColor,
-                      opacity: watchedOpacity,
-                    }}
+                    style={
+                      watchedIconType === "image"
+                        ? undefined
+                        : {
+                            backgroundColor: watchedBgColor,
+                            opacity: watchedOpacity,
+                          }
+                    }
                   >
                     {watchedIconType === "text" ? (
                       <span
@@ -291,7 +295,7 @@ export function GroupItemModal({
                       />
                     ) : watchedIconType === "lucide" && watchedIconUrl ? (
                       <div
-                        className="text-gray-700 dark:text-gray-300 w-10 h-10"
+                        className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center overflow-hidden"
                         dangerouslySetInnerHTML={{
                           __html: watchedIconUrl,
                         }}
@@ -333,6 +337,7 @@ export function GroupItemModal({
                       <FormControl>
                         <Input
                           placeholder={t("groupItem.placeholder.desc")}
+                          maxLength={30}
                           {...field}
                           className="dark:bg-popover dark:border-gray-600"
                         />
@@ -431,7 +436,9 @@ export function GroupItemModal({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full dark:bg-popover dark:border-gray-600">
-                          <SelectValue placeholder={t("groupItem.placeholder.iconType")} />
+                          <SelectValue
+                            placeholder={t("groupItem.placeholder.iconType")}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

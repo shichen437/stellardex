@@ -112,7 +112,7 @@ export function NavigationModeView() {
 
   const { t } = usePolyglot();
   return (
-    <div className="min-h-screen w-full relative flex flex-col">
+    <div className="min-h-screen w-full relative flex flex-col overflow-x-hidden">
       {settings.moduleConfig?.showMeteors && (
         <Meteors number={20} minDuration={2.5} maxDuration={10} />
       )}
@@ -138,7 +138,7 @@ export function NavigationModeView() {
         <div
           className={`w-full max-w-6xl ${
             settings.groupConfig?.groupLayout === "grid"
-              ? "columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
+              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               : "space-y-6"
           }`}
         >
@@ -159,7 +159,9 @@ export function NavigationModeView() {
                   <div className="flex items-center mb-4">
                     <h3 className="text-lg font-medium">{group.groupName}</h3>
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         setSelectedGroupId(group.id);
                         setShowGroupItemModal(true);
                       }}

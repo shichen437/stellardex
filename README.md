@@ -3,14 +3,9 @@
 </p>
 
 <h1 align="center">StellarDex</h1>
-
-<p align="center">
-  简体中文 ｜ <a href="./README_EN.md">English</a>
-</p>
-
-<p align="center">
-
-</p>
+<div align="center">
+  简体中文 ｜ <a href="./README_EN.md"> English </a>
+</div>
 
 ---
 
@@ -30,13 +25,13 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
 
 ## 📸 预览
 <div align="center">
-  <img src="resource/assets/screenshots/navigation-grid.png" alt="navigation-grid" width="45%">&nbsp;&nbsp;
-  <img src="resource/assets/screenshots/navigation-row.png" alt="navigation-row" width="45%">
+  <img src="resource/assets/screenshots/navigation-grid.png" alt="导航-网格" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/navigation-row.png" alt="导航-列表" width="45%">
 </div>
 
 <div align="center" style="margin-top: 20px">
-  <img src="resource/assets/screenshots/homepage-dark.png" alt="homepage-dark" width="45%">&nbsp;&nbsp;
-  <img src="resource/assets/screenshots/starry-dark.png" alt="starry-dark" width="45%">
+  <img src="resource/assets/screenshots/homepage-dark.png" alt="主页-深色" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/starry-dark.png" alt="星空-深色" width="45%">
 </div>
 
 ## 📦 开发&部署

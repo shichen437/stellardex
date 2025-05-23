@@ -14,11 +14,11 @@ export function SiteManagementTab({ settings, onSettingsChange }: SiteManagement
 
   useEffect(() => {
     const newTitle = settings.siteConfig.siteTitle || '';
-    setSiteTitle(newTitle.slice(0, 10));
+    setSiteTitle(newTitle.slice(0, 20));
     if (newTitle) {
       document.title = newTitle;
     }
-    setSiteFooter((settings.siteConfig.siteFooter || '').slice(0, 30));
+    setSiteFooter((settings.siteConfig.siteFooter || '').slice(0, 50));
   }, [settings.siteConfig.siteTitle, settings.siteConfig.siteFooter]);
 
   const handleSiteTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,8 +60,8 @@ export function SiteManagementTab({ settings, onSettingsChange }: SiteManagement
           value={siteTitle}
           onChange={handleSiteTitleChange}
           placeholder={t("site.placeholder.title")}
-          maxLength={10}
-          className="w-full px-3 py-2 border rounded-md dark:bg-black dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          maxLength={20}
+          className="w-full px-3 py-2 border rounded-md dark:bg-black dark:border-gray-700/20 focus:outline-none focus:ring-1 focus:ring-grey-300"
         />
       </div>
 
@@ -75,8 +75,8 @@ export function SiteManagementTab({ settings, onSettingsChange }: SiteManagement
           value={siteFooter}
           onChange={handleSiteFooterChange}
           placeholder={t("site.placeholder.footer")}
-          maxLength={30}
-          className="w-full px-3 py-2 border rounded-md dark:bg-black dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          maxLength={50}
+          className="w-full px-3 py-2 border rounded-md dark:bg-black dark:border-gray-700/20 focus:outline-none focus:ring-1 focus:ring-grey-300"
         />
       </div>
     </div>

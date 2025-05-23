@@ -51,6 +51,8 @@ export default function Home() {
   useEffect(() => {
     if (settings?.siteConfig?.siteTitle) {
       document.title = settings.siteConfig.siteTitle;
+    } else {
+      document.title = "Stellardex";
     }
   }, [settings?.siteConfig?.siteTitle]);
 

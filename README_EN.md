@@ -3,10 +3,9 @@
 </p>
 
 <h1 align="center">StellarDex</h1>
-
-<p align="center">
+<div align="center">
   <a href="./README.md">简体中文</a> ｜ English
-</p>
+</div>
 
 ---
 
@@ -25,6 +24,15 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 - Responsive design for multiple devices
 
 ## 📸 Preview
+<div align="center">
+  <img src="resource/assets/screenshots/navigation-grid.png" alt="navigation-grid" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/navigation-row.png" alt="navigation-row" width="45%">
+</div>
+
+<div align="center" style="margin-top: 20px">
+  <img src="resource/assets/screenshots/homepage-dark.png" alt="homepage-dark" width="45%">&nbsp;&nbsp;
+  <img src="resource/assets/screenshots/starry-dark.png" alt="starry-dark" width="45%">
+</div>
 
 ## 📦 Develop & Deployment
 

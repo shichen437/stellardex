@@ -42,7 +42,7 @@ export function RowItemIcon({ item, getContrastColor }: RowItemIconProps) {
   return (
     <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-xl">
       <div
-        className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center"
+        className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center overflow-hidden"
         dangerouslySetInnerHTML={{
           __html: item.iconUrl,
         }}

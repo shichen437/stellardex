@@ -75,7 +75,7 @@ export function HomepageModeView() {
   const currentGroup = groupList.find((group) => group.id === selectedGroupId);
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col">
+    <div className="min-h-screen w-full relative flex flex-col overflow-x-hidden">
       {settings.moduleConfig?.showMeteors && (
         <Meteors number={20} minDuration={2.5} maxDuration={10} />
       )}

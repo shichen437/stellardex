@@ -29,7 +29,8 @@ export function GroupItemIcon({ item, size }: GroupItemIconProps) {
                     priority
                 />
             ) : (
-                <span
+                <div
+                    key={item.id}
                     className="w-full h-full rounded-full flex items-center justify-center"
                     style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                     dangerouslySetInnerHTML={{ __html: item.iconUrl }}
