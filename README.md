@@ -112,6 +112,7 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
     docker-compose up -d
 ```
 5. 访问 URL_ADDRESS:{YOUR_PORT} 查看应用。
+6. 初始账号密码：admin/stellardex
 
 ## 🛠️ 技术栈
 - 后端：Goframe / sqlite

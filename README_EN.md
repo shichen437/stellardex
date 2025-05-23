@@ -111,7 +111,8 @@ npm run dev # or yarn dev
 ```bash
     docker-compose up -d
 ```
-1. Visit URL_ADDRESS:{YOUR_PORT} to view the application.
+5. Visit URL_ADDRESS:{YOUR_PORT} to view the application.
+6. Init account: admin/stellardex
 
 ## 🛠️ Tech Stack
 - Backend: Goframe / sqlite
