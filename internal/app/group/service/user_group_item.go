@@ -18,6 +18,7 @@ type (
 		Add(ctx context.Context, req *v1.PostGroupItemReq) (res *v1.PostGroupItemRes, err error)
 		Update(ctx context.Context, req *v1.PutGroupItemReq) (res *v1.PutGroupItemRes, err error)
 		Delete(ctx context.Context, req *v1.DeleteGroupItemReq) (res *v1.DeleteGroupItemRes, err error)
+		LocalIcon(ctx context.Context, req *v1.PostLocalIconReq) (res *v1.PostLocalIconRes, err error)
 	}
 )
 

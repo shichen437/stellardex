@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/shichen437/stellardex/internal/app/group/model/entity"
 )
 
@@ -62,4 +63,13 @@ type DeleteGroupItemReq struct {
 }
 type DeleteGroupItemRes struct {
 	g.Meta `mime:"application/json"`
+}
+
+type PostLocalIconReq struct {
+	g.Meta `path:"/group/item/icon" method:"post" tags:"项目管理" summary:"本地图标上传"`
+	Icon   *ghttp.UploadFile `v:"required#groupItem.valid.FileEmpty" json:"icon" type:"file"`
+}
+type PostLocalIconRes struct {
+	g.Meta  `mime:"application/json"`
+	IconUrl string `json:"iconUrl"`
 }

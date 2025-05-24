@@ -193,10 +193,12 @@
             "iconType": "Icon Type",
             "iconType_text": "Text",
             "iconType_online": "Online",
-            "iconType_lucide": "Lucide Icons",
+            "iconType_lucide": "Lucide",
+            "iconType_local": "Upload",
             "bgColor": "Background Color",
             "imageUrl": "Image Url",
-            "lucide": "Svg Code"
+            "lucide": "Svg Code",
+            "local": "Upload Image"
         },
         "placeholder": {
             "title": "Please input item title",

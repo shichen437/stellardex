@@ -128,6 +128,24 @@ func (c *sUserGroupItem) Delete(ctx context.Context, req *v1.DeleteGroupItemReq)
 	return
 }
 
+func (c *sUserGroupItem) LocalIcon(ctx context.Context, req *v1.PostLocalIconReq) (res *v1.PostLocalIconRes, err error) {
+	res = &v1.PostLocalIconRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("user.valid.UserIdEmpty")
+		return
+	}
+	file := req.Icon
+	file.Filename = "aaa.png"
+	name, err := file.Save(utils.ICONS_PATH, true)
+	if err != nil {
+		err = gerror.New("file.uploadError")
+		return
+	}
+	res.IconUrl = "/icons/" + name
+	return
+}
+
 func hasPermit(ctx context.Context, groupId int) bool {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {

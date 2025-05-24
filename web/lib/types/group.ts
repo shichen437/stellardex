@@ -5,7 +5,7 @@ export interface GroupItem {
   description?: string;
   url: string;
   lanUrl?: string;
-  iconType: "text" | "image" | "lucide";
+  iconType: "text" | "image" | "lucide" | "local";
   iconUrl: string;
   bgColor?: string;
   opacity?: number;

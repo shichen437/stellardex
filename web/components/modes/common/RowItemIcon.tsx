@@ -15,9 +15,7 @@ export function RowItemIcon({ item, getContrastColor }: RowItemIconProps) {
         className="w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-xl text-2xl font-bold"
         style={{
           backgroundColor: item?.bgColor || "#f3f4f6",
-          color: item?.bgColor
-            ? getContrastColor(item.bgColor)
-            : "#333",
+          color: item?.bgColor ? getContrastColor(item.bgColor) : "#333",
         }}
       >
         {item.title.slice(0, 2)}
@@ -25,11 +23,15 @@ export function RowItemIcon({ item, getContrastColor }: RowItemIconProps) {
     );
   }
 
-  if (item.iconType === "image") {
+  if (item.iconType === "image" || item.iconType === "local") {
+    let srcUrl = item.iconUrl;
+    if (item.iconType === "local") {
+      srcUrl = `${process.env.NEXT_PUBLIC_API_PREFIX}${item.iconUrl}`;
+    }
     return (
       <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-xl overflow-hidden">
         <Image
-          src={item.iconUrl}
+          src={srcUrl}
           alt={item.title}
           width={56}
           height={56}

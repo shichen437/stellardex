@@ -32,3 +32,7 @@ func (c *sysGroupItemController) Update(ctx context.Context, req *v1.PutGroupIte
 func (c *sysGroupItemController) Delete(ctx context.Context, req *v1.DeleteGroupItemReq) (res *v1.DeleteGroupItemRes, err error) {
 	return service.UserGroupItem().Delete(ctx, req)
 }
+
+func (c *sysGroupItemController) LocalIcon(ctx context.Context, req *v1.PostLocalIconReq) (res *v1.PostLocalIconRes, err error) {
+	return service.UserGroupItem().LocalIcon(ctx, req)
+}

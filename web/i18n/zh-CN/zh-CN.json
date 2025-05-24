@@ -193,10 +193,12 @@
             "iconType": "图标类型",
             "iconType_text": "文本",
             "iconType_online": "在线获取",
-            "iconType_lucide": "Lucide 图标",
+            "iconType_lucide": "Lucide图标",
+            "iconType_local": "本地上传",
             "bgColor": "背景颜色",
             "imageUrl": "图片链接",
-            "lucide": "SVG代码"
+            "lucide": "SVG代码",
+            "local": "上传图片"
         },
         "placeholder": {
             "title": "请输入项目标题",

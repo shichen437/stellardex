@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { Upload } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Sketch } from "@uiw/react-color";
-import Image from "next/image";
 import type { GroupItem } from "@/lib/types/group";
 import {
   Select,
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
@@ -23,8 +24,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { getContrastColor, getFaviconUrl } from "@/lib/utils";
+import { getFaviconUrl } from "@/lib/utils";
 import { usePolyglot } from "@/providers/PolyglotProvider";
+import { PreviewCard } from "./PreviewCard";
+import { PreviewIcon } from "./PreviewIcon";
+import { postIcon } from "@/api/group_item";
 
 interface GroupItemModalProps {
   item?: GroupItem | null;
@@ -59,7 +63,7 @@ export function GroupItemModal({
       .url({ message: t("groupItem.error.lanUrlValid") })
       .optional()
       .or(z.literal("")),
-    iconType: z.enum(["text", "image", "lucide"]),
+    iconType: z.enum(["text", "image", "lucide", "local"]),
     iconUrl: z.string(),
     bgColor: z.string(),
     opacity: z.number().min(0).max(1),
@@ -129,18 +133,12 @@ export function GroupItemModal({
 
   const handleGetFavicon = () => {
     const currentUrl = form.getValues("url");
-    if (!currentUrl?.trim()) {
-      form.setError("url", { type: "manual", message: "请先输入网站链接" });
-      return;
-    }
     try {
       const faviconUrl = getFaviconUrl(currentUrl);
       if (!faviconUrl) throw new Error("无效链接");
       form.setValue("iconType", "image");
       form.setValue("iconUrl", faviconUrl);
-      form.clearErrors("url");
     } catch (error) {
-      form.setError("url", { type: "manual", message: "请输入有效的网站链接" });
       console.error(error);
     }
   };
@@ -162,81 +160,6 @@ export function GroupItemModal({
     onSubmit(submittedItem);
   };
 
-  const PreviewCard = () => (
-    <div
-      className="relative h-[72px] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
-      style={{
-        backgroundColor: watchedBgColor,
-        opacity: watchedOpacity,
-      }}
-    >
-      <div className="absolute inset-0 flex items-center p-4">
-        {watchedIconType === "text" ? (
-          <div
-            className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md text-xl font-bold"
-            style={{
-              backgroundColor: watchedBgColor,
-              color: watchedBgColor ? getContrastColor(watchedBgColor) : "#333",
-            }}
-          >
-            {watchedIconUrl}
-          </div>
-        ) : (
-          <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md overflow-hidden">
-            {watchedIconType === "image" && watchedIconUrl && (
-              <Image
-                src={watchedIconUrl}
-                alt={watchedTitle}
-                width={40}
-                height={40}
-                className="object-contain"
-                unoptimized={
-                  watchedIconUrl.startsWith("data:") ||
-                  watchedIconUrl.startsWith("blob:")
-                }
-                onError={() => {}}
-              />
-            )}
-            {watchedIconType === "lucide" && watchedIconUrl && (
-              <div
-                className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center overflow-hidden"
-                dangerouslySetInnerHTML={{
-                  __html: watchedIconUrl,
-                }}
-              />
-            )}
-          </div>
-        )}
-        <div
-          className={`flex-1 min-w-0 ${
-            watchedIconType !== "text" ? "ml-4" : "ml-4"
-          }`}
-        >
-          <h4
-            className="text-base font-medium truncate"
-            style={{
-              color: watchedBgColor
-                ? getContrastColor(watchedBgColor)
-                : "inherit",
-            }}
-          >
-            {watchedTitle || t("groupItem.fields.title")}
-          </h4>
-          <p
-            className="text-sm mt-1 truncate"
-            style={{
-              color: watchedBgColor
-                ? getContrastColor(watchedBgColor, 0.7)
-                : "inherit",
-            }}
-          >
-            {watchedDescription || t("groupItem.placeholder.desc")}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   return (
@@ -256,52 +179,23 @@ export function GroupItemModal({
             <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl">
               <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-6">
                 <div className="w-full sm:w-[360px]">
-                  <PreviewCard />
+                  <PreviewCard
+                    title={watchedTitle}
+                    description={watchedDescription}
+                    iconType={watchedIconType}
+                    iconUrl={watchedIconUrl}
+                    bgColor={watchedBgColor}
+                    opacity={watchedOpacity}
+                  />
                 </div>
                 <div className="w-[120px] flex flex-col items-center">
-                  <div
-                    className="w-16 h-16 flex items-center justify-center rounded-lg overflow-hidden mb-2"
-                    style={
-                      watchedIconType === "image"
-                        ? undefined
-                        : {
-                            backgroundColor: watchedBgColor,
-                            opacity: watchedOpacity,
-                          }
-                    }
-                  >
-                    {watchedIconType === "text" ? (
-                      <span
-                        className="text-3xl font-bold"
-                        style={{
-                          color: watchedBgColor
-                            ? getContrastColor(watchedBgColor)
-                            : "#333",
-                        }}
-                      >
-                        {watchedIconUrl}
-                      </span>
-                    ) : watchedIconType === "image" && watchedIconUrl ? (
-                      <Image
-                        src={watchedIconUrl}
-                        alt={watchedTitle}
-                        width={64}
-                        height={64}
-                        className="object-contain"
-                        unoptimized={
-                          watchedIconUrl.startsWith("data:") ||
-                          watchedIconUrl.startsWith("blob:")
-                        }
-                      />
-                    ) : watchedIconType === "lucide" && watchedIconUrl ? (
-                      <div
-                        className="text-gray-700 dark:text-gray-300 w-12 h-12 flex items-center justify-center overflow-hidden"
-                        dangerouslySetInnerHTML={{
-                          __html: watchedIconUrl,
-                        }}
-                      />
-                    ) : null}
-                  </div>
+                  <PreviewIcon
+                    iconType={watchedIconType}
+                    iconUrl={watchedIconUrl}
+                    title={watchedTitle}
+                    bgColor={watchedBgColor}
+                    opacity={watchedOpacity}
+                  />
                   <span className="text-sm text-center truncate w-full text-gray-700 dark:text-gray-300">
                     {watchedTitle || t("groupItem.fields.title")}
                   </span>
@@ -445,11 +339,14 @@ export function GroupItemModal({
                         <SelectItem value="text">
                           {t("groupItem.fields.iconType_text")}
                         </SelectItem>
-                        <SelectItem value="image">
-                          {t("groupItem.fields.iconType_online")}
-                        </SelectItem>
                         <SelectItem value="lucide">
                           {t("groupItem.fields.iconType_lucide")}
+                        </SelectItem>
+                        <SelectItem value="local">
+                          {t("groupItem.fields.iconType_local")}
+                        </SelectItem>
+                        <SelectItem value="image" disabled>
+                          {t("groupItem.fields.iconType_online")}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -532,35 +429,87 @@ export function GroupItemModal({
                         t("groupItem.fields.imageUrl")}
                       {watchedIconType === "lucide" &&
                         t("groupItem.fields.lucide")}
+                      {watchedIconType === "local" &&
+                        t("groupItem.fields.local")}
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type={watchedIconType === "image" ? "url" : "text"}
-                        placeholder={
-                          watchedIconType === "image"
-                            ? t("groupItem.placeholder.imageUrl")
-                            : t("groupItem.placeholder.lucide")
-                        }
-                        {...field}
-                        className="dark:bg-popover dark:border-gray-600"
-                        disabled={
-                          watchedIconType === "image" &&
-                          form.getValues("url")?.trim() !== "" &&
-                          getFaviconUrl(form.getValues("url")) === field.value
-                        }
-                      />
+                      {watchedIconType === "local" ? (
+                        <div className="flex items-center gap-2">
+                          <Button
+                            type="button"
+                            onClick={() =>
+                              document.getElementById("icon-upload")?.click()
+                            }
+                            variant="outline"
+                            className="px-3 py-2"
+                          >
+                            <Upload className="w-4 h-4 mr-2" />
+                            {t("groupItem.fields.local")}
+                          </Button>
+                          <input
+                            id="icon-upload"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const formData = new FormData();
+                                formData.append("icon", file);
+                                try {
+                                  const res = await postIcon(formData);
+                                  form.setValue("iconUrl", res.data.iconUrl);
+                                } catch (error) {
+                                  console.error(error);
+                                }
+                              }
+                            }}
+                          />
+                          <Input
+                            value={field.value}
+                            readOnly
+                            className="flex-1 dark:bg-popover dark:border-gray-600"
+                          />
+                        </div>
+                      ) : (
+                        <Input
+                          type={watchedIconType === "image" ? "url" : "text"}
+                          placeholder={
+                            watchedIconType === "image"
+                              ? t("groupItem.placeholder.imageUrl")
+                              : t("groupItem.placeholder.lucide")
+                          }
+                          {...field}
+                          className="dark:bg-popover dark:border-gray-600"
+                          disabled={
+                            watchedIconType === "image" &&
+                            form.getValues("url")?.trim() !== "" &&
+                            getFaviconUrl(form.getValues("url")) === field.value
+                          }
+                        />
+                      )}
                     </FormControl>
                     {watchedIconType === "lucide" && (
-                      <FormDescription>
-                        {" "}
-                        <a
-                          href="https://lucide.dev/icons/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
-                        >
-                          Lucide Icons
-                        </a>{" "}
+                      <FormDescription className="flex space-x-2">
+                        <>
+                          <a
+                            href="https://lucide.dev/icons/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sky-600 hover:underline"
+                          >
+                            Lucide Icons
+                          </a>
+                          <Separator orientation="vertical" />
+                          <a
+                            href="https://www.iconfont.cn/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sky-600 hover:underline"
+                          >
+                            iconfont
+                          </a>
+                        </>
                       </FormDescription>
                     )}
                     <FormMessage />

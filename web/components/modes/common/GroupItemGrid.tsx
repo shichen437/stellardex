@@ -1,5 +1,5 @@
 import type { GroupItem } from "@/lib/types/group";
-import { RowItemIcon } from "./GroupItemRow";
+import { RowItemIcon } from "./RowItemIcon";
 import { getContrastColor } from "../../../lib/utils";
 import { GroupItemContextMenu } from "../context/GroupItemContextMenu";
 
