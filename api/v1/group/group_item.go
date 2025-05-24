@@ -67,7 +67,7 @@ type DeleteGroupItemRes struct {
 
 type PostLocalIconReq struct {
 	g.Meta `path:"/group/item/icon" method:"post" tags:"项目管理" summary:"本地图标上传"`
-	Icon   *ghttp.UploadFile `v:"required#groupItem.valid.FileEmpty" json:"icon" type:"file"`
+	Icon   *ghttp.UploadFile `v:"required#file.emptyFile" json:"icon" type:"file"`
 }
 type PostLocalIconRes struct {
 	g.Meta  `mime:"application/json"`

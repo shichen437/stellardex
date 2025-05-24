@@ -13,4 +13,5 @@
 "data.RecordNotFound"="Record not found"
 "data.ListFailed"="Get list failed"
 
+"file.emptyFile"="Upload file cannot be empty"
 "file.uploadError"="Upload failed"

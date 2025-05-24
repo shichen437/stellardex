@@ -58,6 +58,7 @@ var (
 					bindRoute(group)
 				})
 			})
+			JobInit()
 			s.Run()
 			return nil
 		},
