@@ -14,6 +14,7 @@ import (
 	"github.com/shichen437/stellardex/internal/app/settings/dao"
 	"github.com/shichen437/stellardex/internal/app/settings/model"
 	"github.com/shichen437/stellardex/internal/app/settings/model/do"
+	"github.com/shichen437/stellardex/internal/app/settings/model/entity"
 	"github.com/shichen437/stellardex/internal/app/settings/service"
 	"github.com/shichen437/stellardex/internal/pkg/utils"
 )
@@ -107,6 +108,87 @@ func (s *sUserSettings) GetDefaultLang(ctx context.Context, req *v1.GetDefaultLa
 		lang = "zh-CN"
 	}
 	res.Lang = lang
+	return
+}
+
+func (s *sUserSettings) BgImage(ctx context.Context, req *v1.PostBgImageReq) (res *v1.PostBgImageRes, err error) {
+	res = &v1.PostBgImageRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("user.valid.UserIdEmpty")
+		return
+	}
+	file := req.BgImage
+	var format string
+	if format = utils.GetFileFormat(file.Filename); format == "" {
+		format = "jpeg"
+	}
+	file.Filename = "aaa." + format
+	name, err := file.Save(utils.BG_IMAGE_PATH, true)
+	if err != nil {
+		err = gerror.New("file.uploadError")
+		return
+	}
+	_, err = dao.UserImg.Ctx(ctx).Insert(do.UserImg{
+		UserId:   uid,
+		Url:      "/background/" + name,
+		Type:     consts.UserImagTypeBg,
+		CreateAt: utils.Now(),
+	})
+	if err != nil {
+		err = gerror.New("data.AddFailed")
+		return
+	}
+	res.ImageUrl = "/background/" + name
+	return
+}
+
+func (s *sUserSettings) BgImageList(ctx context.Context, req *v1.GetBgImageListReq) (res *v1.GetBgImageListRes, err error) {
+	res = &v1.GetBgImageListRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("user.valid.UserIdEmpty")
+		return
+	}
+	var list []*entity.UserImg
+	m := dao.UserImg.Ctx(ctx).
+		Where(dao.UserImg.Columns().UserId, uid).
+		Where(dao.UserImg.Columns().Type, consts.UserImagTypeBg).
+		OrderDesc(dao.UserImg.Columns().Id)
+	total, err := m.Count()
+	if total > 0 && err == nil {
+		err = m.Page(req.PageNum, req.PageSize).Scan(&list)
+		if err != nil {
+			err = gerror.New("data.ListFailed")
+			return
+		}
+		res.Total = total
+		res.Rows = list
+	}
+	return
+}
+
+func (s *sUserSettings) BgImageDelete(ctx context.Context, req *v1.DeleteBgImageReq) (res *v1.DeleteBgImageRes, err error) {
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("user.valid.UserIdEmpty")
+		return
+	}
+	var img *entity.UserImg
+	dao.UserImg.Ctx(ctx).
+		Where(dao.UserImg.Columns().Id, req.Id).
+		Where(dao.UserImg.Columns().UserId, uid).
+		Where(dao.UserImg.Columns().Type, consts.UserImagTypeBg).
+		Scan(&img)
+	if img == nil {
+		return
+	}
+	_, err = dao.UserImg.Ctx(ctx).WherePri(req.Id).Delete()
+	if err != nil {
+		err = gerror.New("data.DeleteFailed")
+		return
+	}
+	utils.RemoveFile(img.Url)
 	return
 }
 

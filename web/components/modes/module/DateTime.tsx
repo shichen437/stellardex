@@ -53,7 +53,7 @@ export function DateTime({ language, showClock, showCalendar, calendarFormat }: 
         </div>
       )}
       {showCalendar && (
-        <div className="text-lg text-gray-500 dark:text-gray-400 mt-1">
+        <div className="text-lg text-gray-600 dark:text-gray-400 mt-1">
           {currentTime ? formattedDate() : ''}
         </div>
       )}

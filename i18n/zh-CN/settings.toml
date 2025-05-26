@@ -3,3 +3,5 @@
 "settings.error.Get" = "获取用户配置失败"
 "settings.error.Update" = "更新用户配置失败"
 "settings.error.NotFound" = "用户配置不存在"
+
+"settings.valid.BgImgIdEmpty" = "背景图片ID不能为空"

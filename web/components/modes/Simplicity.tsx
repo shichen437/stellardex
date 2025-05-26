@@ -14,6 +14,19 @@ export function SimpleModeView() {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center -mt-32">
+      {settings.interfaceConfig?.bgImage && (
+        <div
+          className="fixed inset-0 w-full h-full -z-10 before:fixed before:inset-0 before:w-full before:h-full before:bg-black/5 dark:before:bg-black/30"
+          style={{
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_API_PREFIX}${settings.interfaceConfig.bgImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            filter: `blur(${settings.interfaceConfig?.bgImageBlurred || 0}px)`,
+          }}
+        />
+      )}
+
       <div className="w-full max-w-3xl px-4">
         <div className="transform scale-110">
           {mounted && (

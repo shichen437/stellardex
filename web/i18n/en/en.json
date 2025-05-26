@@ -89,6 +89,10 @@
         "starryMode": "Starry Mode",
         "homepageMode": "Homepage Mode",
         "simplicityMode": "Simplicity Mode",
+        "wallpaper": "Wallpaper",
+        "moreWallpapers": "More",
+        "uploadWallpaper": "Upload",
+        "blurred": "Blurred",
         "placeholder": {
             "theme": "Please select theme",
             "language": "Please select language",

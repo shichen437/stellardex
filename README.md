@@ -34,44 +34,8 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
   <img src="resource/assets/screenshots/starry-dark.png" alt="星空-深色" width="45%">
 </div>
 
-## 📦 开发&部署
+## 📦 Docker部署
 
-### 本地开发
-1. 克隆本仓库到本地：
-```bash
-    git clone github.com/shichen437/stellardex.git
-```
-2. 进入项目目录：
-```bash
-    cd stellardex
-```
-3. 安装依赖：
-```bash
-    go mod tidy
-    # 热更新需安装gf-cli
-    make cli-install
-```
-4. 启动后端服务：
-```bash
-    go run main.go
-    # 热更新
-    gf run main.go
-```
-5. 进入前端目录：
-```bash
-    cd web
-```
-3. 安装依赖：
-```bash
-    npm install
-```
-4. 启动开发服务器：
-```bash
-    npm run dev # 或 yarn dev
-```
-5. 访问 URL_ADDRESS:3000 查看应用。
-
-### Docker 部署
 1. 复制示例文件到本地并重命名:
 ```bash
     cp docker-compose.yaml.example docker-compose.yaml

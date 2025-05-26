@@ -23,3 +23,15 @@ func (c *userSettingsController) Update(ctx context.Context, req *v1.PutSettings
 func (c *userSettingsController) GetDefaultLang(ctx context.Context, req *v1.GetDefaultLangReq) (res *v1.GetDefaultLangRes, err error) {
 	return service.UserSettings().GetDefaultLang(ctx, req)
 }
+
+func (c *userSettingsController) BgImageList(ctx context.Context, req *v1.GetBgImageListReq) (res *v1.GetBgImageListRes, err error) {
+	return service.UserSettings().BgImageList(ctx, req)
+}
+
+func (c *userSettingsController) BgImage(ctx context.Context, req *v1.PostBgImageReq) (res *v1.PostBgImageRes, err error) {
+	return service.UserSettings().BgImage(ctx, req)
+}
+
+func (c *userSettingsController) BgImageDelete(ctx context.Context, req *v1.DeleteBgImageReq) (res *v1.DeleteBgImageRes, err error) {
+	return service.UserSettings().BgImageDelete(ctx, req)
+}

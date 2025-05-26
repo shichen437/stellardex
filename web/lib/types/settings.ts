@@ -14,6 +14,8 @@ interface InterfaceConfig {
   interfaceMode: InterfaceMode;
   themeMode: ThemeMode;
   language: Language;
+  bgImage: string;
+  bgImageBlurred: number;
 }
 
 interface ModuleConfig {

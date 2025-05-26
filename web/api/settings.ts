@@ -25,3 +25,27 @@ export async function getDefaultLang() {
     },
   });
 }
+
+export async function postBgImg(data: FormData) {
+  return request({
+    url: "/settings/bgImage",
+    method: "post",
+    data: data,
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getBgImgList(params: any) {
+  return request({
+    url: `/settings/bgImage/list`,
+    method: "get",
+    params: params,
+  });
+}
+
+export async function deleteBgImg(id: number) {
+  return request({
+    url: `/settings/bgImage/${id}`,
+    method: "delete",
+  });
+}

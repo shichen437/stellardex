@@ -3,3 +3,5 @@
 "settings.error.Get" = "Get user settings failed"
 "settings.error.Update" = "Update user settings failed"
 "settings.error.NotFound" = "User settings not found"
+
+"settings.valid.BgImgIdEmpty" = "Background image ID cannot be empty"

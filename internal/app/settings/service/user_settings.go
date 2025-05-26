@@ -16,6 +16,9 @@ type (
 		Get(ctx context.Context, req *v1.GetSettingsReq) (res *v1.GetSettingsRes, err error)
 		Update(ctx context.Context, req *v1.PutSettingsReq) (res *v1.PutSettingsRes, err error)
 		GetDefaultLang(ctx context.Context, req *v1.GetDefaultLangReq) (res *v1.GetDefaultLangRes, err error)
+		BgImage(ctx context.Context, req *v1.PostBgImageReq) (res *v1.PostBgImageRes, err error)
+		BgImageList(ctx context.Context, req *v1.GetBgImageListReq) (res *v1.GetBgImageListRes, err error)
+		BgImageDelete(ctx context.Context, req *v1.DeleteBgImageReq) (res *v1.DeleteBgImageRes, err error)
 	}
 )
 

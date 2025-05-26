@@ -76,6 +76,19 @@ export function HomepageModeView() {
 
   return (
     <div className="min-h-screen w-full relative flex flex-col overflow-x-hidden">
+      {settings.interfaceConfig?.bgImage && (
+        <div
+          className="fixed inset-0 w-full h-full -z-10 before:fixed before:inset-0 before:w-full before:h-full before:bg-black/5 dark:before:bg-black/30"
+          style={{
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_API_PREFIX}${settings.interfaceConfig.bgImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            filter: `blur(${settings.interfaceConfig?.bgImageBlurred || 0}px)`,
+          }}
+        />
+      )}
+
       {settings.moduleConfig?.showMeteors && (
         <Meteors number={20} minDuration={2.5} maxDuration={10} />
       )}
@@ -139,7 +152,6 @@ export function HomepageModeView() {
           </footer>
         )}
       </div>
-
 
       {showGroupItemModal && selectedGroupId && (
         <GroupItemModal

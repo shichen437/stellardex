@@ -10,9 +10,11 @@ type UserSettings struct {
 }
 
 type InterfaceConfig struct {
-	Language      string `json:"language"`
-	InterfaceMode string `json:"interfaceMode"`
-	ThemeMode     string `json:"themeMode"`
+	Language       string `json:"language"`
+	InterfaceMode  string `json:"interfaceMode"`
+	ThemeMode      string `json:"themeMode"`
+	BgImage        string `json:"bgImage"`
+	BgImageBlurred int    `json:"bgImageBlurred"`
 }
 
 type ModuleConfig struct {

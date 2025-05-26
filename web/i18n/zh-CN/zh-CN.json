@@ -89,6 +89,10 @@
         "starryMode": "星空模式",
         "homepageMode": "主页模式",
         "simplicityMode": "极简模式",
+        "wallpaper": "壁纸",
+        "moreWallpapers": "更多壁纸",
+        "uploadWallpaper": "上传壁纸",
+        "blurred": "模糊度",
         "placeholder": {
             "theme": "请选择主题",
             "language": "请选择语言",

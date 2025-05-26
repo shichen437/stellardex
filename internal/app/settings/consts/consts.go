@@ -13,6 +13,8 @@ const (
 	DefaultDateFormat    = "YYYY-MM-DD"
 	DefaultSiteTitle     = "StellarDex"
 	DefaultSiteFooter    = "Copyright 2025 shichen437"
+
+	UserImagTypeBg = "bg"
 )
 
 var AllowLangMap = g.Map{

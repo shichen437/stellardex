@@ -34,44 +34,8 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
   <img src="resource/assets/screenshots/starry-dark.png" alt="starry-dark" width="45%">
 </div>
 
-## 📦 Develop & Deployment
+## 📦 Docker Deployment
 
-### Local Develop
-1. Clone this repository:
-```bash
-git clone github.com/shichen437/stellardex.git
-```
-2. Enter project directory:
-```bash
-cd stellardex
-```
-3. Install dependencies:
-```bash
-go mod tidy
-# Install gf-cli for hot reload
-make cli-install
-```
-4. Start backend service:
-```bash
-go run main.go
-# Hot reload
-gf run main.go
-```
-5. Enter frontend directory:
-```bash
-cd web
-```
-3. Install dependencies:
-```bash
-npm install
-```
-4. Start development server:
-```bash
-npm run dev # or yarn dev
-```
-5. Visit URL_ADDRESS:3000 to see the application.
-
-### Docker Deployment
 1. Copy example file and rename:
 ```bash
     cp docker-compose.yaml.example docker-compose.yaml
