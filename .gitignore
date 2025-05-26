@@ -1,6 +1,7 @@
 .vscode/
 .trae/
 .DS_Store
+**/.DS_Store
 
 temp/
 resource/data/
