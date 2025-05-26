@@ -13,7 +13,7 @@ var (
 )
 
 func SystemCron(ctx context.Context) {
-	gcron.Add(ctx, "@midnight", func(ctx context.Context) {
+	gcron.Add(ctx, "@weekly", func(ctx context.Context) {
 		g.Log().Info(ctx, "Add job - "+unusedIconClean)
 		system.CleanIcon(ctx)
 	}, unusedIconClean)

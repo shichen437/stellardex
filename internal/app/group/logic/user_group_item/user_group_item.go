@@ -136,7 +136,11 @@ func (c *sUserGroupItem) LocalIcon(ctx context.Context, req *v1.PostLocalIconReq
 		return
 	}
 	file := req.Icon
-	file.Filename = "aaa.png"
+	var format string
+	if format = utils.GetFileFormat(file.Filename); format == "" {
+		format = "png"
+	}
+	file.Filename = "aaa." + format
 	name, err := file.Save(utils.ICONS_PATH, true)
 	if err != nil {
 		err = gerror.New("file.uploadError")

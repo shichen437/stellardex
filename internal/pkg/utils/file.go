@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/gogf/gf/v2/frame/g"
 )
@@ -21,4 +22,12 @@ func RemoveFile(filename string) {
 	if err != nil {
 		g.Log().Errorf(context.TODO(), "remove file %s failed: %v", filename, err)
 	}
+}
+
+func GetFileFormat(filename string) string {
+	index := strings.LastIndex(filename, ".")
+	if index == -1 || index == len(filename)-1 {
+		return ""
+	}
+	return strings.ToLower(filename[index+1:])
 }
