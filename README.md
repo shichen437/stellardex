@@ -36,6 +36,29 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
 
 ## 📦 Docker部署
 
+### docker镜像部署
+
+> 初始账号密码：admin/stellardex
+
+1. 拉取镜像:
+```bash
+    docker pull shichen437/stellardex:latest
+```
+2. 运行容器:
+```bash
+    docker run -d \
+    -p 9527:9527 \
+    -v /stellardex:/stellardex/resource/data \
+    -e PROJECT_SM4KEY=abcdefghijklmnopqrstuvwxyz123456 \
+    -e PROJECT_LANG=zh-CN \
+    -e TZ=Asia/Shanghai \
+    --name stellardex \
+    --restart=always \
+    shichen437/stellardex:latest
+```
+3. 访问 URL_ADDRESS:{YOUR_PORT} 查看应用。
+
+### docker-compose部署
 1. 复制示例文件到本地并重命名:
 ```bash
     cp docker-compose.yaml.example docker-compose.yaml
@@ -76,7 +99,6 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
     docker-compose up -d
 ```
 5. 访问 URL_ADDRESS:{YOUR_PORT} 查看应用。
-6. 初始账号密码：admin/stellardex
 
 ## 🛠️ 技术栈
 - 后端：Goframe / sqlite

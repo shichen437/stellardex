@@ -36,6 +36,29 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 ## 📦 Docker Deployment
 
+### docker image deployment
+
+> Init account：admin/stellardex
+
+1. Pull image:
+```bash
+    docker pull shichen437/stellardex:latest
+```
+2. Run container:
+```bash
+    docker run -d \
+    -p 9527:9527 \
+    -v /stellardex:/stellardex/resource/data \
+    -e PROJECT_SM4KEY=abcdefghijklmnopqrstuvwxyz123456 \
+    -e PROJECT_LANG=en \
+    -e TZ=Asia/Shanghai \
+    --name stellardex \
+    --restart=always \
+    shichen437/stellardex:latest
+```
+3. Visit URL_ADDRESS:{YOUR_PORT} to view the application.
+
+### docker-compose deployment
 1. Copy example file and rename:
 ```bash
     cp docker-compose.yaml.example docker-compose.yaml
@@ -76,7 +99,6 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
     docker-compose up -d
 ```
 5. Visit URL_ADDRESS:{YOUR_PORT} to view the application.
-6. Init account: admin/stellardex
 
 ## 🛠️ Tech Stack
 - Backend: Goframe / sqlite
