@@ -47,6 +47,20 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
       </div>
 
       <div className="flex items-center justify-between">
+        <span>{t("module.showMonitor")}</span>
+        <Switch
+          checked={settings.moduleConfig.showMonitor}
+          onCheckedChange={(checked) => onSettingsChange({
+            ...settings,
+            moduleConfig: {
+              ...settings.moduleConfig,
+              showMonitor: checked
+            }
+          })}
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
         <span>{t("module.showTime")}</span>
         <Switch
           checked={settings.moduleConfig.showClock}

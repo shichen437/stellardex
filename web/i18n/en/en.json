@@ -111,6 +111,7 @@
         "showTime": "Show Time",
         "showCalendar": "Show Date",
         "showSearchBar": "Show Search Bar",
+        "showMonitor": "Show Monitor Info",
         "dateFormat": "Date Format",
         "showMeteors": "Show Meteors",
         "placeholder": {

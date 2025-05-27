@@ -44,7 +44,6 @@ var (
 			s.AddStaticPath("/upload", utils.UPLOAD_PATH)
 			s.SetSwaggerUITemplate(consts.MySwaggerUITemplate)
 			s.Use(service.Middleware().HandlerResponse)
-			s.BindHandler("/sse", sse.HandleSSE)
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.Middleware(
 					service.Middleware().Ctx,
@@ -55,6 +54,7 @@ var (
 					if err != nil {
 						panic(err)
 					}
+					group.ALL("/sse", sse.HandleSSE)
 					bindRoute(group)
 				})
 			})

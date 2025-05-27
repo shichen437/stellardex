@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import { Meteors } from "@/components/magicui/meteors";
 import { DateTime } from "@/components/modes/module/DateTime";
 import { SearchBar } from "@/components/modes/module/SearchBar";
+import  MonitorPanel  from "@/components/modes/module/Monitor";
 import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
 import { GroupItemList } from "@/components/modes/common/GroupItemList";
 import { SEARCH_ENGINE_LOGO } from "@/lib/search";
@@ -146,6 +147,10 @@ export function NavigationModeView() {
             searchEngine={settings.moduleConfig?.searchEngine}
             searchEngineLogo={SEARCH_ENGINE_LOGO}
           />
+        )}
+
+        {settings.moduleConfig?.showMonitor && (
+          <MonitorPanel />
         )}
 
         <div

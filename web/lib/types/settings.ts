@@ -23,6 +23,7 @@ interface ModuleConfig {
   showSearchBar: boolean;
   searchEngine: SearchEngine;
   showClock: boolean;
+  showMonitor: boolean;
   showCalendar: boolean;
   calendarFormat: "YYYY-MM-DD" | "MM/DD/YYYY" | "DD.MM.YYYY";
 }

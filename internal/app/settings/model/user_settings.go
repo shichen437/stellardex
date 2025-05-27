@@ -22,6 +22,7 @@ type ModuleConfig struct {
 	ShowSearchBar  bool   `json:"showSearchBar"`
 	ShowCalendar   bool   `json:"showCalendar"`
 	ShowClock      bool   `json:"showClock"`
+	ShowMonitor    bool   `json:"showMonitor"`
 	CalendarFormat string `json:"calendarFormat"`
 	SearchEngine   string `json:"searchEngine"`
 }

@@ -111,6 +111,7 @@
         "showTime": "显示时间",
         "showCalendar": "显示日期",
         "showSearchBar": "显示搜索栏",
+        "showMonitor": "显示监控信息",
         "dateFormat": "日期格式",
         "showMeteors": "显示流星雨效果",
         "placeholder": {

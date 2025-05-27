@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Meteors } from "@/components/magicui/meteors";
 import { SearchBar } from "@/components/modes/module/SearchBar";
 import { DateTime } from "@/components/modes/module/DateTime";
+import MonitorPanel from "@/components/modes/module/Monitor";
 import { GroupItemModal } from "@/components/modes/modal/GroupItemModal";
 import { GroupNavigation } from "@/components/modes/module/GroupNavigation";
 import { GroupItemGrid } from "@/components/modes/common/GroupItemGrid";
@@ -124,6 +125,8 @@ export function HomepageModeView() {
               searchEngineLogo={SEARCH_ENGINE_LOGO}
             />
           )}
+
+          {settings.moduleConfig?.showMonitor && <MonitorPanel />}
 
           {mounted && currentGroup && (
             <div className="w-full max-w-6xl">
