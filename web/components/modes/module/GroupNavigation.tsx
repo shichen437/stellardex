@@ -26,10 +26,10 @@ const getDisplayText = (text: string) => {
     } else {
       length += 0.5;
     }
-    result += char;
-    if (length >= 4) {
+    if (length >= 3.5) {
       return result + '...';
     }
+    result += char;
   }
   return result;
 };
@@ -50,14 +50,14 @@ export function GroupNavigation({ groups, selectedGroupId, onGroupSelect, onAddG
           .filter(group => group.isShow)
           .map(group => (
             <div key={group.id} className="relative group overflow-isShow">
-              {group.groupName.length > getDisplayText(group.groupName).length ? (
+              {group.groupName != getDisplayText(group.groupName) ? (
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       onClick={() => onGroupSelect(group.id)}
                       variant="ghost"
                       className={`w-full text-center px-3 py-1.5 rounded-md transition-all duration-200 text-sm ${selectedGroupId === group.id
-                          ? 'bg-blue-50/80 dark:bg-blue-900/20 dark:text-blue-400 shadow-sm'
+                          ? 'bg-blue-50/80 dark:!bg-zinc-500 dark:!text-zinc-200 shadow-sm'
                           : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-gray-700/30'
                         }`}
                     >
@@ -68,9 +68,9 @@ export function GroupNavigation({ groups, selectedGroupId, onGroupSelect, onAddG
                     side="top"
                     align="center"
                     sideOffset={5}
-                    className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm px-3 py-1.5 text-sm rounded-md shadow-md border border-gray-100/50 dark:border-gray-700/50"
+                    className="bg-white/95 dark:!bg-zinc-600 px-3 py-1.5 text-sm rounded-md shadow-md"
                   >
-                    <p className="text-gray-700 dark:text-gray-300">{group.groupName}</p>
+                    <p className="text-gray-700 dark:!text-zinc-200">{group.groupName}</p>
                   </TooltipContent>
                 </Tooltip>
               ) : (
@@ -78,7 +78,7 @@ export function GroupNavigation({ groups, selectedGroupId, onGroupSelect, onAddG
                   onClick={() => onGroupSelect(group.id)}
                   variant="ghost"
                   className={`w-full text-center px-3 py-1.5 rounded-md transition-all duration-200 text-sm ${selectedGroupId === group.id
-                      ? 'bg-blue-50/80 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm'
+                      ? 'bg-blue-50/80 dark:!bg-zinc-500 text-blue-600 dark:!text-zinc-200 shadow-sm'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-gray-700/30'
                     }`}
                 >

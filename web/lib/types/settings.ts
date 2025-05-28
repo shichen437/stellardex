@@ -1,4 +1,4 @@
-export type SearchEngine = "baidu" | "google" | "bing";
+export type SearchEngine = "baidu" | "google" | "bing" | "yandex" | "yahoo" | "github";
 export type InterfaceMode = "navigation" | "homepage" | "starry" | "simplicity";
 export type ThemeMode = "system" | "light" | "dark";
 export type Language = "zh-CN" | "en";

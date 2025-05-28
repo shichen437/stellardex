@@ -67,7 +67,7 @@ export default function MonitorPanel() {
       <HoverCard>
         <HoverCardTrigger className="flex-1 flex items-center gap-1">
           <div className="flex-1 flex items-center gap-1">
-            <span className="w-12">
+            <span className="w-10">
               <Cpu />
             </span>
             <Progress value={data?.cpu.percent} max={100} />
@@ -91,7 +91,7 @@ export default function MonitorPanel() {
       <HoverCard>
         <HoverCardTrigger className="flex-1 flex items-center gap-1">
           <div className="flex-1 flex items-center gap-2">
-            <span className="w-12">
+            <span className="w-10">
               <MemoryStick />
             </span>
             <Progress value={data?.mem.usedPercent} max={100} />
@@ -119,7 +119,7 @@ export default function MonitorPanel() {
       <HoverCard>
         <HoverCardTrigger className="flex-1 flex items-center gap-1">
           <div className="flex-1 flex items-center gap-1">
-            <span className="w-12">
+            <span className="w-10">
               <HardDrive />
             </span>
             <Progress value={data?.disk.usedPercent} max={100} />

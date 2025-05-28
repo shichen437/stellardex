@@ -36,6 +36,7 @@ import {
   sortGroup,
   visiableGroup,
 } from "@/api/group";
+import { toast } from "sonner";
 import { useGroupStore } from "@/lib/store/group";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 
@@ -197,17 +198,30 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
     name: string;
     displayType: Group["displayType"];
   }) => {
+    let res;
     if (editingGroup) {
-      await updateGroup({
+      res = await updateGroup({
         id: editingGroup.id,
         name: data.name,
         displayType: data.displayType,
       });
+      if (res.code === 0) {
+        toast.success(t("toast.success"));
+      } else {
+        toast.error(res.msg);
+        return;
+      }
     } else {
-      await addGroup({
+      res = await addGroup({
         name: data.name,
         displayType: data.displayType,
       });
+      if (res.code === 0) {
+        toast.success(t("toast.success"));
+      } else {
+        toast.error(res.msg);
+        return;
+      }
     }
     await useGroupStore.getState().fetchGroups(true);
     setModalOpen(false);
@@ -232,7 +246,7 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
             }
             className={`p-2 rounded-lg transition-colors ${
               settings.groupConfig.groupLayout === "grid"
-                ? "bg-black text-white dark:bg-white dark:text-black"
+                ? "bg-black text-white dark:!bg-zinc-500 dark:text-black"
                 : "hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
             title={t("groups.grid")}
@@ -249,7 +263,7 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
             }
             className={`p-2 rounded-lg transition-colors ${
               settings.groupConfig.groupLayout === "row"
-                ? "bg-black text-white dark:bg-white dark:text-black"
+                ? "bg-black text-white dark:!bg-zinc-500 dark:text-black"
                 : "hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
             title={t("groups.row")}

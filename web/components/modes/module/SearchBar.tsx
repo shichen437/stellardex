@@ -33,6 +33,9 @@ export function SearchBar({
         searchQuery
       )}`,
       bing: `https://www.bing.com/search?q=${encodeURIComponent(searchQuery)}`,
+      yandex: `https://yandex.com/search/?text=${encodeURIComponent(searchQuery)}`,
+      yahoo: `https://search.yahoo.com/search?p=${encodeURIComponent(searchQuery)}`,
+      github: `https://www.github.com/search?q=${encodeURIComponent(searchQuery)}&type=repositories`
     };
     window.open(searchUrls[currentEngine], "_blank");
   };
@@ -48,7 +51,7 @@ export function SearchBar({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t("common.placeholder.search")}
-            className="w-full pl-28 pr-12 py-4 rounded-2xl
+            className="w-full pl-16 pr-12 py-4 rounded-2xl
                      focus:outline-none
                      bg-popover/60 dark:bg-popover/80
                      text-gray-900 dark:text-gray-100
@@ -65,8 +68,8 @@ export function SearchBar({
             <Image
               src={`/search-engines/${currentEngine}.png`}
               alt={currentEngine}
-              width={20}
-              height={20}
+              width={24}
+              height={24}
               className="w-5 h-5"
             />
           </Button>
@@ -102,8 +105,8 @@ export function SearchBar({
                   {t("other.searchEngine")}
                 </h3>
               </div>
-              <div className="p-2 grid grid-cols-3 gap-2">
-                {(["baidu", "google", "bing"] as SearchEngine[]).map(
+              <div className="p-2 grid grid-cols-6 gap-2">
+                {(["baidu", "google", "bing", "yandex", "yahoo", "github"] as SearchEngine[]).map(
                   (engine) => (
                     <button
                       key={engine}
@@ -113,33 +116,21 @@ export function SearchBar({
                         setShowDropdown(false);
                       }}
                       className={`flex flex-col items-center justify-center p-3 rounded-xl transition-colors
-                      ${
-                        engine === currentEngine
-                          ? "bg-transparent dark:bg-transparent text-blue-600 dark:text-blue-400 !bg-transparent dark:!bg-transparent"
-                          : "bg-transparent dark:bg-transparent hover:bg-transparent dark:hover:bg-transparent !bg-transparent dark:!bg-transparent"
-                      }
-                      [&]:!bg-transparent dark:[&]:!bg-transparent`}
-                      style={{ backgroundColor: "transparent !important" }}
+                      ${engine === currentEngine
+                          ? "bg-zinc-200/70 dark:!bg-zinc-500/70"
+                          : "hover:bg-zinc-200/70 dark:hover:!bg-zinc-500/70"
+                      }`}
                     >
                       <Image
                         src={`/search-engines/${engine}.png`}
                         alt={engine}
-                        width={24}
-                        height={24}
+                        width={28}
+                        height={28}
                         className="w-8 h-8 mb-2"
                       />
                       <span className="text-sm text-center">
                         {searchEngineLogo[engine]}
                       </span>
-                      {engine === currentEngine && (
-                        <svg className="w-4 h-4 mt-1" viewBox="0 0 20 20">
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
                     </button>
                   )
                 )}
