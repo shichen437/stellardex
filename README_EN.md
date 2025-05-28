@@ -3,6 +3,24 @@
 </p>
 
 <h1 align="center">StellarDex</h1>
+<p align="center">
+  <a>
+    <img alt="Docker Image Version" 
+      src="https://img.shields.io/docker/v/shichen437/stellardex?labelColor=%20%23FDB062&color=%20%23f79009">
+  </a>
+  <a href="https://github.com/shichen437/stellardex/discussions/" target="_blank">
+    <img alt="Discussion posts" 
+      src="https://img.shields.io/github/discussions/shichen437/stellardex?labelColor=%20%239b8afb&color=%20%237a5af8">
+  </a>
+  <a href="https://hub.docker.com/u/shichen437" target="_blank">
+    <img alt="Docker Pulls" 
+      src="https://img.shields.io/docker/pulls/shichen437/stellardex?labelColor=%20%23528bff&color=%20%23155EEF">
+  </a>
+  <a>
+    <img alt="Docker Image Size" 
+      src="https://img.shields.io/docker/image-size/shichen437/stellardex">
+  </a>
+</p>
 <div align="center">
   <a href="./README.md">简体中文</a> ｜ English
 </div>
