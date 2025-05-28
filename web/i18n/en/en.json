@@ -235,6 +235,30 @@
         "uploadSuccess": "Upload success",
         "uploadError": "Upload failed"
     },
+    "monitor":{
+        "cpu": {
+            "title": "Cpu",
+            "usage": "Usage",
+            "cores": "Cores",
+            "model": "Model"
+        },
+        "memory": {
+            "title": "Mem",
+            "total": "Total",
+            "used": "Used",
+            "usage": "Usage",
+            "available": "Free"
+        },
+        "disk": {
+            "title": "Disk",
+            "total": "Total",
+            "used": "Used",
+            "usage": "Usage",
+            "free": "Free",
+            "path": "Path",
+            "fstype": "Fstype"
+        }
+    },
     "other": {
         "searchEngine": "Search Engine",
         "noGroup": "No groups have been added yet",

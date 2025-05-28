@@ -235,6 +235,30 @@
         "uploadSuccess": "上传成功",
         "uploadError": "上传失败"
     },
+    "monitor":{
+        "cpu": {
+            "title": "CPU",
+            "usage": "使用率",
+            "cores": "核心数",
+            "model": "型号"
+        },
+        "memory": {
+            "title": "内存",
+            "total": "总容量",
+            "used": "已用容量",
+            "usage": "使用率",
+            "available": "可用容量"
+        },
+        "disk": {
+            "title": "磁盘",
+            "total": "总容量",
+            "used": "已用容量",
+            "usage": "使用率",
+            "free": "可用容量",
+            "path": "挂载点",
+            "fstype": "系统类型"
+        }
+    },
     "other": {
         "searchEngine": "搜索引擎",
         "noGroup": "还没有添加任何分组",

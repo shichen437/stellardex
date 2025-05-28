@@ -39,3 +39,22 @@ export function getFaviconUrl(url: string): string {
     return "";
   }
 }
+
+export function formatBytes(bytes: number, decimals: number = 2): string {
+  const UNITS = ["B", "KB", "MB", "GB", "TB", "PB"];
+  const KILO = 1024;
+  if (bytes < 0) {
+    return `-${formatBytes(Math.abs(bytes), decimals)}`;
+  }
+  if (bytes === 0) {
+    return "0 B";
+  }
+
+  const i = Math.floor(Math.log(bytes) / Math.log(KILO));
+  const convertedValue = bytes / Math.pow(KILO, i);
+
+  // 确保小数位数非负
+  const fixedDecimals = Math.max(0, decimals);
+
+  return `${convertedValue.toFixed(fixedDecimals)} ${UNITS[i]}`;
+}
