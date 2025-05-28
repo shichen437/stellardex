@@ -150,6 +150,25 @@ func (c *sUserGroupItem) LocalIcon(ctx context.Context, req *v1.PostLocalIconReq
 	return
 }
 
+func (c *sUserGroupItem) Search(ctx context.Context, req *v1.SearchGroupItemReq) (res *v1.SearchGroupItemRes, err error) {
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 || req.Keyword == "" {
+		return
+	}
+	res = &v1.SearchGroupItemRes{}
+	orm := dao.UserGroupItem.Ctx(ctx).OmitEmpty()
+	orm = orm.InnerJoin(dao.UserGroup.Table(), "user_group.id = user_group_item.group_id")
+	orm = orm.Fields(
+		dao.UserGroupItem.Columns().GroupId,
+		dao.UserGroupItem.Columns().Title, dao.UserGroupItem.Columns().Url,
+		dao.UserGroupItem.Columns().LanUrl, dao.UserGroupItem.Columns().Description)
+	orm = orm.FieldsPrefix(dao.UserGroup.Table(), dao.UserGroup.Columns().GroupName)
+	orm = orm.WhereLike(dao.UserGroupItem.Columns().Title, "%"+req.Keyword+"%")
+	orm = orm.WherePrefix(dao.UserGroup.Table(), dao.UserGroup.Columns().UserId, uid)
+	err = orm.Limit(10).Scan(&res.Rows)
+	return
+}
+
 func hasPermit(ctx context.Context, groupId int) bool {
 	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
 	if uid == 0 {

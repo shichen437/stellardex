@@ -62,6 +62,10 @@ func (c *sUserGroup) Add(ctx context.Context, req *v1.PostGroupReq) (res *v1.Pos
 	orderNum, _ := dao.UserGroup.Ctx(ctx).
 		Where(dao.UserGroup.Columns().UserId, uid).
 		Count()
+	if orderNum > 99 {
+		err = gerror.New("group.valid.GroupNumExceeded")
+		return
+	}
 	_, err = dao.UserGroup.Ctx(ctx).Insert(do.UserGroup{
 		GroupName:   req.Name,
 		DisplayType: req.DisplayType,

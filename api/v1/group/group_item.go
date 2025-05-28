@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/shichen437/stellardex/internal/app/group/model"
 	"github.com/shichen437/stellardex/internal/app/group/model/entity"
 )
 
@@ -72,4 +73,13 @@ type PostLocalIconReq struct {
 type PostLocalIconRes struct {
 	g.Meta  `mime:"application/json"`
 	IconUrl string `json:"iconUrl"`
+}
+
+type SearchGroupItemReq struct {
+	g.Meta  `path:"/group/item/search" method:"get" tags:"项目管理" summary:"搜索项目"`
+	Keyword string `p:"keyword"`
+}
+type SearchGroupItemRes struct {
+	g.Meta `mime:"application/json"`
+	Rows   []*model.SearchGroupItem `json:"rows"`
 }

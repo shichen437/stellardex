@@ -1,5 +1,7 @@
 "group.valid.GroupIdEmpty"="Group ID can not be empty"
 
+"group.valid.GroupNumExceeded"="Group number exceeds the limit"
+
 "group.valid.GroupNameEmpty"="Group name can not be empty"
 "group.valid.GroupNameLength"="Group name length is 1-12"
 "group.valid.GroupNameExists"="Group name already exists"

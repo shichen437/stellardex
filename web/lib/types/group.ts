@@ -19,3 +19,12 @@ export interface Group {
   displayType: "details" | "icons" | "titles";
   items: GroupItem[];
 }
+
+export interface SearchGroupItem {
+  groupId: number;
+  title: string;
+  description: string;
+  url: string;
+  lanUrl: string;
+  groupName: string;
+}

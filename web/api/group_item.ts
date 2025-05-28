@@ -45,3 +45,11 @@ export async function postIcon(data: FormData) {
     data: data,
   });
 }
+
+export async function search(params: any) {
+  return request({
+    url: "/group/item/search",
+    method: "get",
+    params: params,
+  });
+}

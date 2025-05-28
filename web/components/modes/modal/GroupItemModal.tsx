@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { Upload } from "lucide-react";
+import { Sketch } from "@uiw/react-color";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sketch } from "@uiw/react-color";
 import type { GroupItem } from "@/lib/types/group";
+import { getFaviconUrl } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
@@ -12,9 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
@@ -24,11 +25,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { getFaviconUrl } from "@/lib/utils";
-import { usePolyglot } from "@/providers/PolyglotProvider";
+import { postIcon } from "@/api/group_item";
 import { PreviewCard } from "./PreviewCard";
 import { PreviewIcon } from "./PreviewIcon";
-import { postIcon } from "@/api/group_item";
+import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface GroupItemModalProps {
   item?: GroupItem | null;
@@ -178,7 +178,7 @@ export function GroupItemModal({
             </label>
             <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl">
               <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-6">
-                <div className="w-full sm:w-[360px]">
+                <div className="w-full sm:w-[280px]">
                   <PreviewCard
                     title={watchedTitle}
                     description={watchedDescription}

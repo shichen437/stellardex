@@ -15,12 +15,13 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 ## 🚀 Features
 
-- Multiple display modes
-- Multiple style themes
-- Chinese/English language support
 - Multi-user login
-- Customizable site information
+- Hardware monitoring
+- Multiple style icons
+- Multiple display modes
 - Light/Dark mode toggle
+- Customizable site information
+- Chinese/English language support
 - Responsive design for multiple devices
 
 ## 📸 Preview

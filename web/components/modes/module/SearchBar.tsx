@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import type { SearchEngine } from "@/lib/types/settings";
 import Image from "next/image";
+import { search } from "@/api/group_item";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import type { SearchEngine } from "@/lib/types/settings";
+import type { SearchGroupItem } from "@/lib/types/group";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 
 interface SearchBarProps {
@@ -18,6 +21,7 @@ export function SearchBar({
   const [currentEngine, setCurrentEngine] =
     useState<SearchEngine>(defaultEngine);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchResults, setSearchResults] = useState<SearchGroupItem[]>([]);
   const [mounted, setMounted] = useState(false);
   const { t } = usePolyglot();
 
@@ -25,7 +29,27 @@ export function SearchBar({
     setMounted(true);
   }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchQuery.trim()) {
+        search({ keyword: searchQuery })
+          .then((res) => {
+            if (res.code == 0) {
+              setSearchResults(res.data?.rows || []);
+            } else {
+              setSearchResults([]);
+            }
+          })
+          .catch(() => setSearchResults([]));
+      } else {
+        setSearchResults([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const searchUrls = {
       baidu: `https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`,
@@ -33,9 +57,15 @@ export function SearchBar({
         searchQuery
       )}`,
       bing: `https://www.bing.com/search?q=${encodeURIComponent(searchQuery)}`,
-      yandex: `https://yandex.com/search/?text=${encodeURIComponent(searchQuery)}`,
-      yahoo: `https://search.yahoo.com/search?p=${encodeURIComponent(searchQuery)}`,
-      github: `https://www.github.com/search?q=${encodeURIComponent(searchQuery)}&type=repositories`
+      yandex: `https://yandex.com/search/?text=${encodeURIComponent(
+        searchQuery
+      )}`,
+      yahoo: `https://search.yahoo.com/search?p=${encodeURIComponent(
+        searchQuery
+      )}`,
+      github: `https://www.github.com/search?q=${encodeURIComponent(
+        searchQuery
+      )}&type=repositories`,
     };
     window.open(searchUrls[currentEngine], "_blank");
   };
@@ -93,47 +123,86 @@ export function SearchBar({
           </div>
         </form>
 
+        {searchResults.length > 0 && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-popover dark:bg-popover rounded-lg shadow-lg z-20">
+            {searchResults.map((item) => (
+              <div
+                key={`${item.groupId}`}
+                className="p-3 hover:bg-accent cursor-pointer"
+                onClick={() => item.url && window.open(item.url, "_blank")}
+              >
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-4">
+                    <h4 className="font-base pl-4">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    <Badge
+                      variant={"secondary"}
+                      className={
+                        "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                      }
+                    >
+                      {item.groupName}
+                    </Badge>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         {showDropdown && (
           <>
             <div
               className="fixed inset-0 z-10"
               onClick={() => setShowDropdown(false)}
             />
-            <div className="absolute top-full left-0 right-0 mt-1 bg-popover/60 dark:bg-popover/80 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-20">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-popover dark:bg-popover rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-20">
               <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   {t("other.searchEngine")}
                 </h3>
               </div>
               <div className="p-2 grid grid-cols-6 gap-2">
-                {(["baidu", "google", "bing", "yandex", "yahoo", "github"] as SearchEngine[]).map(
-                  (engine) => (
-                    <button
-                      key={engine}
-                      type="button"
-                      onClick={() => {
-                        setCurrentEngine(engine);
-                        setShowDropdown(false);
-                      }}
-                      className={`flex flex-col items-center justify-center p-3 rounded-xl transition-colors
-                      ${engine === currentEngine
+                {(
+                  [
+                    "baidu",
+                    "google",
+                    "bing",
+                    "yandex",
+                    "yahoo",
+                    "github",
+                  ] as SearchEngine[]
+                ).map((engine) => (
+                  <button
+                    key={engine}
+                    type="button"
+                    onClick={() => {
+                      setCurrentEngine(engine);
+                      setShowDropdown(false);
+                    }}
+                    className={`flex flex-col items-center justify-center p-3 rounded-xl transition-colors
+                      ${
+                        engine === currentEngine
                           ? "bg-zinc-200/70 dark:!bg-zinc-500/70"
                           : "hover:bg-zinc-200/70 dark:hover:!bg-zinc-500/70"
                       }`}
-                    >
-                      <Image
-                        src={`/search-engines/${engine}.png`}
-                        alt={engine}
-                        width={28}
-                        height={28}
-                        className="w-8 h-8 mb-2"
-                      />
-                      <span className="text-sm text-center">
-                        {searchEngineLogo[engine]}
-                      </span>
-                    </button>
-                  )
-                )}
+                  >
+                    <Image
+                      src={`/search-engines/${engine}.png`}
+                      alt={engine}
+                      width={28}
+                      height={28}
+                      className="w-8 h-8 mb-2"
+                    />
+                    <span className="text-sm text-center">
+                      {searchEngineLogo[engine]}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </>
