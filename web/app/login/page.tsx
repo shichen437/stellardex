@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BorderBeam } from "@/components/magicui/border-beam";
+import { AuroraText } from "@/components/magicui/aurora-text";
+import { ShineBorder } from "@/components/magicui/shine-border";
 import { Meteors } from "@/components/magicui/meteors";
 import { useUserStore } from "@/lib/store/user";
 import { toast } from "sonner";
@@ -28,7 +30,7 @@ export default function LoginPage() {
   const login = useUserStore((state) => state.login);
   const { t, setLanguage } = usePolyglot();
   useEffect(() => {
-    if (typeof document !== 'undefined') {
+    if (typeof document !== "undefined") {
       document.title = "Stellardex";
     }
     getDefaultLang().then((res) => {
@@ -74,50 +76,64 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen h-screen w-screen flex items-center justify-center bg-white dark:bg-black/30 relative overflow-hidden">
-      <Meteors number={25} minDuration={2.5} maxDuration={12} />
-      <Card className="relative w-[350px] overflow-hidden">
-        <CardHeader>
-          <CardTitle>{t("login.title")}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form id="loginForm" onSubmit={handleLogin}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">{t("login.username")}</Label>
-                <Input
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder={t("login.placeholder.username")}
-                />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black/30 relative overflow-hidden">
+      <Meteors number={20} minDuration={2.5} maxDuration={12} />
+      <div className="flex flex-col items-center gap-4 -translate-y-14">
+        {" "}
+        {/* 这个div整体在屏幕正中间 */}
+        <div className="flex flex-col items-center">
+          <Image
+            src="/logo/logo.png"
+            alt="Logo"
+            className="w-20 h-20 mb-2"
+            width={100}
+            height={100}
+          />
+          <AuroraText className="text-2xl font-bold md:text-3xl lg:text-4xl">
+            StellarDex
+          </AuroraText>
+        </div>
+        <Card className="relative w-[350px] overflow-hidden">
+          <CardHeader className="text-xl">
+            <CardTitle>{t("login.title")}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form id="loginForm" onSubmit={handleLogin}>
+              <div className="grid w-full items-center gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="username">{t("login.username")}</Label>
+                  <Input
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder={t("login.placeholder.username")}
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="password">{t("login.password")}</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={t("login.placeholder.password")}
+                  />
+                </div>
+                {error && <div className="text-red-500 text-sm">{error}</div>}
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">{t("login.password")}</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder={t("login.placeholder.password")}
-                />
-              </div>
-              {error && <div className="text-red-500 text-sm">{error}</div>}
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="grid w-full">
-          <Button type="submit" form="loginForm">
-            {t("login.title")}
-          </Button>
-        </CardFooter>
-        <BorderBeam
-          duration={8}
-          size={100}
-          colorFrom="#3b82f6"
-          colorTo="#9333ea"
-        />
-      </Card>
+            </form>
+          </CardContent>
+          <CardFooter className="grid w-full">
+            <Button type="submit" form="loginForm">
+              {t("login.title")}
+            </Button>
+          </CardFooter>
+          <ShineBorder
+            duration={16}
+            shineColor={["#FF0080", "#7928CA", "#0070F3", "#38bdf8"]}
+          />
+        </Card>
+      </div>
     </div>
   );
 }
