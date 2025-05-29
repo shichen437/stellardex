@@ -16,6 +16,7 @@ import (
 	"github.com/shichen437/stellardex/internal/app/settings/model/do"
 	"github.com/shichen437/stellardex/internal/app/settings/model/entity"
 	"github.com/shichen437/stellardex/internal/app/settings/service"
+	"github.com/shichen437/stellardex/internal/pkg/cron/system"
 	"github.com/shichen437/stellardex/internal/pkg/utils"
 )
 
@@ -189,6 +190,16 @@ func (s *sUserSettings) BgImageDelete(ctx context.Context, req *v1.DeleteBgImage
 		return
 	}
 	utils.RemoveFile(img.Url)
+	return
+}
+
+func (s *sUserSettings) CheckVersion(ctx context.Context, req *v1.CheckVersionReq) (res *v1.CheckVersionRes, err error) {
+	res = &v1.CheckVersionRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		return
+	}
+	res.LatestVerison = system.GetLatestVersion(ctx, true)
 	return
 }
 

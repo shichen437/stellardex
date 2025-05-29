@@ -38,6 +38,7 @@ import { LogoutModal } from "./modal/LogoutModal";
 import { useUserStore } from "@/lib/store/user";
 import { UsersTab } from "./tab/UsersTab";
 import { usePolyglot } from "@/providers/PolyglotProvider";
+import { compareVersion } from "@/lib/utils";
 
 interface SettingsPanelProps {
   settings: SettingsState;
@@ -164,7 +165,14 @@ export function SettingsPanel({
     },
     {
       id: "about",
-      label: t("sidebar.about"),
+      label: (
+        <span className="relative">
+          {t("sidebar.about")}
+          {compareVersion() && (
+            <span className="ml-2 inline-block w-2 h-2 bg-red-500 rounded-full align-middle"></span>
+          )}
+        </span>
+      ),
       icon: <Info className="w-4 h-4" />,
     },
   ];

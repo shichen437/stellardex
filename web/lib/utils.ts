@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { getVersion } from "./store/version";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -57,4 +58,30 @@ export function formatBytes(bytes: number, decimals: number = 2): string {
   const fixedDecimals = Math.max(0, decimals);
 
   return `${convertedValue.toFixed(fixedDecimals)} ${UNITS[i]}`;
+}
+
+export function compareVersion(): boolean{
+  const version = getVersion();
+  if(!version){
+    return false;
+  }
+  const currentVersion = process.env.NEXT_PUBLIC_VERSION;
+  if(!currentVersion){
+    return false;
+  }
+  return compareVersions(version, currentVersion) === 1;
+}
+
+function compareVersions(v1: string, v2: string): number {
+  const parts1 = v1.split('.').map(Number);
+  const parts2 = v2.split('.').map(Number);
+
+  for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+    const num1 = parts1[i] || 0;
+    const num2 = parts2[i] || 0;
+    
+    if (num1 > num2) return 1;
+    if (num1 < num2) return -1;
+  }
+  return 0;
 }

@@ -49,3 +49,10 @@ export async function deleteBgImg(id: number) {
     method: "delete",
   });
 }
+
+export async function checkVersion() {
+  return request({
+    url: `/settings/checkVersion`,
+    method: "get",
+  });
+}

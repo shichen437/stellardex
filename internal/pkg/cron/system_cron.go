@@ -9,7 +9,8 @@ import (
 )
 
 var (
-	unusedIconClean = "unusedIconClean"
+	unusedIconClean    = "unusedIconClean"
+	checkLatestVersion = "checkLatestVersion"
 )
 
 func SystemCron(ctx context.Context) {
@@ -17,4 +18,8 @@ func SystemCron(ctx context.Context) {
 		g.Log().Info(ctx, "Add job - "+unusedIconClean)
 		system.CleanIcon(ctx)
 	}, unusedIconClean)
+	gcron.Add(ctx, "@hourly", func(ctx context.Context) {
+		g.Log().Info(ctx, "Add job - "+checkLatestVersion)
+		system.CheckVersion(ctx)
+	}, checkLatestVersion)
 }

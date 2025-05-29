@@ -1,7 +1,10 @@
 import { Github, Mail } from "lucide-react";
+import { compareVersion } from "@/lib/utils";
+import { getVersion } from "@/lib/store/version";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 export function AboutTab() {
   const { t } = usePolyglot();
@@ -25,8 +28,13 @@ export function AboutTab() {
 
       {/* 版本号 */}
       <div className="text-center">
-        <span className="text-lg text-gray-600 dark:text-gray-400">
+        <span className="inline-flex items-center text-lg text-gray-600 dark:text-gray-400">
           {t("about.version")} {process.env.NEXT_PUBLIC_VERSION}
+          {compareVersion() && (
+            <Badge className="ml-2" variant="destructive">
+              new {getVersion()}
+            </Badge>
+          )}
         </span>
       </div>
 
@@ -42,9 +50,7 @@ export function AboutTab() {
           <span>{t("about.viewCode")}</span>
         </a>
 
-        <a
-          className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
-        >
+        <a className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
           <Mail className="w-5 h-5" />
           <span>{t("about.concact")}</span>
         </a>

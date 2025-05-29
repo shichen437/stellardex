@@ -14,6 +14,8 @@ import { usePolyglot } from "@/providers/PolyglotProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { useSettingsStore } from "@/lib/store/settings";
 import { useUserStore } from "@/lib/store/user";
+import { checkVersion } from "@/api/settings";
+import { setVersion } from "@/lib/store/version";
 import { useIsMobile } from "@/hooks/useMobile";
 import { LogoutModal } from "@/components/settings/modal/LogoutModal";
 
@@ -45,6 +47,14 @@ export default function Home() {
   if (settings?.siteConfig?.siteTitle) {
     document.title = settings.siteConfig.siteTitle;
   }
+
+  useEffect(() => {
+    checkVersion().then((res) => {
+      if (res?.code === 0 && res?.data?.latestVerison) {
+        setVersion(res.data.latestVerison);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (settings.interfaceConfig?.language) {
@@ -97,7 +107,7 @@ export default function Home() {
 
   return (
     <>
-    <GlobalAuthListener />
+      <GlobalAuthListener />
       <div className="fixed top-4 right-4 z-50">
         {isMobile ? (
           <button

@@ -57,3 +57,11 @@ type DeleteBgImageReq struct {
 type DeleteBgImageRes struct {
 	g.Meta `mime:"application/json" example:"json"`
 }
+
+type CheckVersionReq struct {
+	g.Meta `path:"/settings/checkVersion" method:"get" tags:"用户设置" summary:"检查版本"`
+}
+type CheckVersionRes struct {
+	g.Meta        `mime:"application/json" example:"json"`
+	LatestVerison string `json:"latestVerison"`
+}

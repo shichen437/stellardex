@@ -35,3 +35,7 @@ func (c *userSettingsController) BgImage(ctx context.Context, req *v1.PostBgImag
 func (c *userSettingsController) BgImageDelete(ctx context.Context, req *v1.DeleteBgImageReq) (res *v1.DeleteBgImageRes, err error) {
 	return service.UserSettings().BgImageDelete(ctx, req)
 }
+
+func (c *userSettingsController) CheckVersion(ctx context.Context, req *v1.CheckVersionReq) (res *v1.CheckVersionRes, err error) {
+	return service.UserSettings().CheckVersion(ctx, req)
+}

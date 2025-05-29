@@ -6,4 +6,7 @@ const (
 	DB_BATCH_SIZE = 100
 
 	USUSED_FILE_TIME = 3 * 24 * time.Hour
+
+	Repository = "shichen437/stellardex"
+	VersionKey = "latestVersion"
 )
