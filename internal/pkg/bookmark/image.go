@@ -15,6 +15,10 @@ import (
 	"github.com/shichen437/stellardex/internal/pkg/utils"
 )
 
+var (
+	removePrefix = "resource/data/upload"
+)
+
 func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string {
 	if imgUrl == "" {
 		return imgUrl
@@ -51,7 +55,7 @@ func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string
 	savePath := filepath.Join(saveDir, filename)
 
 	if _, err := os.Stat(savePath); err == nil {
-		return strings.TrimPrefix(savePath, "resource/data/upload")
+		return removeCommonPrefix(savePath)
 	}
 
 	client := g.Client()
@@ -77,7 +81,7 @@ func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string
 		return ""
 	}
 
-	return strings.TrimPrefix(savePath, "resource/data/upload")
+	return removeCommonPrefix(savePath)
 }
 
 func ClearInvalidImages(ctx context.Context, originUrl string, uid int) {
@@ -137,4 +141,12 @@ func ReplaceImagesInHTML(ctx context.Context, content string, originUrl string, 
 		return content, ""
 	}
 	return html, mainImage
+}
+
+func removeCommonPrefix(savePath string) string {
+	parts := strings.Split(savePath, removePrefix)
+	if len(parts) > 1 {
+		return parts[1]
+	}
+	return savePath
 }
