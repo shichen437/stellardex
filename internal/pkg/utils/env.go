@@ -23,6 +23,7 @@ var (
 	AVATAR_PATH   = UPLOAD_PATH + "/avatar"
 	ICONS_PATH    = UPLOAD_PATH + "/icons"
 	BG_IMAGE_PATH = UPLOAD_PATH + "/background"
+	BM_IMAGE_PATH = UPLOAD_PATH + "/bmImage"
 )
 
 func getEnvWithDefault(envKey string) string {

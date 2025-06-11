@@ -17,17 +17,7 @@ import { listUser, delUser, resetPwd } from "@/api/user";
 import { UserModal } from "../modal/UserModal"; // 新增
 import { PlusCircle, Edit, Trash2, RotateCcwKey } from "lucide-react";
 import { UserInfo } from "@/lib/types/user";
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from "@/components/ui/alert-dialog";
+import { CommonConfirmDialog } from "@/components/common/CommonConfirmDialog";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 
 export function UsersTab() {
@@ -86,10 +76,16 @@ export function UsersTab() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-center">{t("userField.username")}</TableHead>
-            <TableHead className="text-center">{t("userField.nickname")}</TableHead>
+            <TableHead className="text-center">
+              {t("userField.username")}
+            </TableHead>
+            <TableHead className="text-center">
+              {t("userField.nickname")}
+            </TableHead>
             <TableHead className="text-center">{t("userField.sex")}</TableHead>
-            <TableHead className="text-center">{t("userField.status")}</TableHead>
+            <TableHead className="text-center">
+              {t("userField.status")}
+            </TableHead>
             <TableHead className="text-center">{t("userField.role")}</TableHead>
             <TableHead className="text-center">
               <div className="flex justify-center items-center h-10">
@@ -101,11 +97,15 @@ export function UsersTab() {
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={6} className="text-center">{t("common.loading")}</TableCell>
+              <TableCell colSpan={6} className="text-center">
+                {t("common.loading")}
+              </TableCell>
             </TableRow>
           ) : users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={6} className="text-center">{t("common.empty")}</TableCell>
+              <TableCell colSpan={6} className="text-center">
+                {t("common.empty")}
+              </TableCell>
             </TableRow>
           ) : (
             users.map((user) => (
@@ -142,74 +142,47 @@ export function UsersTab() {
                     >
                       <Edit className="w-4 h-4" />
                     </button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <button
-                          onClick={() => setResetPwdUser(user)}
-                          className="p-2 rounded-lg text-red-500 hover:text-red-700"
-                          title={t("users.resetPwd")}
-                        >
-                          <RotateCcwKey className="w-4 h-4" />
-                        </button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            {t("users.resetPwd")}
-                          </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            {t("users.resetPwdMessage")}
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>
-                            {t("common.cancel")}
-                          </AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={async () => {
-                              await resetPwd({ userId: resetPwdUser!.id });
-                              setResetPwdUser(null);
-                            }}
-                          >
-                            {t("common.confirm")}
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <button
-                          onClick={() => setDeletingUser(user)}
-                          className="p-2 rounded-lg text-red-500 hover:text-red-700"
-                          title={t("users.delete")}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            {t("users.delete")}
-                          </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            {t("users.deleteMessage")}
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>
-                            {t("common.cancel")}
-                          </AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={async () => {
-                              await handleDelete(deletingUser!.id);
-                              setDeletingUser(null);
-                            }}
-                          >
-                            {t("common.confirm")}
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                    <button
+                      onClick={() => setResetPwdUser(user)}
+                      className="p-2 rounded-lg text-red-500 hover:text-red-700"
+                      title={t("users.resetPwd")}
+                    >
+                      <RotateCcwKey className="w-4 h-4" />
+                    </button>
+
+                    <CommonConfirmDialog
+                      open={!!resetPwdUser}
+                      onOpenChange={(open) =>
+                        setResetPwdUser(open ? resetPwdUser : null)
+                      }
+                      onConfirm={async () => {
+                        await resetPwd({ userId: resetPwdUser!.id });
+                        setResetPwdUser(null);
+                      }}
+                      title={t("users.resetPwd")}
+                      description={t("users.resetPwdMessage")}
+                    />
+
+                    <button
+                      onClick={() => setDeletingUser(user)}
+                      className="p-2 rounded-lg text-red-500 hover:text-red-700"
+                      title={t("users.delete")}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+
+                    <CommonConfirmDialog
+                      open={!!deletingUser}
+                      onOpenChange={(open) =>
+                        setDeletingUser(open ? deletingUser : null)
+                      }
+                      onConfirm={async () => {
+                        await handleDelete(deletingUser!.id);
+                        setDeletingUser(null);
+                      }}
+                      title={t("users.delete")}
+                      description={t("users.deleteMessage")}
+                    />
                   </div>
                 </TableCell>
               </TableRow>

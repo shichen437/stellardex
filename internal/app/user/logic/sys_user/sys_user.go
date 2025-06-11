@@ -67,7 +67,7 @@ func (s *sSysUser) List(ctx context.Context, req *v1.GetUserListReq) (res *v1.Ge
 	if res.Total > 0 {
 		err = m.Page(req.PageNum, req.PageSize).Scan(&list)
 		if err != nil {
-			err = gerror.New("获取用户列表失败")
+			err = gerror.New("data.ListFailed")
 			return
 		}
 		fillRoleFields(ctx, list)

@@ -28,7 +28,7 @@ import type { SettingsState } from "@/lib/types/settings";
 import type { Group } from "@/lib/types/group";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { GroupModal } from "@/components/settings/modal/GroupModal";
-import { DeleteGroupModal } from "@/components/settings/modal/DeleteGroupModal";
+import { CommonConfirmDialog } from "@/components/common/CommonConfirmDialog";
 import {
   addGroup,
   updateGroup,
@@ -323,7 +323,9 @@ export function GroupsTab({ settings, onSettingsChange }: GroupsTabProps) {
         editing={!!editingGroup}
         editingId={editingGroup?.id}
       />
-      <DeleteGroupModal
+      <CommonConfirmDialog
+        title={t("groups.delete")}
+        description={t("groups.deleteMessage")}
         open={deleteModalOpen}
         onOpenChange={(open) => {
           setDeleteModalOpen(open);

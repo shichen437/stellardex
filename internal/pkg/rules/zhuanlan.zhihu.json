@@ -1,0 +1,9 @@
+{
+    "url": "https://zhuanlan.zhihu.com/p/1910470167231729950",
+    "selectors": {
+        "title": "h1.Post-Title",
+        "excerpt": "meta[name='description']",
+        "content": ".RichText.ztext.Post-RichText",
+        "byline": "div.AuthorInfo-head a.UserLink-link"
+    }
+}

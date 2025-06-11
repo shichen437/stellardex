@@ -34,6 +34,7 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
 ## 🚀 功能特性
 
 - 硬件监控
+- 书签剪藏
 - 多模式支持
 - 多风格展示
 - 中英文支持
@@ -50,7 +51,7 @@ StellarDex 是一个基于 Golang + Next 实现的导航页应用。
 
 <div align="center" style="margin-top: 20px">
   <img src="resource/assets/screenshots/homepage-dark.png" alt="主页-深色" width="45%">&nbsp;&nbsp;
-  <img src="resource/assets/screenshots/starry-dark.png" alt="星空-深色" width="45%">
+  <img src="resource/assets/screenshots/zh-CN/bookmark.jpg" alt="书签" width="45%">
 </div>
 
 ## 📦 Docker部署

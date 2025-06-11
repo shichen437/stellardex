@@ -1,0 +1,9 @@
+{
+    "url": "https://www.toutiao.com/article/7311506149616927267/?channel=&source=news",
+    "selectors": {
+        "title": "div.article-content h1",
+        "excerpt": "meta[name='description']",
+        "content": "article.syl-article-base.syl-page-article.tt-article-content",
+        "byline": "div.author-info a.name"
+    }
+}

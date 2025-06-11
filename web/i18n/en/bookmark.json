@@ -1,0 +1,116 @@
+{
+    "bookmark": {
+        "title": "Bookmarks",
+        "saveLink": "Save Link",
+        "delete": "Delete Bookmark",
+        "deleteMessage": "Are you sure you want to delete this bookmark?",
+        "valid": {
+            "url": "Please enter a valid url"
+        },
+        "operation": {
+            "read": "Mark as read",
+            "unread": "Mark as unread",
+            "archive": "Archive",
+            "unArchive": "Remove archive",
+            "star": "Star",
+            "unstar": "Unstar"
+        },
+        "sort" : {
+            "latest": "Latest",
+            "earliest": "Earliest",
+            "site": "Site Name",
+            "readingTime": "Reading Time"
+        },
+        "fields": {
+            "byline": "Author",
+            "site": "Site",
+            "title": "Title"
+        },
+        "placeholder": {
+            "keyword": "Please enter a keyword",
+            "title": "Please enter a title",
+            "site": "Please enter a site name",
+            "byline": "Please enter a author name"
+        },
+        "status": {
+            "all": "All",
+            "unread": "Unread",
+            "read": "Read",
+            "archive": "Archive"
+        },
+        "label": {
+            "title": "Tags",
+            "add": "Add tag",
+            "edit": "Edit tag",
+            "delete": "Delete tag",
+            "deleteMessage": "Are you sure you want to delete this tag?",
+            "count": " bookmarks",
+            "name": "Tag name",
+            "placeholder": {
+                "name": "Please enter a tag name",
+                "add": "Add tag ..."
+            },
+            "valid": {
+                "name": "Please enter a valid tag name"
+            }
+        },
+        "nav": {
+            "all": "All",
+            "unread": "Unread",
+            "read": "Read",
+            "archive": "Archived",
+            "favorite": "Star",
+            "tags": "Tags",
+            "selectors": "Selectors"
+        },
+        "selector": {
+            "title": "Selectors",
+            "add": "Add Selector",
+            "edit": "Edit Selector",
+            "delete": "Delete Selector",
+            "deleteMessage": "Are you sure you want to delete this selector?",
+            "fields": {
+                "domain": "Domain",
+                "cookie": "Cookie",
+                "title": "Title",
+                "content": "Content",
+                "excerpt": "Excerpt",
+                "publishedTime": "Published",
+                "byline": "Byline"
+            },
+            "valid": {
+                "domain": "Please enter a valid domain"
+            }
+        },
+        "empty": {
+            "all": {
+                "title": "No bookmarks",
+                "description": "You have no bookmarks saved"
+            },
+            "0": {
+                "title": "No unread bookmarks",
+                "description": "All bookmarks have been read"
+            },
+            "1": {
+                "title": "No read bookmarks",
+                "description": "You have no read bookmarks"
+            },
+            "archive": {
+                "title": "No archived bookmarks",
+                "description": "You have no archived bookmarks"
+            },
+            "starred": {
+                "title": "No starred bookmarks",
+                "description": "You have no starred bookmarks"
+            },
+            "label": {
+                "title": "No tags",
+                "description": "You have no added tags"
+            },
+            "selector": {
+                "title": "No selectors",
+                "description": "You have no added selectors"
+            }
+        }
+    }
+}

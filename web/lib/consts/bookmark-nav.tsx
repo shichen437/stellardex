@@ -1,0 +1,67 @@
+import { BookOpen, BadgeAlert, Archive, Star, Tag, Book, BookCheck } from "lucide-react";
+import { type NavItem } from "@/lib/types/bookmark";
+
+export const getNavItems = (t: (key: string) => string): NavItem[] => [
+  {
+    label: t("bookmark.nav.all"),
+    labelKey: "bookmark.nav.all",
+    icon: BookOpen,
+    count: 0,
+    active: true,
+    status: undefined,
+    group: "status",
+  },
+  {
+    label: t("bookmark.nav.unread"),
+    labelKey: "bookmark.nav.unread",
+    icon: Book,
+    count: 0,
+    active: false,
+    status: 0,
+    group: "status",
+  },
+  {
+    label: t("bookmark.nav.read"),
+    labelKey: "bookmark.nav.read",
+    icon: BookCheck,
+    count: 0,
+    active: false,
+    status: 1,
+    group: "status",
+  },
+  {
+    label: t("bookmark.nav.archive"),
+    labelKey: "bookmark.nav.archive",
+    icon: Archive,
+    count: 0,
+    active: false,
+    isArchive: 1,
+    group: "archive"
+  },
+  {
+    label: t("bookmark.nav.favorite"),
+    labelKey: "bookmark.nav.favorite",
+    icon: Star,
+    count: 0,
+    active: false,
+    isStarred: 1,
+    group: "starred"
+  },
+  {
+    label: t("bookmark.nav.tags"),
+    labelKey: "bookmark.nav.tags",
+    icon: Tag,
+    count: 0,
+    active: false,
+    group: "tags",
+  },
+  {
+    label: t("bookmark.nav.selectors"),
+    labelKey: "bookmark.nav.selectors",
+    icon: BadgeAlert,
+    count: 0,
+    active: false,
+    group: "selector",
+    selector: true,
+  },
+];

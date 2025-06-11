@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../style/prose.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -185,3 +186,4 @@
     background-position: 0 0;
   }
 }
+

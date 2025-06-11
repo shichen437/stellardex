@@ -13,9 +13,12 @@ import (
 
 	"github.com/shichen437/stellardex/internal/app/common/consts"
 	"github.com/shichen437/stellardex/internal/app/common/service"
+
+	bookmark "github.com/shichen437/stellardex/internal/app/bookmark/controller"
 	userGroup "github.com/shichen437/stellardex/internal/app/group/controller"
 	settings "github.com/shichen437/stellardex/internal/app/settings/controller"
 	user "github.com/shichen437/stellardex/internal/app/user/controller"
+
 	"github.com/shichen437/stellardex/internal/app/user/dao"
 	"github.com/shichen437/stellardex/internal/app/user/model/do"
 	"github.com/shichen437/stellardex/internal/app/user/model/entity"
@@ -136,5 +139,8 @@ func bindRoute(group *ghttp.RouterGroup) {
 		userGroup.UserGroup,
 		userGroup.UserGroupItem,
 		settings.UserSettings,
+		bookmark.UserBookmark,
+		bookmark.BookmarkLabel,
+		bookmark.BookmarkSelector,
 	)
 }

@@ -34,7 +34,7 @@ import {
   PanelLeftOpen,
 } from "lucide-react";
 import { SidebarInset } from "@/components/ui/sidebar";
-import { LogoutModal } from "./modal/LogoutModal";
+import { CommonConfirmDialog } from "../common/CommonConfirmDialog"; 
 import { useUserStore } from "@/lib/store/user";
 import { UsersTab } from "./tab/UsersTab";
 import { usePolyglot } from "@/providers/PolyglotProvider";
@@ -274,7 +274,9 @@ export function SettingsPanel({
           </SidebarInset>
         </div>
       </div>
-      <LogoutModal
+      <CommonConfirmDialog
+        title={t("logout.title")}
+        description={t("logout.message")}
         open={logoutOpen}
         onOpenChange={setLogoutOpen}
         onConfirm={handleLogout}

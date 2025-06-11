@@ -25,6 +25,7 @@ type ModuleConfig struct {
 	ShowMonitor    bool   `json:"showMonitor"`
 	CalendarFormat string `json:"calendarFormat"`
 	SearchEngine   string `json:"searchEngine"`
+	ShowBookmarks  bool   `json:"showBookmarks"`
 }
 
 type SiteConfig struct {

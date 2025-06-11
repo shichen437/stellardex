@@ -1,14 +1,8 @@
 "use client";
 import React, { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import Polyglot from 'node-polyglot';
-import en from '../i18n/en/en.json';
-import zhCN from '../i18n/zh-CN/zh-CN.json';
+import locales from '@/i18n';
 import { useSettingsStore } from '@/lib/store/settings';
-
-const locales = {
-  'en': en,
-  'zh-CN': zhCN,
-};
 
 const PolyglotContext = createContext({
   t: (key, options) => key,

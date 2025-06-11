@@ -1,0 +1,273 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "keyword": "Keyword",
+        "next": "Next",
+        "previous": "Previous",
+        "collapse": "Collapse",
+        "expand": "Expand",
+        "search": "Search",
+        "reset": "Reset",
+        "submit": "Submit",
+        "options": "Options",
+        "empty": "No data",
+        "minutes": "minutes",
+        "developing": "Developing...",
+        "placeholder": {
+            "search": "Please input search content"
+        }
+    },
+    "login": {
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "error": {
+            "username": "Username can not be empty.",
+            "password": "Password can not be empty.",
+            "failed": "Login failed, please try again later."
+        },
+        "placeholder": {
+            "username": "Please input username",
+            "password": "Please input password"
+        }
+    },
+    "sidebar": {
+        "title": "Settings",
+        "profile": "My Profile",
+        "interface": "Appearance",
+        "site": "Site Management",
+        "module": "Modules",
+        "groups": "Groups",
+        "users": "Users",
+        "support": "Support",
+        "about": "About"
+    },
+    "logout": {
+        "title": "Logout",
+        "message": "Are you sure you want to logout?"
+    },
+    "profile": {
+        "updatePwd": "Update Password",
+        "updateProfile": "Edit Profile",
+        "oldPwd": "Old Password",
+        "newPwd": "New Password",
+        "confirmPwd": "Confirm Password",
+        "error": {
+            "oldPwd": "The old password is incorrect.",
+            "newPwd": "The new password length must be between 6 and 20 characters.",
+            "confirmPwd": "Please input the new password.",
+            "newPwdMatch": "The new password and confirm password do not match.",
+            "newPwdSame": "The new password can not be the same as the old password.",
+            "nickname": "The nickname can not be empty.",
+            "sex": "Please select sex.",
+            "email": "The email can not be empty.",
+            "emailValid": "The email is not valid.",
+            "phone": "The phone can not be empty.",
+            "phoneValid": "The phone is not valid.",
+            "uploadLimit": "Upload file size can not be more than 1M"
+        },
+        "placeholder": {
+            "oldPwd": "Please input old password",
+            "newPwd": "Please input new password",
+            "confirmPwd": "Please input confirm password",
+            "nickname": "Please input nickname",
+            "email": "Please input email",
+            "phone": "Please input phone",
+            "sex": "Please select sex"
+        }
+    },
+    "appearance": {
+        "theme": "Theme",
+        "theme_light": "Light Mode",
+        "theme_dark": "Dark Mode",
+        "theme_system": "Follow System",
+        "language": "Language",
+        "interfaceMode": "Interface Mode",
+        "navigationMode": "Navigation Mode",
+        "starryMode": "Starry Mode",
+        "homepageMode": "Homepage Mode",
+        "simplicityMode": "Simplicity Mode",
+        "wallpaper": "Wallpaper",
+        "moreWallpapers": "More",
+        "uploadWallpaper": "Upload",
+        "blurred": "Blurred",
+        "placeholder": {
+            "theme": "Please select theme",
+            "language": "Please select language",
+            "interfaceMode": "Please select interface mode"
+        }
+    },
+    "site": {
+        "title": "Site Title",
+        "footer": "Site Footer",
+        "placeholder": {
+            "title": "Please input site title",
+            "footer": "Please input site footer"
+        }
+    },
+    "module": {
+        "showTime": "Show Time",
+        "showCalendar": "Show Date",
+        "showSearchBar": "Show Search Bar",
+        "showMonitor": "Show Monitor Info",
+        "dateFormat": "Date Format",
+        "showMeteors": "Show Meteors",
+        "showBookmarks": "Show Bookmarks",
+        "placeholder": {
+            "dateFormat": "Please select date format"
+        }
+    },
+    "groups": {
+        "list": "Group List",
+        "grid": "Grid View",
+        "row": "Row View",
+        "add": "Add Group",
+        "edit": "Edit Group",
+        "delete": "Delete Group",
+        "deleteMessage": "Are you sure you want to delete this group?",
+        "groupName": "Group Name",
+        "showType": "Show Type",
+        "showType_detail": "Detail Card",
+        "showType_icon": "Icon",
+        "showType_title": "Title",
+        "placeholder": {
+            "groupName": "Please input group name",
+            "displayType": "Please select display type"
+        }
+    },
+    "users": {
+        "list": "User List",
+        "add": "Add User",
+        "edit": "Edit User",
+        "delete": "Delete User",
+        "deleteMessage": "Are you sure you want to delete this user?",
+        "resetPwd": "Reset Password",
+        "resetPwdMessage": "Are you sure you want to reset this user password?",
+        "noData": "Get user info failed",
+        "error": {
+            "username": "Username can not be empty.",
+            "usernameLimit": "Username length can not be more than 12 characters.",
+            "nickname": "Nickname can not be empty.",
+            "nicknameLimit": "Nickname length can not be more than 12 characters.",
+            "role": "Please select user role."
+        },
+        "placeholder": {
+            "username": "Please input username",
+            "nickname": "Please input nickname",
+            "role": "Please select user role"
+        }
+    },
+    "userField": {
+        "username": "Username",
+        "nickname": "Nickname",
+        "email": "Email",
+        "phone": "Phone",
+        "sex": "Sex",
+        "sex_male": "Male",
+        "sex_female": "Female",
+        "status": "Status",
+        "status_active": "Active",
+        "status_inactive": "Disabled",
+        "role": "Role",
+        "role_admin": "Admin",
+        "role_user": "User"
+    },
+    "support": {
+        "title": "Support Developer",
+        "message": "Stellardex will always remain free and open-source. If you find it helpful, consider supporting its development in any of these ways.",
+        "wechat": "Wechat",
+        "alipay": "Alipay"
+    },
+    "about": {
+        "viewCode": "View Code",
+        "version": "Version",
+        "concact": "shichen437@gmail.com"
+    },
+    "groupItem": {
+        "add": "Add Item",
+        "edit": "Edit Item",
+        "delete": "Delete Item",
+        "preview": "Preview",
+        "getIcon": "Get Icon",
+        "fields": {
+            "title": "Item Title",
+            "url": "Item Url",
+            "lanUrl": "Lan Url",
+            "desc": "Item Description",
+            "iconType": "Icon Type",
+            "iconType_text": "Text",
+            "iconType_online": "Online",
+            "iconType_lucide": "Lucide",
+            "iconType_local": "Upload",
+            "bgColor": "Background Color",
+            "imageUrl": "Image Url",
+            "lucide": "Svg Code",
+            "local": "Upload Image"
+        },
+        "placeholder": {
+            "title": "Please input item title",
+            "url": "Please input item link",
+            "lanUrl": "Please input lan url",
+            "desc": "Please input item description",
+            "imageUrl": "Please input image url",
+            "lucide": "Please input lucide icon (or other svg icon) svg code",
+            "iconType": "Please select icon type"
+        },
+        "error": {
+            "title": "Item title can not be empty.",
+            "titleLimit": "Item title length can not be more than 10 characters.",
+            "descLimit": "Item description length can not be more than 30 characters.",
+            "url": "Item url can not be empty.",
+            "urlValid": "Item url is not valid.",
+            "lanUrlValid": "Item lan url is not valid."
+        }
+    },
+    "contextMenu": {
+        "newTab": "Open in New Tab",
+        "lanUrl": "Open in Lan Url"
+    },
+    "toast": {
+        "success": "Success",
+        "error": "The operation failed",
+        "retry": "The operation failed, please try again later",
+        "welcome": "Welcome to Stellardex",
+        "uploadSuccess": "Upload success",
+        "uploadError": "Upload failed"
+    },
+    "monitor":{
+        "cpu": {
+            "title": "Cpu",
+            "usage": "Usage",
+            "cores": "Cores",
+            "model": "Model"
+        },
+        "memory": {
+            "title": "Mem",
+            "total": "Total",
+            "used": "Used",
+            "usage": "Usage",
+            "available": "Free"
+        },
+        "disk": {
+            "title": "Disk",
+            "total": "Total",
+            "used": "Used",
+            "usage": "Usage",
+            "free": "Free",
+            "path": "Path",
+            "fstype": "Fstype"
+        }
+    },
+    "other": {
+        "home": "Home",
+        "searchEngine": "Search Engine",
+        "noGroup": "No groups have been added yet",
+        "noGroupMessage": "Click settings button to add a group"
+    }
+}

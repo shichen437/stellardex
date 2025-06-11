@@ -1,0 +1,21 @@
+"bookmark.valid.IdEmpty" = "Bookmark ID cannot be empty"
+
+"bookmark.valid.UrlEmpty" = "URL cannot be empty"
+"bookmark.valid.UrlInvalid" = "Invalid URL"
+
+"bookmark.error.ParseFailed" = "Parse failed"
+
+"bookmark.valid.TitleEmpty" = "Title cannot be empty"
+"bookmark.valid.TitleLength" = "Title length cannot exceed 80 characters"
+
+"bookmark.label.valid.IdEmpty" = "Tag ID cannot be empty"
+
+"bookmark.label.valid.NameEmpty" = "Tag name cannot be empty"
+"bookmark.label.valid.NameLength" = "Tag name length cannot exceed 12 characters"
+"bookmark.label.valid.NameExist" = "Tag name already exists"
+
+"bookmark.selector.valid.IdEmpty" = "Selector ID cannot be empty"
+
+"bookmark.selector.valid.DomainEmpty" = "Domain cannot be empty"
+"bookmark.selector.valid.DomainInvalid" = "Invalid domain"
+"bookmark.selector.valid.DomainExist" = "Current domain already exists"

@@ -33,6 +33,7 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 ## 🚀 Features
 
+- Bookmarks
 - Multi-user login
 - Hardware monitoring
 - Multiple style icons
@@ -50,7 +51,7 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 <div align="center" style="margin-top: 20px">
   <img src="resource/assets/screenshots/homepage-dark.png" alt="homepage-dark" width="45%">&nbsp;&nbsp;
-  <img src="resource/assets/screenshots/starry-dark.png" alt="starry-dark" width="45%">
+  <img src="resource/assets/screenshots/en/bookmark.jpg" alt="bookmark" width="45%">
 </div>
 
 ## 📦 Docker Deployment

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Settings, LogOut, Orbit } from "lucide-react";
+import { Settings, LogOut, Library } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
 import { SettingsPanel } from "@/components/settings/SettingsPanel";
 import { SimpleModeView } from "@/components/modes/Simplicity";
 import { NavigationModeView } from "@/components/modes/Navigation";
@@ -12,12 +12,12 @@ import type { SettingsState } from "@/lib/types/settings";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import { useAuth } from "@/hooks/useAuth";
-import { useSettingsStore } from "@/lib/store/settings";
 import { useUserStore } from "@/lib/store/user";
-import { checkVersion } from "@/api/settings";
 import { setVersion } from "@/lib/store/version";
+import { useSettingsStore } from "@/lib/store/settings";
+import { checkVersion } from "@/api/settings";
+import { CommonConfirmDialog } from "@/components/common/CommonConfirmDialog";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LogoutModal } from "@/components/settings/modal/LogoutModal";
 
 function GlobalAuthListener() {
   useAuth();
@@ -25,16 +25,16 @@ function GlobalAuthListener() {
 }
 
 export default function Home() {
-  const [showSettings, setShowSettings] = useState(false);
+  const router = useRouter();
+  const isMobile = useIsMobile();
+  const { setLanguage, t } = usePolyglot();
+  const [mounted, setMounted] = useState(false);
   const settings = useSettingsStore((state) => state.settings);
+  const [showSettings, setShowSettings] = useState(false);
   const getSettings = useSettingsStore((state) => state.getSettings);
   const updateSettings = useSettingsStore((state) => state.updateSettings);
-  const { setLanguage } = usePolyglot();
-  const isMobile = useIsMobile();
   const logoutStore = useUserStore((state) => state.logout);
   const [logoutOpen, setLogoutOpen] = useState(false);
-  const router = useRouter();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -114,19 +114,25 @@ export default function Home() {
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-red-600 dark:text-red-500"
             onClick={() => setLogoutOpen(true)}
           >
-            <LogOut className="w-6 h-6" />
+            <LogOut className="w-5 h-5" />
           </button>
         ) : (
-          <button
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            onClick={() => setShowSettings(!showSettings)}
-          >
-            {settings.interfaceConfig?.interfaceMode === "starry" ? (
-              <Orbit className="w-6 h-6" />
-            ) : (
-              <Settings className="w-6 h-6" />
+          <>
+            {settings?.moduleConfig?.showBookmarks && (
+              <button
+                onClick={() => router.push("/bookmark")}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <Library className="w-5.5 h-5.5" />
+              </button>
             )}
-          </button>
+            <button
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setShowSettings(!showSettings)}
+            >
+              <Settings className="w-5.5 h-5.5" />
+            </button>
+          </>
         )}
       </div>
 
@@ -142,7 +148,9 @@ export default function Home() {
         <ThemeProvider settings={settings}>{renderContent()}</ThemeProvider>
       )}
 
-      <LogoutModal
+      <CommonConfirmDialog
+        title={t("logout.title")}
+        description={t("logout.message")}
         open={logoutOpen}
         onOpenChange={setLogoutOpen}
         onConfirm={handleLogout}

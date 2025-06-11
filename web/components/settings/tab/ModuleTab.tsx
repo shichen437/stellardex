@@ -33,6 +33,20 @@ export function ModuleTab({ settings, onSettingsChange }: PersonalizationTabProp
       </div>
 
       <div className="flex items-center justify-between">
+        <span>{t("module.showBookmarks")}</span>
+        <Switch
+          checked={settings.moduleConfig.showBookmarks}
+          onCheckedChange={(checked) => onSettingsChange({
+            ...settings,
+            moduleConfig: {
+              ...settings.moduleConfig,
+              showBookmarks: checked
+            }
+          })}
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
         <span>{t("module.showSearchBar")}</span>
         <Switch
           checked={settings.moduleConfig.showSearchBar}

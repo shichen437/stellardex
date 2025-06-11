@@ -1,0 +1,21 @@
+"bookmark.valid.IdEmpty" = "书签ID不能为空"
+
+"bookmark.valid.UrlEmpty" = "网址不能为空"
+"bookmark.valid.UrlInvalid" = "无效的网址"
+
+"bookmark.error.ParseFailed" = "解析失败"
+
+"bookmark.valid.TitleEmpty" = "标题不能为空"
+"bookmark.valid.TitleLength" = "标题长度不能超过80个字符"
+
+"bookmark.label.valid.IdEmpty" = "标签ID不能为空"
+
+"bookmark.label.valid.NameEmpty" = "标签名称不能为空"
+"bookmark.label.valid.NameLength" = "标签名称长度不能超过12个字符"
+"bookmark.label.valid.NameExist" = "标签名称已存在"
+
+"bookmark.selector.valid.IdEmpty" = "选择器ID不能为空"
+
+"bookmark.selector.valid.DomainEmpty" = "域名不能为空"
+"bookmark.selector.valid.DomainInvalid" = "无效的域名"
+"bookmark.selector.valid.DomainExist" = "当前域名已存在选择器"
