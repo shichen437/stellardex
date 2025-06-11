@@ -59,6 +59,7 @@ COPY --from=next-builder /app/public /web/public
 COPY --from=next-builder /app/package.json /web/package.json
 
 COPY i18n/ $WORKDIR/i18n
+COPY internal/pkg/rules/ $WORKDIR/internal/pkg/rules
 COPY manifest/config/config.yaml.example $WORKDIR/config.yaml
 COPY manifest/migrate $WORKDIR/manifest/migrate
 COPY manifest/docker/entrypoint.sh /entrypoint.sh

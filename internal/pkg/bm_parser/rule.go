@@ -20,7 +20,11 @@ func NewRuleParser() *RuleParser {
 
 func (p *RuleParser) Parse(ctx context.Context, model *ArticleModel) (*ArticleModel, bool) {
 	site := bookmark.DealSiteName(model.Url)
-	file, err := os.ReadFile("internal/pkg/rules/" + site + ".json")
+	dir, err := os.Getwd()
+	if err != nil || dir == "" {
+		return &ArticleModel{}, false
+	}
+	file, err := os.ReadFile(dir + "/internal/pkg/rules/" + site + ".json")
 	if file == nil || err != nil {
 		return &ArticleModel{}, false
 	}
