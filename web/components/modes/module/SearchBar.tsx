@@ -166,7 +166,7 @@ export function SearchBar({
                   {t("other.searchEngine")}
                 </h3>
               </div>
-              <div className="p-2 grid grid-cols-6 gap-2">
+              <div className="p-2 grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {(
                   [
                     "baidu",
