@@ -10,7 +10,7 @@ export function getVersion() {
 }
 
 export function setVersion(token: string) {
-  return Cookies.set(LATEST_VERSION, token, { path: "/" });
+  return Cookies.set(LATEST_VERSION, token, { path: "/", expires: new Date(Date.now() + 2592000000) });
 }
 
 export function removeVersion() {

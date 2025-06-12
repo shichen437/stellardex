@@ -6,7 +6,7 @@ export function getToken() {
 }
 
 export function setToken(token: string) {
-  return Cookies.set(TOKEN_KEY, token, { path: "/" });
+  return Cookies.set(TOKEN_KEY, token, { path: "/", expires: new Date(Date.now() + 2592000000) });
 }
 
 export function removeToken() {
@@ -14,7 +14,7 @@ export function removeToken() {
 }
 
 export function setUsername(username: string) {
-  return Cookies.set(USERNAME_KEY, encodeURIComponent(username), { path: "/" });
+  return Cookies.set(USERNAME_KEY, encodeURIComponent(username), { path: "/", expires: new Date(Date.now() + 2592000000) });
 }
 
 export function getUsername() {
@@ -22,7 +22,7 @@ export function getUsername() {
 }
 
 export function setIsLoggedIn(isLoggedIn: boolean) {
-  return Cookies.set(LOGGED_KEY, isLoggedIn.toString(), { path: "/" });
+  return Cookies.set(LOGGED_KEY, isLoggedIn.toString(), { path: "/", expires: new Date(Date.now() + 2592000000) });
 }
 
 export function getIsLoggedIn() {
