@@ -7,24 +7,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SlidersHorizontal } from "lucide-react";
 import { usePolyglot } from "@/providers/PolyglotProvider";
-
-interface SearchParams {
-  keyword: string;
-  author: string;
-  site: string;
-  title: string;
-}
+import { SearchParams } from "@/lib/types/bookmark";
 
 interface Props {
   searchParams: SearchParams;
   onSearchParamsChange: (params: SearchParams) => void;
   onSearch: () => void;
+  onReset: () => void;
 }
 
 export function FilterDropdownMenu({
   searchParams,
   onSearchParamsChange,
   onSearch,
+  onReset,
 }: Props) {
   const { t } = usePolyglot();
   return (
@@ -50,7 +46,9 @@ export function FilterDropdownMenu({
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">{t("bookmark.fields.byline")}</label>
+            <label className="text-sm font-medium">
+              {t("bookmark.fields.byline")}
+            </label>
             <Input
               placeholder={t("bookmark.placeholder.byline")}
               value={searchParams.author}
@@ -63,7 +61,9 @@ export function FilterDropdownMenu({
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">{t("bookmark.fields.site")}</label>
+            <label className="text-sm font-medium">
+              {t("bookmark.fields.site")}
+            </label>
             <Input
               placeholder={t("bookmark.placeholder.site")}
               value={searchParams.site}
@@ -76,21 +76,32 @@ export function FilterDropdownMenu({
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">{t("bookmark.fields.title")}</label>
+            <label className="text-sm font-medium">
+              {t("bookmark.label.title")}
+            </label>
             <Input
-              placeholder={t("bookmark.placeholder.title")}
-              value={searchParams.title}
+              placeholder={t("bookmark.placeholder.label")}
+              value={searchParams.label}
               onChange={(e) =>
                 onSearchParamsChange({
                   ...searchParams,
-                  title: e.target.value,
+                  label: e.target.value,
                 })
               }
             />
           </div>
-          <Button className="w-full" onClick={onSearch}>
-            {t("common.search")}
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              className="flex-1" 
+              variant="outline"
+              onClick={onReset}
+            >
+              {t("common.reset")}
+            </Button>
+            <Button className="flex-1" onClick={onSearch}>
+              {t("common.search")}
+            </Button>
+          </div>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

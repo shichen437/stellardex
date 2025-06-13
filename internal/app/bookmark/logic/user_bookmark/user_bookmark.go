@@ -97,7 +97,11 @@ func (s *sUserBookmark) List(ctx context.Context, req *v1.GetBookmarkListReq) (r
 	}
 
 	baseQuery := dao.UserBookmark.Ctx(ctx).Where(dao.UserBookmark.Columns().UserId, uid)
-	baseQuery = dealQueryModel(req, baseQuery)
+	ids, ok := dealLabelParams(ctx, req, uid)
+	if !ok {
+		return
+	}
+	baseQuery = dealQueryModel(req, baseQuery, ids)
 	res.Total, err = baseQuery.Count()
 	if err != nil {
 		err = gerror.New("data.ListFailed")
@@ -205,7 +209,42 @@ func (s *sUserBookmark) Title(ctx context.Context, req *v1.PutBookmarkTitleReq) 
 	return
 }
 
-func dealQueryModel(req *v1.GetBookmarkListReq, baseQuery *gdb.Model) *gdb.Model {
+func dealLabelParams(ctx context.Context, req *v1.GetBookmarkListReq, uid int) ([]int, bool) {
+	var ids []int
+	var results []*entity.BookmarkLabelRelation
+	if req.Label != "" {
+		var relations []*entity.BookmarkLabel
+		var relationIds []int
+		dao.BookmarkLabel.Ctx(ctx).
+			Fields(dao.BookmarkLabel.Columns().Id).
+			Where(dao.BookmarkLabel.Columns().UserId, uid).
+			WhereLike(dao.BookmarkLabel.Columns().Name, "%"+req.Label+"%").
+			Scan(&relations)
+		if len(relations) <= 0 {
+			return nil, false
+		}
+		for _, v := range relations {
+			relationIds = append(relationIds, v.Id)
+		}
+		dao.BookmarkLabelRelation.Ctx(ctx).
+			Fields(dao.BookmarkLabelRelation.Columns().BookmarkId).
+			WhereIn(dao.BookmarkLabelRelation.Columns().LabelId, relationIds).
+			Scan(&results)
+		if len(results) > 0 {
+			for _, v := range results {
+				ids = append(ids, v.BookmarkId)
+			}
+			return ids, true
+		}
+		return nil, false
+	}
+	return nil, true
+}
+
+func dealQueryModel(req *v1.GetBookmarkListReq, baseQuery *gdb.Model, ids []int) *gdb.Model {
+	if len(ids) > 0 {
+		baseQuery = baseQuery.WhereIn(dao.UserBookmark.Columns().Id, ids)
+	}
 	if req.Keyword != "" {
 		baseQuery = baseQuery.Where("title LIKE ? OR excerpt LIKE ? OR content_text LIKE ?",
 			"%"+req.Keyword+"%",
@@ -215,11 +254,8 @@ func dealQueryModel(req *v1.GetBookmarkListReq, baseQuery *gdb.Model) *gdb.Model
 	if req.Author != "" {
 		baseQuery = baseQuery.WhereLike(dao.UserBookmark.Columns().Author, "%"+req.Author+"%")
 	}
-	if req.Title != "" {
-		baseQuery = baseQuery.WhereLike(dao.UserBookmark.Columns().Title, "%"+req.Title+"%")
-	}
 	if req.Site != "" {
-		baseQuery = baseQuery.Where(dao.UserBookmark.Columns().SiteName, req.Site)
+		baseQuery = baseQuery.WhereLike(dao.UserBookmark.Columns().SiteName, req.Site)
 	}
 	if req.Status != nil {
 		baseQuery = baseQuery.Where(dao.UserBookmark.Columns().Status, req.Status)
@@ -230,6 +266,11 @@ func dealQueryModel(req *v1.GetBookmarkListReq, baseQuery *gdb.Model) *gdb.Model
 	if req.IsStarred != nil {
 		baseQuery = baseQuery.Where(dao.UserBookmark.Columns().IsStarred, req.IsStarred)
 	}
+	baseQuery = dealSortParams(req, baseQuery)
+	return baseQuery
+}
+
+func dealSortParams(req *v1.GetBookmarkListReq, baseQuery *gdb.Model) *gdb.Model {
 	switch req.Sort {
 	case "id:asc":
 		baseQuery = baseQuery.OrderAsc(dao.UserBookmark.Columns().Id)

@@ -28,7 +28,7 @@
         },
         "placeholder": {
             "keyword": "请输入关键字",
-            "title": "请输入标题",
+            "label": "请输入标签",
             "site": "请输入网站名称",
             "byline": "请输入作者名称"
         },

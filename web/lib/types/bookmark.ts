@@ -71,3 +71,10 @@ export interface UserLabel {
   id: number;
   name: string;
 }
+
+export interface SearchParams {
+  keyword: string;
+  author: string;
+  site: string;
+  label: string;
+}

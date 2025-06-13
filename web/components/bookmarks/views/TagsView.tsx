@@ -14,9 +14,10 @@ import {
 
 interface Props {
   onUpdateBookmarkNum: () => void;
+  onLabelClick: (label: UserBmLabel) => void;
 }
 
-export function TagsView({ onUpdateBookmarkNum }: Props) {
+export function TagsView({ onUpdateBookmarkNum, onLabelClick }: Props) {
   const { t } = usePolyglot();
   const [labels, setLabels] = useState<UserBmLabel[]>([]);
   const [labelModalOpen, setLabelModalOpen] = useState(false);
@@ -112,6 +113,7 @@ export function TagsView({ onUpdateBookmarkNum }: Props) {
         onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDeleteClick}
+        onLabelClick={onLabelClick}
       />
 
       <LabelDialog

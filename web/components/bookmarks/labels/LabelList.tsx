@@ -9,9 +9,16 @@ interface Props {
   onAdd: () => void;
   onEdit: (label: UserBmLabel) => void;
   onDelete: (id: number) => void;
+  onLabelClick: (label: UserBmLabel) => void;
 }
 
-export function LabelList({ labels, onAdd, onEdit, onDelete }: Props) {
+export function LabelList({
+  labels,
+  onAdd,
+  onEdit,
+  onDelete,
+  onLabelClick,
+}: Props) {
   const { t } = usePolyglot();
 
   return (
@@ -32,13 +39,18 @@ export function LabelList({ labels, onAdd, onEdit, onDelete }: Props) {
               label={label}
               onEdit={onEdit}
               onDelete={onDelete}
+              onClick={onLabelClick}
             />
           ))
         ) : (
           <div className="col-span-full flex flex-col items-center justify-center py-12 text-muted-foreground">
             <Tag className="w-12 h-12 mb-4" />
-            <p className="text-lg font-medium mb-2">{t("bookmark.empty.label.title")}</p>
-            <p className="text-sm text-gray-400">{t("bookmark.empty.label.description")}</p>
+            <p className="text-lg font-medium mb-2">
+              {t("bookmark.empty.label.title")}
+            </p>
+            <p className="text-sm text-gray-400">
+              {t("bookmark.empty.label.description")}
+            </p>
           </div>
         )}
       </div>

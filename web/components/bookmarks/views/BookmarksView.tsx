@@ -1,5 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import * as z from "zod";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -22,7 +28,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { type Bookmark } from "@/lib/types/bookmark";
+import { type Bookmark, SearchParams } from "@/lib/types/bookmark";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import {
   listBookmark,
@@ -43,16 +49,26 @@ interface Props {
   isArchive?: number;
   isStarred?: number;
   onUpdateBookmarkNum: () => void;
+  initialSearchParams?: {
+    label?: string;
+  };
 }
 
-export function BookmarksView({
-  categoryName,
-  currentStatus,
-  currentGroup,
-  isArchive,
-  isStarred,
-  onUpdateBookmarkNum,
-}: Props) {
+export const BookmarksView = forwardRef<
+  { handleSearch: (params: SearchParams) => void },
+  Props
+>(function BookmarksView(
+  {
+    categoryName,
+    currentStatus,
+    currentGroup,
+    isArchive,
+    isStarred,
+    onUpdateBookmarkNum,
+    initialSearchParams,
+  },
+  ref
+) {
   const { t } = usePolyglot();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
@@ -66,7 +82,7 @@ export function BookmarksView({
     keyword: "",
     author: "",
     site: "",
-    title: "",
+    label: initialSearchParams?.label || "",
   });
   const [selectedBookmark, setSelectedBookmark] = useState<Bookmark | null>(
     null
@@ -76,7 +92,10 @@ export function BookmarksView({
   ) as React.RefObject<HTMLFormElement>;
 
   const formSchema = z.object({
-    url: z.string().min(1, t("bookmark.valid.url")).url(t("bookmark.valid.url")),
+    url: z
+      .string()
+      .min(1, t("bookmark.valid.url"))
+      .url(t("bookmark.valid.url")),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -84,16 +103,16 @@ export function BookmarksView({
     defaultValues: { url: "" },
   });
 
-  const fetchBookmarks = async (page = 1) => {
+  const fetchBookmarks = async (page = 1, params?: SearchParams) => {
     const res = await listBookmark({
       pageNum: page,
       pageSize,
       status: currentStatus,
       sort,
-      keyword: searchParams.keyword,
-      author: searchParams.author,
-      site: searchParams.site,
-      title: searchParams.title,
+      keyword: params?.keyword ?? searchParams.keyword,
+      author: params?.author ?? searchParams.author,
+      site: params?.site ?? searchParams.site,
+      label: params?.label ?? searchParams.label,
       isArchive,
       isStarred,
     });
@@ -129,6 +148,22 @@ export function BookmarksView({
     fetchBookmarks(1);
   };
 
+  const handleReset = () => {
+    setSearchParams({
+      keyword: "",
+      author: "",
+      site: "",
+      label: "",
+    });
+    setCurrentPage(1);
+    fetchBookmarks(1, {
+      keyword: "",
+      author: "",
+      site: "",
+      label: "",
+    });
+  };
+
   const handleDeleteClick = (bookmark: Bookmark) => {
     setSelectedBookmark(bookmark);
     setDeleteModalOpen(true);
@@ -157,13 +192,13 @@ export function BookmarksView({
     status: number;
     type: number;
   }) => {
-      const res = await updateStatus(data);
-      if (res.code === 0) {
-        fetchBookmarks(currentPage);
-        onUpdateBookmarkNum();
-      } else {
-        toast.error(res.msg);
-      }
+    const res = await updateStatus(data);
+    if (res.code === 0) {
+      fetchBookmarks(currentPage);
+      onUpdateBookmarkNum();
+    } else {
+      toast.error(res.msg);
+    }
   };
 
   const handleSortChange = (sortValue: string) => {
@@ -183,6 +218,14 @@ export function BookmarksView({
     setCurrentPage(1);
     fetchBookmarks(1);
   }, [currentStatus, currentGroup, isArchive, isStarred]);
+
+  useImperativeHandle(ref, () => ({
+    handleSearch: (params: SearchParams) => {
+      setSearchParams(params);
+      setCurrentPage(1);
+      fetchBookmarks(1);
+    },
+  }));
 
   return (
     <>
@@ -251,6 +294,7 @@ export function BookmarksView({
             searchParams={searchParams}
             onSearchParamsChange={setSearchParams}
             onSearch={handleSearch}
+            onReset={handleReset}
           />
         </div>
       </div>
@@ -336,4 +380,4 @@ export function BookmarksView({
       />
     </>
   );
-}
+});

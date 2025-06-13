@@ -31,7 +31,6 @@ type GetBookmarkListReq struct {
 	common.PageReq
 	Keyword   string `json:"keyword"`
 	Author    string `json:"author"`
-	Title     string `json:"title"`
 	Site      string `json:"site"`
 	Sort      string `json:"sort"`
 	Status    *int   `json:"status"`

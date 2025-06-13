@@ -31,7 +31,7 @@ interface ListBookmarkParams {
   keyword?: string;
   author?: string;
   site?: string;
-  title?: string;
+  label?: string;
   isArchive?: number;
   isStarred?: number;
 }

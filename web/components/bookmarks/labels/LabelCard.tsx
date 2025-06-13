@@ -8,13 +8,17 @@ interface Props {
   label: UserBmLabel;
   onEdit: (label: UserBmLabel) => void;
   onDelete: (id: number) => void;
+  onClick: (label: UserBmLabel) => void;
 }
 
-export function LabelCard({ label, onEdit, onDelete }: Props) {
+export function LabelCard({ label, onEdit, onDelete, onClick }: Props) {
   const { t } = usePolyglot();
-  
+
   return (
-    <Card className="p-6 hover:shadow-lg transition-shadow">
+    <Card
+      className="p-6 hover:shadow-lg transition-shadow"
+      onClick={() => onClick(label)}
+    >
       <div className="flex justify-between items-start">
         <div>
           <h3 className="font-medium text-lg">{label.name}</h3>
@@ -26,14 +30,20 @@ export function LabelCard({ label, onEdit, onDelete }: Props) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => onEdit(label)}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              onEdit(label);
+            }}
           >
             <Pencil className="w-4 h-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => onDelete(label.id)}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              onDelete(label.id);
+            }}
           >
             <Trash className="w-4 h-4" />
           </Button>

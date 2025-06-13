@@ -28,7 +28,7 @@
         },
         "placeholder": {
             "keyword": "Please enter a keyword",
-            "title": "Please enter a title",
+            "title": "Please enter a tag",
             "site": "Please enter a site name",
             "byline": "Please enter a author name"
         },

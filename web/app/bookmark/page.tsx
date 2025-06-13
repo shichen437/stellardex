@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Home } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -12,7 +12,7 @@ import { usePolyglot } from "@/providers/PolyglotProvider";
 import { TagsView } from "@/components/bookmarks/views/TagsView";
 import { SelectorsView } from "@/components/bookmarks/views/SelectorsView";
 import { BookmarksView } from "@/components/bookmarks/views/BookmarksView";
-import { type NavItem } from "@/lib/types/bookmark";
+import { type NavItem, UserBmLabel, SearchParams } from "@/lib/types/bookmark";
 import { useSettingsStore } from "@/lib/store/settings";
 import { getNavItems } from "@/lib/consts/bookmark-nav";
 import { getBookmarkNum } from "@/api/bookmark/bookmark";
@@ -47,6 +47,16 @@ export default function BookmarkPage() {
   const [currentIsStarred, setCurrentIsStarred] = useState<number | undefined>(
     undefined
   );
+
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    keyword: "",
+    author: "",
+    site: "",
+    label: "",
+  });
+  const bookmarksViewRef = useRef<{
+    handleSearch: (params: SearchParams) => void;
+  }>(null);
 
   const fetchBookmarkNum = async () => {
     const res = await getBookmarkNum();
@@ -129,6 +139,17 @@ export default function BookmarkPage() {
     return navItemsState.find((item) => item.active)?.label || "全部";
   };
 
+  const handleSearch = () => {
+    if (selectedTab === "bookmarks" && bookmarksViewRef.current) {
+      bookmarksViewRef.current.handleSearch(searchParams);
+    }
+  };
+
+  const handleLabelClick = (label: UserBmLabel) => {
+    handleNavItemClick(undefined, "status", navItemsState[0].label);
+    setSearchParams((prev) => ({ ...prev, label: label.name }));
+    handleSearch();
+  };
   return (
     <ThemeProvider settings={settings}>
       <div className="flex min-h-screen bg-background">
@@ -183,15 +204,20 @@ export default function BookmarkPage() {
         <main className="flex-1 px-10 py-8">
           {selectedTab === "bookmarks" ? (
             <BookmarksView
+              ref={bookmarksViewRef}
               categoryName={getCurrentCategoryName()}
               currentStatus={currentStatus}
               currentGroup={currentGroup}
               isArchive={currentIsArchive}
               isStarred={currentIsStarred}
               onUpdateBookmarkNum={fetchBookmarkNum}
+              initialSearchParams={searchParams}
             />
           ) : selectedTab === "tags" ? (
-            <TagsView onUpdateBookmarkNum={fetchBookmarkNum} />
+            <TagsView
+              onUpdateBookmarkNum={fetchBookmarkNum}
+              onLabelClick={handleLabelClick}
+            />
           ) : (
             <SelectorsView onUpdateBookmarkNum={fetchBookmarkNum} />
           )}
