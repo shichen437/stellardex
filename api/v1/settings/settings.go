@@ -6,6 +6,7 @@ import (
 	"github.com/shichen437/stellardex/api/v1/common"
 	"github.com/shichen437/stellardex/internal/app/settings/model"
 	"github.com/shichen437/stellardex/internal/app/settings/model/entity"
+	monitor "github.com/shichen437/stellardex/internal/pkg/monitor/entity"
 )
 
 type PutSettingsReq struct {
@@ -64,4 +65,14 @@ type CheckVersionReq struct {
 type CheckVersionRes struct {
 	g.Meta        `mime:"application/json" example:"json"`
 	LatestVerison string `json:"latestVerison"`
+}
+
+type GetMonitorInfoReq struct {
+	g.Meta `path:"/settings/monitor" method:"get" tags:"用户设置" summary:"获取监控信息"`
+}
+type GetMonitorInfoRes struct {
+	g.Meta `mime:"application/json" example:"json"`
+	Cpu    *monitor.CpuInfo    `json:"cpu"`
+	Mem    *monitor.MemoryInfo `json:"mem"`
+	Disk   *monitor.DiskInfo   `json:"disk"`
 }

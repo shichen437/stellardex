@@ -18,8 +18,10 @@ import {
   updateGroupItem,
 } from "@/api/group_item";
 import { usePolyglot } from "@/providers/PolyglotProvider";
+import { useIsMobile } from "@/hooks/useMobile";
 
 export function NavigationModeView() {
+  const isMobile = useIsMobile();
   const [showGroupItemModal, setShowGroupItemModal] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [editingGroupItem, setEditingGroupItem] = useState<GroupItem | null>(
@@ -149,7 +151,7 @@ export function NavigationModeView() {
           />
         )}
 
-        {settings.moduleConfig?.showMonitor && (
+        {!isMobile && settings.moduleConfig?.showMonitor && (
           <MonitorPanel />
         )}
 

@@ -20,6 +20,7 @@ type (
 		BgImageList(ctx context.Context, req *v1.GetBgImageListReq) (res *v1.GetBgImageListRes, err error)
 		BgImageDelete(ctx context.Context, req *v1.DeleteBgImageReq) (res *v1.DeleteBgImageRes, err error)
 		CheckVersion(ctx context.Context, req *v1.CheckVersionReq) (res *v1.CheckVersionRes, err error)
+		Monitor(ctx context.Context, req *v1.GetMonitorInfoReq) (res *v1.GetMonitorInfoRes, err error)
 	}
 )
 

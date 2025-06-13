@@ -39,3 +39,7 @@ func (c *userSettingsController) BgImageDelete(ctx context.Context, req *v1.Dele
 func (c *userSettingsController) CheckVersion(ctx context.Context, req *v1.CheckVersionReq) (res *v1.CheckVersionRes, err error) {
 	return service.UserSettings().CheckVersion(ctx, req)
 }
+
+func (c *userSettingsController) Monitor(ctx context.Context, req *v1.GetMonitorInfoReq) (res *v1.GetMonitorInfoRes, err error) {
+	return service.UserSettings().Monitor(ctx, req)
+}

@@ -9,6 +9,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { initMonitor } from "@/api/settings";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import { formatBytes } from "@/lib/utils";
 
@@ -39,6 +40,20 @@ export default function MonitorPanel() {
   const { t } = usePolyglot();
 
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchInitialData = async () => {
+      try {
+        const res = await initMonitor();
+        if (isMounted && !data) {
+          if (res.code === 0 && res.data) {
+            setData(res.data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch initial monitor data:", error);
+      }
+    };
     const sseClient = createSSEConnection({
       channel: "monitor",
       onMessage: (msg) => {
@@ -52,10 +67,12 @@ export default function MonitorPanel() {
         console.error("Monitor SSE error:", error);
       },
     });
-
+    fetchInitialData();
     return () => {
+      isMounted = false;
       sseClient.disconnect();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!data) {

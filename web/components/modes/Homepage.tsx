@@ -17,8 +17,10 @@ import {
   updateGroupItem,
   deleteGroupItem,
 } from "@/api/group_item";
+import { useIsMobile } from "@/hooks/useMobile";
 
 export function HomepageModeView() {
+  const isMobile = useIsMobile();
   const [showGroupItemModal, setShowGroupItemModal] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
   const [editingGroupItem, setEditingGroupItem] = useState<GroupItem | null>(
@@ -126,7 +128,7 @@ export function HomepageModeView() {
             />
           )}
 
-          {settings.moduleConfig?.showMonitor && <MonitorPanel />}
+          {!isMobile && settings.moduleConfig?.showMonitor && <MonitorPanel />}
 
           {mounted && currentGroup && (
             <div className="w-full max-w-6xl">

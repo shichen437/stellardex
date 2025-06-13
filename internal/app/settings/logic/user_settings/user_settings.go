@@ -2,11 +2,15 @@ package logic
 
 import (
 	"context"
+	"time"
 
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/os/gcache"
 	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/shirou/gopsutil/v3/disk"
+	"github.com/shirou/gopsutil/v3/mem"
 
 	v1 "github.com/shichen437/stellardex/api/v1/settings"
 	commonConsts "github.com/shichen437/stellardex/internal/app/common/consts"
@@ -17,6 +21,7 @@ import (
 	"github.com/shichen437/stellardex/internal/app/settings/model/entity"
 	"github.com/shichen437/stellardex/internal/app/settings/service"
 	"github.com/shichen437/stellardex/internal/pkg/cron/system"
+	monitorEntity "github.com/shichen437/stellardex/internal/pkg/monitor/entity"
 	"github.com/shichen437/stellardex/internal/pkg/utils"
 )
 
@@ -200,6 +205,33 @@ func (s *sUserSettings) CheckVersion(ctx context.Context, req *v1.CheckVersionRe
 		return
 	}
 	res.LatestVerison = system.GetLatestVersion(ctx, true)
+	return
+}
+
+func (c *sUserSettings) Monitor(ctx context.Context, req *v1.GetMonitorInfoReq) (res *v1.GetMonitorInfoRes, err error) {
+	res = &v1.GetMonitorInfoRes{}
+	cpuInfo, _ := cpu.Info()
+	percents, _ := cpu.Percent(100*time.Millisecond, false)
+	var cpuData *monitorEntity.CpuInfo
+	if len(cpuInfo) > 0 {
+		gconv.Struct(cpuInfo[0], &cpuData)
+		if len(percents) > 0 {
+			cpuData.Percent = percents[0]
+		}
+	}
+	var memData *monitorEntity.MemoryInfo
+	memInfo, _ := mem.VirtualMemory()
+	if memInfo != nil {
+		gconv.Struct(memInfo, &memData)
+	}
+	var diskData *monitorEntity.DiskInfo
+	diskInfo, _ := disk.Usage("/")
+	if diskInfo != nil {
+		gconv.Struct(diskInfo, &diskData)
+	}
+	res.Cpu = cpuData
+	res.Mem = memData
+	res.Disk = diskData
 	return
 }
 

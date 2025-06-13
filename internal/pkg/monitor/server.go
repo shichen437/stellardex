@@ -30,7 +30,7 @@ func init() {
 
 func HardwareInfo() {
 	cpuInfo, _ := cpu.Info()
-	percents, _ := cpu.Percent(100*time.Millisecond, false)
+	percents, _ := cpu.Percent(1000*time.Millisecond, false)
 	var cpuData *entity.CpuInfo
 	if len(cpuInfo) > 0 {
 		gconv.Struct(cpuInfo[0], &cpuData)
