@@ -35,3 +35,7 @@ func (s *userBookmarkController) Num(ctx context.Context, req *v1.GetBookmarkNum
 func (s *userBookmarkController) Status(ctx context.Context, req *v1.PutBookmarkStatusReq) (res *v1.PutBookmarkStatusRes, err error) {
 	return service.UserBookmark().Status(ctx, req)
 }
+
+func (s *userBookmarkController) Title(ctx context.Context, req *v1.PutBookmarkTitleReq) (res *v1.PutBookmarkTitleRes, err error) {
+	return service.UserBookmark().Title(ctx, req)
+}

@@ -13,6 +13,7 @@ import {
   Tag,
   User,
   X,
+  Edit,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,36 +29,10 @@ import {
   deleteBmLabel,
   getUserBmLabels,
 } from "@/api/bookmark/bookmark_label";
-import { updateStatus } from "@/api/bookmark/bookmark";
+import { updateStatus, updateBmTitle } from "@/api/bookmark/bookmark";
 import { Separator } from "@/components/ui/separator";
 import { usePolyglot } from "@/providers/PolyglotProvider";
-
-interface Bookmark {
-  id: number;
-  title: string;
-  excerpt: string;
-  siteName: string;
-  readingTime: number;
-  coverImageUrl: string;
-  status: number;
-  author: string;
-  sourceUrl: string;
-  contentHtml: string;
-  contentText: string;
-  isArchive: number;
-  isStarred: number;
-}
-
-interface Label {
-  id: number;
-  name: string;
-  labelId?: number;
-}
-
-interface UserLabel {
-  id: number;
-  name: string;
-}
+import { Bookmark, Label, UserLabel } from "@/lib/types/bookmark";
 
 function GlobalAuthListener() {
   useAuth();
@@ -82,6 +57,8 @@ export default function BookmarkDetailPage({
   const [inputValue, setInputValue] = useState("");
   const contentRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(bookmark?.title || "");
 
   useEffect(() => {
     const fetchBookmark = async () => {
@@ -105,6 +82,34 @@ export default function BookmarkDetailPage({
   useEffect(() => {
     getSettings();
   }, [getSettings]);
+
+  useEffect(() => {
+    if (bookmark) {
+      setEditedTitle(bookmark.title);
+    }
+  }, [bookmark]);
+
+  const handleTitleUpdate = async () => {
+    if (!bookmark || !editedTitle.trim()) return;
+
+    try {
+      const res = await updateBmTitle({
+        id: bookmark.id,
+        title: editedTitle,
+      });
+
+      if (res.code === 0) {
+        setBookmark((prev) => (prev ? { ...prev, title: editedTitle } : null));
+        setIsEditingTitle(false);
+        toast.success(t("toast.success"));
+      } else {
+        toast.error(res.msg);
+      }
+    } catch (error) {
+      console.error("Updating title failed", error);
+      toast.error(t("toast.error"));
+    }
+  };
 
   const handleUpdateStatus = async (data: {
     id?: number;
@@ -209,7 +214,7 @@ export default function BookmarkDetailPage({
         setShowDropdown(false);
         toast.success(t("toast.success"));
       } else {
-        toast.error(res.msg)
+        toast.error(res.msg);
       }
     } catch (error) {
       console.log(error);
@@ -278,7 +283,44 @@ export default function BookmarkDetailPage({
         <div className="flex-1 overflow-auto">
           <div className="max-w-3xl mx-auto px-2 py-8">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-6">{bookmark.title}</h1>
+              <div className="flex items-start gap-4">
+                {isEditingTitle ? (
+                  <div className="flex-1 flex gap-2">
+                    <Input
+                      value={editedTitle}
+                      onChange={(e) => setEditedTitle(e.target.value)}
+                      className="text-3xl font-bold"
+                    />
+                    <Button onClick={handleTitleUpdate} size="sm">
+                      {t("common.save")}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditedTitle(bookmark.title);
+                        setIsEditingTitle(false);
+                      }}
+                      size="sm"
+                    >
+                      {t("common.cancel")}
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <h1 className="text-3xl font-bold flex-1">
+                      {bookmark.title}
+                    </h1>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsEditingTitle(true)}
+                      className="text-muted-foreground"
+                    >
+                      <Edit />
+                    </Button>
+                  </>
+                )}
+              </div>
               <p className="text-gray-500 mb-6 text-sm leading-relaxed border-l-4 border-gray-200 pl-4">
                 {bookmark.excerpt}
               </p>
@@ -298,7 +340,11 @@ export default function BookmarkDetailPage({
                   className="w-5 h-5 text-muted-foreground"
                   fill={bookmark.status ? "yellow" : "none"}
                 />
-                <span>{bookmark.status ? t("bookmark.operation.unread") : t("bookmark.operation.read")}</span>
+                <span>
+                  {bookmark.status
+                    ? t("bookmark.operation.unread")
+                    : t("bookmark.operation.read")}
+                </span>
               </div>
               <div
                 onClick={handleStarClick}
@@ -308,7 +354,11 @@ export default function BookmarkDetailPage({
                   className="w-5 h-5 text-muted-foreground"
                   fill={bookmark.isStarred ? "yellow" : "none"}
                 />
-                <span>{bookmark.isStarred ? t("bookmark.operation.unstar") : t("bookmark.operation.star")}</span>
+                <span>
+                  {bookmark.isStarred
+                    ? t("bookmark.operation.unstar")
+                    : t("bookmark.operation.star")}
+                </span>
               </div>
               <div
                 onClick={handleArchiveClick}
@@ -318,7 +368,11 @@ export default function BookmarkDetailPage({
                   className="w-5 h-5 text-muted-foreground"
                   fill={bookmark.isArchive ? "yellow" : "none"}
                 />
-                <span>{bookmark.isArchive ? t("bookmark.operation.unArchive") : t("bookmark.operation.archive")}</span>
+                <span>
+                  {bookmark.isArchive
+                    ? t("bookmark.operation.unArchive")
+                    : t("bookmark.operation.archive")}
+                </span>
               </div>
             </div>
           </div>
@@ -350,14 +404,18 @@ export default function BookmarkDetailPage({
             <div className="flex items-center gap-3">
               <Clock className="w-5 h-5" />
               <div>
-                <p className="text-sm">{bookmark.readingTime} {t("common.minutes")}</p>
+                <p className="text-sm">
+                  {bookmark.readingTime} {t("common.minutes")}
+                </p>
               </div>
             </div>
             <Separator />
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Tag className="w-5 h-5" />
-                <p className="text-sm font-medium">{t("bookmark.label.title")}</p>
+                <p className="text-sm font-medium">
+                  {t("bookmark.label.title")}
+                </p>
               </div>
 
               <div className="flex flex-wrap gap-2">

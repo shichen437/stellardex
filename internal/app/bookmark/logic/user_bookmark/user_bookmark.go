@@ -188,6 +188,23 @@ func (s *sUserBookmark) Status(ctx context.Context, req *v1.PutBookmarkStatusReq
 	return
 }
 
+func (s *sUserBookmark) Title(ctx context.Context, req *v1.PutBookmarkTitleReq) (res *v1.PutBookmarkTitleRes, err error) {
+	res = &v1.PutBookmarkTitleRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("auth.UserIDEmpty")
+		return
+	}
+	_, err = dao.UserBookmark.Ctx(ctx).
+		WherePri(req.Id).
+		Where(dao.UserBookmark.Columns().UserId, uid).
+		Update(do.UserBookmark{
+			Title:    req.Title,
+			UpdateAt: utils.Now(),
+		})
+	return
+}
+
 func dealQueryModel(req *v1.GetBookmarkListReq, baseQuery *gdb.Model) *gdb.Model {
 	if req.Keyword != "" {
 		baseQuery = baseQuery.Where("title LIKE ? OR excerpt LIKE ? OR content_text LIKE ?",

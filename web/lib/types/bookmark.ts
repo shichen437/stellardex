@@ -7,10 +7,12 @@ export interface Bookmark {
   readingTime: number;
   coverImageUrl: string;
   status: number;
+  author: string;
   isArchive: number;
   isStarred: number;
-  author: string;
   sourceUrl: string;
+  contentHtml: string;
+  contentText: string;
 }
 
 export interface Selector {
@@ -41,4 +43,31 @@ export interface UserBmLabel {
   id: number;
   name: string;
   bmNum: number;
+}
+
+export interface Bookmark {
+  id: number;
+  title: string;
+  excerpt: string;
+  siteName: string;
+  readingTime: number;
+  coverImageUrl: string;
+  status: number;
+  author: string;
+  sourceUrl: string;
+  contentHtml: string;
+  contentText: string;
+  isArchive: number;
+  isStarred: number;
+}
+
+export interface Label {
+  id: number;
+  name: string;
+  labelId?: number;
+}
+
+export interface UserLabel {
+  id: number;
+  name: string;
 }
