@@ -6,10 +6,12 @@ import (
 	"net/url"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 var (
-	WordsPerMinute = 320
+	EnglishWordsPerMinute = 240
+	ChineseCharsPerMinute = 400
 
 	secondLevelTLDs = []string{
 		"com", "net", "org", "edu", "gov",
@@ -58,8 +60,35 @@ func DealSiteName(sourceUrl string) string {
 	return host
 }
 
-func CalcReadingTime(wordCount int) int {
-	return int(math.Ceil(float64(wordCount) / float64(WordsPerMinute)))
+func CalcReadingTime(content string) int {
+	chineseChars := 0
+	englishWords := 0
+	inWord := false
+
+	for _, r := range content {
+		if unicode.Is(unicode.Han, r) || isChinesePunctuation(r) {
+			chineseChars++
+			if inWord {
+				englishWords++
+				inWord = false
+			}
+		} else if unicode.IsLetter(r) {
+			if !inWord {
+				inWord = true
+			}
+		} else if inWord && (unicode.IsSpace(r) || unicode.IsPunct(r)) {
+			englishWords++
+			inWord = false
+		}
+	}
+	if inWord {
+		englishWords++
+	}
+
+	englishTime := math.Ceil(float64(englishWords) / float64(EnglishWordsPerMinute))
+	chineseTime := math.Ceil(float64(chineseChars) / float64(ChineseCharsPerMinute))
+
+	return max(1, int(englishTime+chineseTime))
 }
 
 func StripHTML(html_content string) string {
@@ -71,4 +100,9 @@ func StripHTML(html_content string) string {
 	noExtraSpace := regexp.MustCompile(`\s+`).ReplaceAllString(noEntities, " ")
 
 	return strings.TrimSpace(noExtraSpace)
+}
+
+func isChinesePunctuation(r rune) bool {
+	return (r >= 0x3000 && r <= 0x303F) ||
+		(r >= 0xFF00 && r <= 0xFFEF)
 }

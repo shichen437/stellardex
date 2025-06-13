@@ -15,11 +15,11 @@ func PostProcessor(ctx context.Context, model *ArticleModel) (ArticleData, bool)
 		result.TextContent = bookmark.StripHTML(result.Content)
 	}
 	if result.Length > 0 && result.ReadingTime <= 0 {
-		result.ReadingTime = bookmark.CalcReadingTime(result.Length)
+		result.ReadingTime = bookmark.CalcReadingTime(result.TextContent)
 	}
 	if len(result.TextContent) > 0 && result.Length == 0 {
 		result.Length = len(result.TextContent)
-		result.ReadingTime = bookmark.CalcReadingTime(result.Length)
+		result.ReadingTime = bookmark.CalcReadingTime(result.TextContent)
 	}
 	result.Byline = bookmark.DealTitle(result.Byline)
 	result.Title = bookmark.DealTitle(result.Title)
