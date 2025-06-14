@@ -20,6 +20,7 @@ type (
 		Num(ctx context.Context, req *v1.GetBookmarkNumReq) (res *v1.GetBookmarkNumRes, err error)
 		Status(ctx context.Context, req *v1.PutBookmarkStatusReq) (res *v1.PutBookmarkStatusRes, err error)
 		Title(ctx context.Context, req *v1.PutBookmarkTitleReq) (res *v1.PutBookmarkTitleRes, err error)
+		Site(ctx context.Context, req *v1.GetUserBookmarkSiteReq) (res *v1.GetUserBookmarkSiteRes, err error)
 	}
 )
 

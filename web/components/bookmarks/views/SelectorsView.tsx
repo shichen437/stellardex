@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { Plus, FileText } from "lucide-react";
+import { Plus, BadgeAlert } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CommonConfirmDialog } from "@/components/common/CommonConfirmDialog";
@@ -220,7 +220,7 @@ export function SelectorsView({ onUpdateBookmarkNum }: Props) {
         </>
       ) : (
         <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-          <FileText className="w-12 h-12 mb-4" />
+          <BadgeAlert className="w-12 h-12 mb-4" />
           <p className="text-lg font-medium mb-2">
             {t("bookmark.empty.selector.title")}
           </p>

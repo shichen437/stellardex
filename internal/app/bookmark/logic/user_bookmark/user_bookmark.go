@@ -151,6 +151,7 @@ func (s *sUserBookmark) Num(ctx context.Context, req *v1.GetBookmarkNumReq) (res
 	res.Read, _ = m.Where(dao.UserBookmark.Columns().Status, 1).Count()
 	res.Archive, _ = m.Where(dao.UserBookmark.Columns().IsArchive, 1).Count()
 	res.Star, _ = m.Where(dao.UserBookmark.Columns().IsStarred, 1).Count()
+	res.Site, _ = m.Group(dao.UserBookmark.Columns().SiteName).Count()
 	res.Label, _ = dao.BookmarkLabel.Ctx(ctx).Where(dao.BookmarkLabel.Columns().UserId, uid).Count()
 	res.Selector, _ = dao.UserCustomSelector.Ctx(ctx).Where(dao.UserCustomSelector.Columns().UserId, uid).Count()
 	return
@@ -206,6 +207,20 @@ func (s *sUserBookmark) Title(ctx context.Context, req *v1.PutBookmarkTitleReq) 
 			Title:    req.Title,
 			UpdateAt: utils.Now(),
 		})
+	return
+}
+
+func (s *sUserBookmark) Site(ctx context.Context, req *v1.GetUserBookmarkSiteReq) (res *v1.GetUserBookmarkSiteRes, err error) {
+	res = &v1.GetUserBookmarkSiteRes{}
+	uid := gconv.Int(ctx.Value(commonConsts.CtxAdminId))
+	if uid == 0 {
+		err = gerror.New("auth.UserIDEmpty")
+		return
+	}
+	m := dao.UserBookmark.Ctx(ctx).Where(dao.UserBookmark.Columns().UserId, uid)
+	m.Fields("count(*) as bmNum, site_name as siteName").
+		Group(dao.UserBookmark.Columns().SiteName).
+		Scan(&res.Rows)
 	return
 }
 

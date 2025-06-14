@@ -61,6 +61,7 @@
             "archive": "Archived",
             "favorite": "Star",
             "tags": "Tags",
+            "sites": "Sites",
             "selectors": "Selectors"
         },
         "selector": {
@@ -102,6 +103,10 @@
             "starred": {
                 "title": "No starred bookmarks",
                 "description": "You have no starred bookmarks"
+            },
+            "sites": {
+                "title": "No sites",
+                "description": "Your bookmark does not have any website source yet"
             },
             "label": {
                 "title": "No tags",

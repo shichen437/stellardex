@@ -39,3 +39,7 @@ func (s *userBookmarkController) Status(ctx context.Context, req *v1.PutBookmark
 func (s *userBookmarkController) Title(ctx context.Context, req *v1.PutBookmarkTitleReq) (res *v1.PutBookmarkTitleRes, err error) {
 	return service.UserBookmark().Title(ctx, req)
 }
+
+func (s *userBookmarkController) Site(ctx context.Context, req *v1.GetUserBookmarkSiteReq) (res *v1.GetUserBookmarkSiteRes, err error) {
+	return service.UserBookmark().Site(ctx, req)
+}

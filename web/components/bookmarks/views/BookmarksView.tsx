@@ -51,6 +51,7 @@ interface Props {
   onUpdateBookmarkNum: () => void;
   initialSearchParams?: {
     label?: string;
+    site?: string;
   };
 }
 
@@ -81,7 +82,7 @@ export const BookmarksView = forwardRef<
   const [searchParams, setSearchParams] = useState({
     keyword: "",
     author: "",
-    site: "",
+    site: initialSearchParams?.site || "",
     label: initialSearchParams?.label || "",
   });
   const [selectedBookmark, setSelectedBookmark] = useState<Bookmark | null>(

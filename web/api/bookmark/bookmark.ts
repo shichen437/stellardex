@@ -75,3 +75,10 @@ export async function updateStatus(data: any) {
     data,
   });
 }
+
+export async function getBookmarkSite() {
+  return request({
+    url: `/bookmark/site`,
+    method: "get",
+  });
+}

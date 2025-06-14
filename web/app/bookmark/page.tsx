@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import { TagsView } from "@/components/bookmarks/views/TagsView";
+import { SitesView } from "@/components/bookmarks/views/SitesView";
 import { SelectorsView } from "@/components/bookmarks/views/SelectorsView";
 import { BookmarksView } from "@/components/bookmarks/views/BookmarksView";
-import { type NavItem, UserBmLabel, SearchParams } from "@/lib/types/bookmark";
+import { type NavItem, UserBmLabel, SearchParams, UserBmSite } from "@/lib/types/bookmark";
 import { useSettingsStore } from "@/lib/store/settings";
 import { getNavItems } from "@/lib/consts/bookmark-nav";
 import { getBookmarkNum } from "@/api/bookmark/bookmark";
@@ -33,7 +34,7 @@ export default function BookmarkPage() {
   );
 
   const [selectedTab, setSelectedTab] = useState<
-    "bookmarks" | "tags" | "selectors"
+    "bookmarks" | "tags" | "selectors" | "sites"
   >("bookmarks");
   const [currentStatus, setCurrentStatus] = useState<number | undefined>(
     undefined
@@ -75,6 +76,8 @@ export default function BookmarkPage() {
             return { ...item, count: res.data.star };
           case "bookmark.nav.tags":
             return { ...item, count: res.data.label };
+          case "bookmark.nav.sites":
+            return { ...item, count: res.data.site };
           case "bookmark.nav.selectors":
             return { ...item, count: res.data.selector };
           default:
@@ -106,7 +109,7 @@ export default function BookmarkPage() {
 
   const handleNavItemClick = (
     status: number | undefined,
-    group: "status" | "archive" | "starred" | "tags" | "selector",
+    group: "status" | "archive" | "starred" | "tags" | "sites" | "selector",
     label: string,
     isArchive?: number,
     isStarred?: number
@@ -123,6 +126,8 @@ export default function BookmarkPage() {
       if (group === "starred") setCurrentIsStarred(isStarred);
     } else if (group === "tags") {
       setSelectedTab("tags");
+    } else if (group === "sites") {
+      setSelectedTab("sites");
     } else if (group === "selector") {
       setSelectedTab("selectors");
     }
@@ -148,6 +153,12 @@ export default function BookmarkPage() {
   const handleLabelClick = (label: UserBmLabel) => {
     handleNavItemClick(undefined, "status", navItemsState[0].label);
     setSearchParams((prev) => ({ ...prev, label: label.name }));
+    handleSearch();
+  };
+
+  const handleSiteClick = (site: UserBmSite) => {
+    handleNavItemClick(undefined, "status", navItemsState[0].label);
+    setSearchParams((prev) => ({ ...prev, site: site.siteName }));
     handleSearch();
   };
   return (
@@ -218,6 +229,8 @@ export default function BookmarkPage() {
               onUpdateBookmarkNum={fetchBookmarkNum}
               onLabelClick={handleLabelClick}
             />
+          ) : selectedTab === "sites" ? (
+            <SitesView onSiteClick={handleSiteClick} />
           ) : (
             <SelectorsView onUpdateBookmarkNum={fetchBookmarkNum} />
           )}

@@ -26,6 +26,11 @@ export interface Selector {
   cookie: string;
 }
 
+export interface UserBmSite {
+  siteName: string;
+  bmNum: number;
+}
+
 export interface NavItem {
   label: string;
   labelKey: string;
@@ -35,7 +40,7 @@ export interface NavItem {
   status?: number;
   isArchive?: number;
   isStarred?: number;
-  group: "status" | "archive" | "starred" | "tags" | "selector";
+  group: "status" | "archive" | "starred" | "tags" | "sites" | "selector";
   selector?: boolean;
 }
 

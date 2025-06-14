@@ -75,6 +75,7 @@ type GetBookmarkNumRes struct {
 	Archive  int `json:"archive"`
 	Star     int `json:"star"`
 	Label    int `json:"label"`
+	Site     int `json:"site"`
 	Selector int `json:"selector"`
 }
 
@@ -95,4 +96,12 @@ type PutBookmarkStatusReq struct {
 }
 type PutBookmarkStatusRes struct {
 	g.Meta `mime:"application/json" example:"string"`
+}
+
+type GetUserBookmarkSiteReq struct {
+	g.Meta `path:"/bookmark/site" method:"get" tags:"书签管理" summary:"获取用户站点"`
+}
+type GetUserBookmarkSiteRes struct {
+	g.Meta `mime:"application/json" example:"string"`
+	Rows   []*model.UserBmSiteModel `json:"rows"`
 }
