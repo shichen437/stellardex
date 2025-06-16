@@ -10,7 +10,7 @@ export function AboutTab() {
   const { t } = usePolyglot();
   return (
     <div className="flex flex-col items-center justify-center h-full space-y-8 py-8">
-      <div className="w-32 h-32 relative">
+      <div className="w-24 h-24 relative">
         <Image
           src="/logo/logo.png"
           alt="Stellardex Logo"
