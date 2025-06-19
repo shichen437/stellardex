@@ -13,7 +13,12 @@ import { TagsView } from "@/components/bookmarks/views/TagsView";
 import { SitesView } from "@/components/bookmarks/views/SitesView";
 import { SelectorsView } from "@/components/bookmarks/views/SelectorsView";
 import { BookmarksView } from "@/components/bookmarks/views/BookmarksView";
-import { type NavItem, UserBmLabel, SearchParams, UserBmSite } from "@/lib/types/bookmark";
+import {
+  type NavItem,
+  UserBmLabel,
+  SearchParams,
+  UserBmSite,
+} from "@/lib/types/bookmark";
 import { useSettingsStore } from "@/lib/store/settings";
 import { getNavItems } from "@/lib/consts/bookmark-nav";
 import { getBookmarkNum } from "@/api/bookmark/bookmark";
@@ -94,11 +99,14 @@ export default function BookmarkPage() {
     getSettings();
   }, [getSettings]);
 
-  if (settings?.siteConfig?.siteTitle) {
-    document.title = settings.siteConfig.siteTitle + " | " + t("bookmark.title");
-  } else {
-    document.title = t("bookmark.title");
-  }
+  useEffect(() => {
+    if (settings?.siteConfig?.siteTitle) {
+      document.title =
+        settings.siteConfig.siteTitle + " | " + t("bookmark.title");
+    } else {
+      document.title = t("bookmark.title");
+    }
+  }, [settings?.siteConfig?.siteTitle, t]);
 
   useEffect(() => {
     fetchBookmarkNum();
