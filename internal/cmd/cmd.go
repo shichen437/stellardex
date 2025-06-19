@@ -15,6 +15,7 @@ import (
 	"github.com/shichen437/stellardex/internal/app/common/service"
 
 	bookmark "github.com/shichen437/stellardex/internal/app/bookmark/controller"
+	extensions "github.com/shichen437/stellardex/internal/app/ext/controlloer"
 	userGroup "github.com/shichen437/stellardex/internal/app/group/controller"
 	settings "github.com/shichen437/stellardex/internal/app/settings/controller"
 	user "github.com/shichen437/stellardex/internal/app/user/controller"
@@ -52,6 +53,11 @@ var (
 					service.Middleware().Ctx,
 					ghttp.MiddlewareCORS,
 				)
+				group.Group("/ext", func(group *ghttp.RouterGroup) {
+					group.Middleware(service.ApiKeyMiddleware().ApiKeyMiddleware)
+					group.Bind(extensions.Extensions)
+					group.Middleware(service.Middleware().CORS)
+				})
 				group.Group("/", func(group *ghttp.RouterGroup) {
 					err = gfToken.Middleware(ctx, group)
 					if err != nil {
@@ -71,7 +77,7 @@ var (
 func GetGtoken(ctx context.Context) (gfToken *gtoken.GfToken, err error) {
 	gfToken = &gtoken.GfToken{
 		AuthAfterFunc:    AuthAfterFunc,
-		AuthExcludePaths: g.SliceStr{"/logout", "/settings/lang"},
+		AuthExcludePaths: g.SliceStr{"/logout", "/settings/lang", "/ext/*"},
 		AuthPaths:        g.SliceStr{"/*"},
 		CacheMode:        3,
 		Timeout:          30 * 86400 * 1000,
@@ -137,6 +143,7 @@ func bindRoute(group *ghttp.RouterGroup) {
 	group.Bind(
 		user.SysUser,
 		user.SysRole,
+		user.ApiKey,
 		userGroup.UserGroup,
 		userGroup.UserGroupItem,
 		settings.UserSettings,

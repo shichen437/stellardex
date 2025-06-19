@@ -1,6 +1,7 @@
 {
     "common": {
         "loading": "Loading...",
+        "copy": "Copy",
         "save": "Save",
         "cancel": "Cancel",
         "confirm": "Confirm",
@@ -45,6 +46,7 @@
         "module": "Modules",
         "groups": "Groups",
         "users": "Users",
+        "apiKey": "ApiKey",
         "support": "Support",
         "about": "About"
     },
@@ -228,6 +230,36 @@
             "lanUrlValid": "Item lan url is not valid."
         }
     },
+    "apiKey": {
+        "list": "Api Key List",
+        "add": "Add Api Key",
+        "edit": "Edit Api Key",
+        "copy": "Copy Api Key",
+        "copyPrompt": "Click button to copy api key, only copy once",
+        "disable": "Disable Api Key",
+        "disableMessage": "Are you sure you want to disable this api key?",
+        "delete": "Delete Api Key",
+        "deleteMessage": "Are you sure you want to delete this api key?",
+        "fields": {
+            "apiKey": "Api Key",
+            "apiKeyName": "Api Key Name",
+            "status": "Status",
+            "status_active": "Active",
+            "status_invalid": "Invalid",
+            "expiresAt": "Expires At"
+        },
+        "placeholder": {
+            "apiKeyName": "Please input api key name",
+            "expiresAt": "Please select expires at"
+        },
+        "expiry": {
+            "oneMonth": "One month",
+            "threeMonth": "Three month",
+            "sixMonth": "Six month",
+            "oneYear": "One year",
+            "forever": "Forever"
+        }
+    },
     "contextMenu": {
         "newTab": "Open in New Tab",
         "lanUrl": "Open in Lan Url"
@@ -238,9 +270,11 @@
         "retry": "The operation failed, please try again later",
         "welcome": "Welcome to Stellardex",
         "uploadSuccess": "Upload success",
-        "uploadError": "Upload failed"
+        "uploadError": "Upload failed",
+        "copyFailed": "Copy failed",
+        "copied": "Copied"
     },
-    "monitor":{
+    "monitor": {
         "cpu": {
             "title": "Cpu",
             "usage": "Usage",

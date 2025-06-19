@@ -3,6 +3,8 @@
 "bookmark.valid.UrlEmpty" = "网址不能为空"
 "bookmark.valid.UrlInvalid" = "无效的网址"
 
+"bookmark.valid.ContentEmpty" = "内容不能为空"
+
 "bookmark.error.ParseFailed" = "解析失败"
 
 "bookmark.valid.TitleEmpty" = "标题不能为空"

@@ -5,7 +5,5 @@
 package logic
 
 import (
-	_ "github.com/shichen437/stellardex/internal/app/user/logic/api_key"
-	_ "github.com/shichen437/stellardex/internal/app/user/logic/sys_role"
-	_ "github.com/shichen437/stellardex/internal/app/user/logic/sys_user"
+	_ "github.com/shichen437/stellardex/internal/app/ext/logic/bookmark"
 )

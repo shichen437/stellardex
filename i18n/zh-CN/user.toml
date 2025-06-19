@@ -27,3 +27,8 @@
 "user.valid.SexEmpty"="性别不能为空"
 
 "user.valid.FileEmpty"="文件不能为空"
+
+"user.apiKey.valid.IdEmpty"="密钥ID不能为空"
+
+"user.apiKey.valid.ApiKeyNameLength"="密钥名称长度最大长度为12"
+"user.apiKey.valid.ApiKeyNameEmpty"="密钥名称不能为空"

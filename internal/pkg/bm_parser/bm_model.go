@@ -1,6 +1,7 @@
 package bmparser
 
 import (
+	"io"
 	"time"
 )
 
@@ -9,6 +10,7 @@ type ArticleModel struct {
 	UserId      int         `json:"user_id"`
 	Cookie      string      `json:"cookie"`
 	ArticleData ArticleData `json:"article_data"`
+	IoReader    io.Reader   `json:"-"`
 }
 
 type ArticleData struct {

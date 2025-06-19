@@ -27,6 +27,7 @@ import {
   Puzzle,
   Group,
   Info,
+  KeyRound,
   Coffee,
   Users,
   X,
@@ -37,6 +38,7 @@ import { SidebarInset } from "@/components/ui/sidebar";
 import { CommonConfirmDialog } from "../common/CommonConfirmDialog"; 
 import { useUserStore } from "@/lib/store/user";
 import { UsersTab } from "./tab/UsersTab";
+import { ApiKeyTab } from "./tab/ApiKeyTab";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import { compareVersion } from "@/lib/utils";
 
@@ -114,6 +116,8 @@ export function SettingsPanel({
         );
       case "users":
         return <UsersTab />;
+        case "apiKey":
+          return <ApiKeyTab />;
       case "support":
         return <SupportTab />;
       case "about":
@@ -158,6 +162,11 @@ export function SettingsPanel({
           },
         ]
       : []),
+      {
+        id: "apiKey",
+        label: t("sidebar.apiKey"),
+        icon: <KeyRound className="w-4 h-4" />,
+      },
     {
       id: "support",
       label: t("sidebar.support"),

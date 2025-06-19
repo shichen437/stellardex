@@ -37,6 +37,9 @@ func (p *CustomParser) Parse(ctx context.Context, model *ArticleModel) (*Article
 		gconv.Struct(selector, &config.Selectors)
 		config.URL = model.Url
 		config.Cookie = model.Cookie
+		if model.IoReader != nil {
+			config.Reader = model.IoReader
+		}
 		scraper := bookmark.NewScraper(config)
 		results, err := scraper.Scrape()
 		if err != nil {

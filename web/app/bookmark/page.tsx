@@ -94,6 +94,12 @@ export default function BookmarkPage() {
     getSettings();
   }, [getSettings]);
 
+  if (settings?.siteConfig?.siteTitle) {
+    document.title = settings.siteConfig.siteTitle + " | " + t("bookmark.title");
+  } else {
+    document.title = t("bookmark.title");
+  }
+
   useEffect(() => {
     fetchBookmarkNum();
   }, []);

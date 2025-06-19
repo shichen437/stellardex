@@ -19,10 +19,16 @@ func NewUsualParser() *UsualParser {
 
 func (p *UsualParser) Parse(ctx context.Context, model *ArticleModel) (*ArticleModel, bool) {
 	timeout := time.Duration(10) * time.Second
-	article, err := readability.FromURL(model.Url, timeout, func(r *http.Request) {
-		r.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
-		r.Header.Set("Cookie", model.Cookie)
-	})
+	var article readability.Article
+	var err error
+	if model.IoReader != nil {
+		article, err = readability.FromReader(model.IoReader, nil)
+	} else {
+		article, err = readability.FromURL(model.Url, timeout, func(r *http.Request) {
+			r.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+			r.Header.Set("Cookie", model.Cookie)
+		})
+	}
 	if err != nil || article.TextContent == "" || article.Title == "" {
 		return &ArticleModel{}, false
 	}

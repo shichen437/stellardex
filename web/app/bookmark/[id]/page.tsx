@@ -86,6 +86,7 @@ export default function BookmarkDetailPage({
   useEffect(() => {
     if (bookmark) {
       setEditedTitle(bookmark.title);
+      document.title = bookmark.title;
     }
   }, [bookmark]);
 
@@ -233,10 +234,13 @@ export default function BookmarkDetailPage({
     }
   };
 
+  const prefix = process.env.NEXT_PUBLIC_API_PREFIX;
+
   const processImageUrls = (html: string) => {
     return html.replace(/<img[^>]*src="([^"]+)"[^>]*>/g, (match, src) => {
+      console.log(src)
       if (src.startsWith("http")) return match;
-      const newSrc = `${process.env.NEXT_PUBLIC_API_PREFIX}${src}`;
+      const newSrc = `${prefix}${src}`;
       return match.replace(src, newSrc);
     });
   };

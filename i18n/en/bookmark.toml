@@ -3,6 +3,8 @@
 "bookmark.valid.UrlEmpty" = "URL cannot be empty"
 "bookmark.valid.UrlInvalid" = "Invalid URL"
 
+"bookmark.valid.ContentEmpty" = "Content cannot be empty"
+
 "bookmark.error.ParseFailed" = "Parse failed"
 
 "bookmark.valid.TitleEmpty" = "Title cannot be empty"

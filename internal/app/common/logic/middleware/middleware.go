@@ -83,6 +83,10 @@ func (s *sMiddleware) HandlerResponse(r *ghttp.Request) {
 				code = gcode.CodeNotFound
 			case http.StatusForbidden:
 				code = gcode.CodeNotAuthorized
+			case http.StatusUnauthorized:
+				code = gcode.CodeNotAuthorized
+			case http.StatusInternalServerError:
+				code = gcode.CodeInternalError
 			default:
 				code = gcode.CodeUnknown
 			}

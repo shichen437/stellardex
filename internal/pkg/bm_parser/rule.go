@@ -34,6 +34,9 @@ func (p *RuleParser) Parse(ctx context.Context, model *ArticleModel) (*ArticleMo
 	}
 	config.URL = model.Url
 	config.Cookie = model.Cookie
+	if model.IoReader != nil {
+		config.Reader = model.IoReader
+	}
 	scraper := bookmark.NewScraper(config)
 	results, err := scraper.Scrape()
 	g.Log().Debugf(ctx, "Scrape results: %v", results)

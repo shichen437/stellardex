@@ -1,0 +1,9 @@
+{
+    "url": "https://www.infoq.cn/article/5f28jXuNAeV0w1UmA9My",
+    "selectors": {
+        "title": "h1.article-title",
+        "excerpt": "meta[name='description']",
+        "content": "div.content-preview.size-base",
+        "byline": "a.com-author-name"
+    }
+}

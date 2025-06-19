@@ -24,9 +24,6 @@ func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string
 		return imgUrl
 	}
 
-	if strings.Contains(imgUrl, "?") {
-		imgUrl = strings.Split(imgUrl, "?")[0]
-	}
 	baseDir := utils.BM_IMAGE_PATH
 	if err := os.MkdirAll(baseDir, os.ModePerm); err != nil {
 		return ""
@@ -47,7 +44,8 @@ func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string
 
 	imgHash := md5.New()
 	io.WriteString(imgHash, imgUrl)
-	ext := filepath.Ext(imgUrl)
+	cleanUrl := strings.SplitN(imgUrl, "?", 2)[0]
+	ext := filepath.Ext(cleanUrl)
 	if ext == "" {
 		ext = ".jpg"
 	}
@@ -60,8 +58,9 @@ func QuickSaveImg(ctx context.Context, imgUrl, originUrl string, uid int) string
 
 	client := g.Client()
 	client.SetHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
-	client.SetHeader("Refer", originUrl)
+	client.SetHeader("Referer", originUrl)
 	client.SetHeader("Accept", "*/*")
+	client.SetHeader("Accept-Encoding", "gzip, deflate, br")
 	resp, err := client.Get(ctx, imgUrl)
 	if err != nil {
 		return ""
@@ -114,6 +113,9 @@ func ReplaceImagesInHTML(ctx context.Context, content string, originUrl string, 
 
 	doc.Find("img").Each(func(i int, s *goquery.Selection) {
 		if src, exists := s.Attr("src"); exists {
+			if strings.HasPrefix(src, "//") {
+				src = "https:" + src
+			}
 			images = append(images, imageReplace{s, src})
 		}
 	})
@@ -131,6 +133,7 @@ func ReplaceImagesInHTML(ctx context.Context, content string, originUrl string, 
 					mainImage = newSrc
 				}
 			}
+			s.RemoveAttr("data-src")
 		}(img.selection, img.src)
 	}
 

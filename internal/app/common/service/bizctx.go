@@ -14,12 +14,8 @@ import (
 
 type (
 	IBizCtx interface {
-		// Init initializes and injects custom business context object into request context.
 		Init(r *ghttp.Request, customCtx *model.Context)
-		// Get retrieves and returns the user object from context.
-		// It returns nil if nothing found in given context.
 		Get(ctx context.Context) *model.Context
-		// SetUser injects business user object into context.
 		SetUser(ctx context.Context, ctxUser *model.ContextUser)
 	}
 )

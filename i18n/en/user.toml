@@ -27,3 +27,8 @@
 "user.valid.SexEmpty"="User sex can not be empty"
 
 "user.valid.FileEmpty"="File can not be empty"
+
+"user.apiKey.valid.IdEmpty"="ApiKey ID can not be empty"
+
+"user.apiKey.valid.ApiKeyNameLength"="ApiKey name maximum length is 12"
+"user.apiKey.valid.ApiKeyNameEmpty"="ApiKey name can not be empty"

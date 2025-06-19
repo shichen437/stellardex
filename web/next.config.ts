@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
       {
         source: `${apiPrefix}/:path*`,
         destination: 'http://localhost:12138/:path*'
+      },
+      {
+        source: "/ext/:path*",
+        destination: "http://localhost:12138/ext/:path*",
       }
     ]
   }

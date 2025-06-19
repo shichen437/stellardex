@@ -2,6 +2,7 @@ package bookmark
 
 import (
 	"context"
+	"io"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
@@ -19,6 +20,7 @@ type ScraperConfig struct {
 	URL       string                 `json:"url"`
 	Selectors map[string]interface{} `json:"selectors"`
 	Cookie    string                 `json:"cookie,omitempty"`
+	Reader    io.Reader              `json:"-"`
 }
 
 type Scraper struct {
@@ -32,27 +34,7 @@ func NewScraper(config ScraperConfig) *Scraper {
 }
 
 func (s *Scraper) Scrape() (map[string]string, error) {
-	ctx := context.Background()
-	client := gclient.New()
-
-	client.SetAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
-	client.SetHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-	client.SetHeader("cookie", s.config.Cookie)
-	client.SetRetry(3, time.Second*2)
-
-	resp, err := client.Get(ctx, s.config.URL)
-	g.Log().Debugf(ctx, "%v Response body: %s,", s.config.URL, resp.Body)
-	if err != nil {
-		g.Log().Errorf(ctx, "%v Response body: %s,", s.config.URL, err.Error())
-		return nil, gerror.Wrap(err, "request failed")
-	}
-	defer resp.Close()
-
-	if resp.StatusCode != 200 {
-		return nil, gerror.Newf("unexpected status code: %d", resp.StatusCode)
-	}
-
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	doc, err := s.getDoc()
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +44,7 @@ func (s *Scraper) Scrape() (map[string]string, error) {
 	for name, selectorInterface := range s.config.Selectors {
 		switch selector := selectorInterface.(type) {
 		case string:
-			selection := doc.Find(selector)
+			selection := doc.Find(selector).First()
 			if name == "excerpt" {
 				if content, exists := selection.Attr("content"); exists {
 					results[name] = content
@@ -88,4 +70,55 @@ func (s *Scraper) Scrape() (map[string]string, error) {
 	}
 
 	return results, nil
+}
+
+func (s *Scraper) parseFromUrl() (*goquery.Document, error) {
+	ctx := context.Background()
+	client := gclient.New()
+
+	client.SetAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
+	client.SetHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	client.SetHeader("cookie", s.config.Cookie)
+	client.SetRetry(3, time.Second*2)
+
+	resp, err := client.Get(ctx, s.config.URL)
+	g.Log().Debugf(ctx, "%v Response body: %s,", s.config.URL, resp.Body)
+	if err != nil {
+		g.Log().Errorf(ctx, "%v Response body: %s,", s.config.URL, err.Error())
+		return nil, gerror.Wrap(err, "request failed")
+	}
+	defer resp.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, gerror.Newf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return doc, nil
+}
+
+func (s *Scraper) parseFromReader() (*goquery.Document, error) {
+	doc, err := goquery.NewDocumentFromReader(s.config.Reader)
+	if err != nil {
+		return nil, err
+	}
+	g.Log().Debug(context.Background(), doc.Selection)
+	return doc, nil
+}
+
+func (s *Scraper) getDoc() (*goquery.Document, error) {
+	var doc *goquery.Document
+	var err error
+	if s.config.Reader != nil {
+		doc, err = s.parseFromReader()
+	} else {
+		doc, err = s.parseFromUrl()
+	}
+	if err != nil {
+		return nil, err
+	}
+	return doc, nil
 }

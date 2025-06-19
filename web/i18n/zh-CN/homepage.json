@@ -1,6 +1,7 @@
 {
     "common": {
         "loading": "加载中...",
+        "copy": "复制",
         "save": "保存",
         "cancel": "取消",
         "confirm": "确定",
@@ -45,6 +46,7 @@
         "module": "组件管理",
         "groups": "分组管理",
         "users": "用户管理",
+        "apiKey": "密钥管理",
         "support": "支持",
         "about": "关于"
     },
@@ -228,6 +230,36 @@
             "lanUrlValid": "请输入有效的内网链接。"
         }
     },
+    "apiKey": {
+        "list": "密钥列表",
+        "add": "添加密钥",
+        "edit": "编辑密钥",
+        "copy": "复制密钥",
+        "copyPrompt": "点击按钮复制密钥，仅可复制一次",
+        "disable": "禁用密钥",
+        "disableMessage": "您确定要禁用该密钥吗？",
+        "delete": "删除密钥",
+        "deleteMessage": "您确定要删除该密钥吗？",
+        "fields": {
+            "apiKey": "密钥",
+            "apiKeyName": "密钥名称",
+            "status": "状态",
+            "status_active": "正常",
+            "status_invalid": "失效",
+            "expiresAt": "过期时间"
+        },
+        "placeholder": {
+            "apiKeyName": "请输入密钥名称",
+            "expiresAt": "请输入过期时间"
+        },
+        "expiry": {
+            "oneMonth": "一个月",
+            "threeMonth": "三个月",
+            "sixMonth": "半年",
+            "oneYear": "一年",
+            "forever": "永久"
+        }
+    },
     "contextMenu": {
         "newTab": "在新标签页打开",
         "lanUrl": "打开内网链接"
@@ -238,7 +270,9 @@
         "retry": "操作失败，请重试",
         "welcome": "欢迎使用 Stellardex",
         "uploadSuccess": "上传成功",
-        "uploadError": "上传失败"
+        "uploadError": "上传失败",
+        "copyFailed": "复制失败",
+        "copied": "已复制"
     },
     "monitor":{
         "cpu": {
