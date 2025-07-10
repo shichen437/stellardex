@@ -1,0 +1,106 @@
+{
+    "subscription": {
+        "title": "Subscriptions",
+        "add": "Add Subscription",
+        "edit": "Edit Subscription",
+        "delete": "Delete Subscription",
+        "deleteMessage": "Are you sure you want to delete this subscription?",
+        "enable": "Enable",
+        "disable": "Disable",
+        "nav": {
+            "overview": "Overview",
+            "subscription": "Subscriptions",
+            "currency": "Currencies"
+        },
+        "field": {
+            "title": "Title",
+            "amount": "Amount",
+            "cycle": "Cycle",
+            "status": "Status",
+            "cycleNum": "Cycle Num",
+            "cycleType": "Cycle Type",
+            "cycleDay": "Cycle Days",
+            "category": "Category",
+            "currency": "Currency",
+            "startDate": "Start Date",
+            "nextDate": "Next Date",
+            "site": "Site",
+            "selectCurrency": "Select Currency"
+        },
+        "valid": {
+            "title": "Title length must be between 1 and 12",
+            "amount": "Amount cannot be negative",
+            "cycleNum": "Cycle Num must be between 1 and 99",
+            "cycleType": "Cycle Type is invalid",
+            "cycleDay": "Cycle Days is invalid",
+            "startDate": "Start Date is required",
+            "currency": "Currency is required",
+            "category": "Category length must be between 1 and 12",
+            "site": "Site is invalid"
+        },
+        "cycle": {
+            "forever": "Forever",
+            "week": "Week",
+            "month": "Month",
+            "quarter": "Quarter",
+            "year": "Year",
+            "yearly": "Yearly",
+            "quarterly": "Quarterly",
+            "monthly": "Monthly",
+            "weekly": "Weekly",
+            "weeks": "Weeks",
+            "months": "Months",
+            "quarters": "Quarters",
+            "years": "Years",
+            "day": {
+                "naturalYear": "Natural Year",
+                "naturalQuarter": "Natural Quarter",
+                "naturalMonth": "Natural Month",
+                "372": "372 days",
+                "360": "360 days",
+                "93": "93 days",
+                "90": "90 days",
+                "31": "31 days",
+                "30": "30 days"
+            }
+        },
+        "empty": {
+            "sub": {
+                "title": "No Subscriptions",
+                "description": "You have no subscriptions."
+            },
+            "currency": {
+                "title": "No Currencies",
+                "description": "You have no currencies."
+            }
+        },
+        "currency": {
+            "title": "Currencies",
+            "add": "Add Currency",
+            "edit": "Edit Currency",
+            "delete": "Delete Currency",
+            "deleteMessage": "Are you sure you want to delete this currency?",
+            "setDefault": "Set as Default",
+            "field": {
+                "code": "Currency Code",
+                "symbol": "Currency Symbol",
+                "rate": "Currency Rate",
+                "isDefault": "Is Default",
+                "sort": "Sort"
+            },
+            "valid": {
+                "code": "Currency Code length must be between 1 and 5",
+                "symbol": "Currency Symbol length must be between 1 and 5",
+                "rate": "Currency Rate cannot be negative",
+                "sort": "Sort must be between 0 and 99"
+            }
+        },
+        "overview": {
+            "totalNum": "Total Subscriptions",
+            "activeNum": "Active Subscriptions",
+            "perMonthCost": "Per Month Cost",
+            "perYearCost": "Per Year Cost",
+            "timeline": "Timeline"
+        }
+    }
+}

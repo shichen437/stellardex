@@ -126,7 +126,7 @@ export const UserModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md w-full rounded-xl shadow-2xl p-8 bg-popover dark:bg-popover">
+      <DialogContent className="max-w-md w-full rounded-xl shadow-2xl p-8 bg-popover dark:bg-popover"  onOpenAutoFocus={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle className="text-lg font-bold">
             {isEdit ? t("users.edit") : t("users.add")}

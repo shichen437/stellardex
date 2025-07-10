@@ -1,0 +1,32 @@
+"sub.valid.IdEmpty" = "Subscription ID cannot be empty"
+
+"sub.valid.titleEmpty" = "Subscription title cannot be empty"
+"sub.valid.titleLength" = "Subscription title length must be between 1 and 12"
+
+"sub.valid.amount" = "Subscription amount cannot be negative"
+
+"sub.valid.cycleNum" = "Subscription cycle number must be between 1 and 99"
+
+"sub.valid.cycleType" = "Subscription cycle type must be valid"
+
+"sub.valid.cycleDay" = "Subscription cycle day must be valid"
+
+"sub.valid.startDate" = "Subscription start date cannot be empty"
+
+"sub.valid.currency" = "Subscription currency cannot be empty"
+
+"sub.valid.categoryLength" = "Subscription category length must be less than or equal to 12"
+
+"sub.valid.site" = "Subscription site must be a valid URL"
+
+"sub.currency.valid.IdEmpty" = "Currency ID cannot be empty"
+
+"sub.currency.valid.codeLength" = "Currency code length must be between 1 and 5"
+
+"sub.currency.valid.symbolLength" = "Currency symbol length must be between 1 and 5"
+
+"sub.currency.valid.rate" = "Currency rate cannot be negative"
+
+"sub.currency.valid.sort" = "Currency sort must be between 0 and 99"
+
+"sub.currency.error.isUsing" = "Currency is being used, cannot be deleted"

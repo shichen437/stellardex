@@ -35,7 +35,7 @@ export function SelectorDialog({ open, onOpenChange, data, onSubmit }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl"  onOpenAutoFocus={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>
             {formData.id > 0 ? t("bookmark.selector.edit") : t("bookmark.selector.add")}

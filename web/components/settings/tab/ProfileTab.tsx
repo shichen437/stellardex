@@ -12,6 +12,7 @@ import { usePolyglot } from "@/providers/PolyglotProvider";
 import { toast } from "sonner";
 import { updateAvatar } from "@/api/profile";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 export function ProfileTab() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -81,7 +82,7 @@ export function ProfileTab() {
       } else {
         toast.error(t("toast.uploadError"));
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error(t("toast.uploadError"));
     }
@@ -120,7 +121,16 @@ export function ProfileTab() {
         <div className="flex-1 w-full">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-              <h3 className="text-2xl font-bold mb-1">{userInfo.nickname}</h3>
+              <h3 className="text-2xl font-bold mb-1 flex items-center">
+                {userInfo.nickname}
+                <Image
+                  src="/widget/vip.png"
+                  alt="VIP forever"
+                  width={48}
+                  height={48}
+                  className="ml-2 h-4 w-auto"
+                />
+              </h3>
               <Badge className="text-base font-medium">
                 {userInfo.roleId === 1
                   ? t("userField.role_admin")

@@ -59,11 +59,11 @@ func fetchGithubVersion(ctx context.Context, ch chan<- string) {
 	client.SetTimeout(4 * time.Second)
 	client.SetHeader("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1")
 	resp, err := client.Get(ctx, "https://api.github.com/repos/"+consts.Repository+"/releases/latest")
-	defer resp.Close()
 	if err != nil || resp.StatusCode != 200 {
 		ch <- ""
 		return
 	}
+	defer resp.Close()
 	body := resp.ReadAllString()
 	version := gjson.New(body).Get("tag_name").String()
 	ch <- version
@@ -74,11 +74,11 @@ func fetchGiteeVersion(ctx context.Context, ch chan<- string) {
 	client.SetTimeout(4 * time.Second)
 	client.SetHeader("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1")
 	resp, err := client.Get(ctx, "https://gitee.com/api/v5/repos/"+consts.Repository+"/releases/latest")
-	defer resp.Close()
 	if err != nil || resp.StatusCode != 200 {
 		ch <- ""
 		return
 	}
+	defer resp.Close()
 	body := resp.ReadAllString()
 	version := gjson.New(body).Get("tag_name").String()
 	ch <- version

@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { getVersion } from "./store/version";
+import dayjs from "dayjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -60,28 +61,35 @@ export function formatBytes(bytes: number, decimals: number = 2): string {
   return `${convertedValue.toFixed(fixedDecimals)} ${UNITS[i]}`;
 }
 
-export function compareVersion(): boolean{
+export function compareVersion(): boolean {
   const version = getVersion();
-  if(!version){
+  if (!version) {
     return false;
   }
   const currentVersion = process.env.NEXT_PUBLIC_VERSION;
-  if(!currentVersion){
+  if (!currentVersion) {
     return false;
   }
   return compareVersions(version, currentVersion) === 1;
 }
 
 function compareVersions(v1: string, v2: string): number {
-  const parts1 = v1.split('.').map(Number);
-  const parts2 = v2.split('.').map(Number);
+  const parts1 = v1.split(".").map(Number);
+  const parts2 = v2.split(".").map(Number);
 
   for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
     const num1 = parts1[i] || 0;
     const num2 = parts2[i] || 0;
-    
+
     if (num1 > num2) return 1;
     if (num1 < num2) return -1;
   }
   return 0;
+}
+
+export function formatDate(dateStr: string, formatStr: string) {
+  if (!dateStr || !formatStr) return "-";
+  const date = dayjs(dateStr);
+  if (!date.isValid()) return "";
+  return date.format(formatStr);
 }

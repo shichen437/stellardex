@@ -1,0 +1,41 @@
+{
+    "notification": {
+        "title": "通知",
+        "allRead": "全部已读",
+        "allReadMessage": "您确定要全部标记为已读吗？",
+        "delete": "删除通知",
+        "deleteMessage": "您确定要删除这条通知吗？",
+        "deleteAll": "删除全部",
+        "deleteAllMessage": "您确定要删除全部通知吗？",
+        "nav": {
+            "all": "全部",
+            "unread": "未读",
+            "read": "已读"
+        },
+        "empty": {
+            "all": {
+                "title": "暂无通知",
+                "description": "您还没有收到任何通知"
+            },
+            "unread": {
+                "title": "暂无未读通知",
+                "description": "恭喜您已读完所有通知"
+            },
+            "read": {
+                "title": "暂无已读通知",
+                "description": "您还没有已读通知"
+            }
+        },
+        "type": {
+            "system": "系统通知",
+            "renew": "续费通知",
+            "sales": "促销通知"
+        },
+        "table": {
+            "title": "标题",
+            "content": "内容",
+            "time": "推送时间",
+            "type": "通知类型"
+        }
+    }
+}

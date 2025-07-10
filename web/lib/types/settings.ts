@@ -26,6 +26,8 @@ interface ModuleConfig {
   showMonitor: boolean;
   showCalendar: boolean;
   showBookmarks: boolean;
+  showNotification: boolean;
+  showSubscription: boolean;
   calendarFormat: "YYYY-MM-DD" | "MM/DD/YYYY" | "DD.MM.YYYY";
 }
 

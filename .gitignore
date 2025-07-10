@@ -2,6 +2,7 @@
 .trae/
 .DS_Store
 **/.DS_Store
+.codebuddy
 
 temp/
 resource/data/

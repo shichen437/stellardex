@@ -17,7 +17,9 @@ import (
 	bookmark "github.com/shichen437/stellardex/internal/app/bookmark/controller"
 	extensions "github.com/shichen437/stellardex/internal/app/ext/controlloer"
 	userGroup "github.com/shichen437/stellardex/internal/app/group/controller"
+	notify "github.com/shichen437/stellardex/internal/app/notification/controller"
 	settings "github.com/shichen437/stellardex/internal/app/settings/controller"
+	subscription "github.com/shichen437/stellardex/internal/app/subscription/controller"
 	user "github.com/shichen437/stellardex/internal/app/user/controller"
 
 	"github.com/shichen437/stellardex/internal/app/user/dao"
@@ -150,5 +152,8 @@ func bindRoute(group *ghttp.RouterGroup) {
 		bookmark.UserBookmark,
 		bookmark.BookmarkLabel,
 		bookmark.BookmarkSelector,
+		notify.SysNotify,
+		subscription.SysCurrency,
+		subscription.UserSub,
 	)
 }

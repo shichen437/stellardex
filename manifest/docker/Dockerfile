@@ -36,7 +36,7 @@ RUN rm -rf node_modules .next && \
 FROM --platform=linux/amd64 alpine:3.19
 
 LABEL maintainer="shichen437 <shichen437@126.com>"
-LABEL version="0.0.7"
+LABEL version="0.0.8"
 LABEL description="Stellardex"
 LABEL license="Mit"
 LABEL source="https://github.com/shichen437/stellardex"

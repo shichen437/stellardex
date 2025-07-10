@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Settings, LogOut, Library } from "lucide-react";
+import { Settings, LogOut, Library, Bell, BadgeDollarSign } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { SettingsPanel } from "@/components/settings/SettingsPanel";
 import { SimpleModeView } from "@/components/modes/Simplicity";
@@ -18,6 +18,7 @@ import { useSettingsStore } from "@/lib/store/settings";
 import { checkVersion } from "@/api/settings";
 import { CommonConfirmDialog } from "@/components/common/CommonConfirmDialog";
 import { useIsMobile } from "@/hooks/useMobile";
+import { getNotifyList } from "@/api/notification/sys_notify";
 
 function GlobalAuthListener() {
   useAuth();
@@ -35,6 +36,7 @@ export default function Home() {
   const updateSettings = useSettingsStore((state) => state.updateSettings);
   const logoutStore = useUserStore((state) => state.logout);
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -47,6 +49,16 @@ export default function Home() {
   if (settings?.siteConfig?.siteTitle) {
     document.title = settings.siteConfig.siteTitle;
   }
+
+  useEffect(() => {
+    if (settings?.moduleConfig?.showNotification) {
+      getNotifyList({ pageNum: 1, pageSize: 1, status: 0 }).then((res) => {
+        if (res.code === 0) {
+          setHasUnreadNotifications(res.data.total > 0);
+        }
+      });
+    }
+  }, [settings?.moduleConfig?.showNotification]);
 
   useEffect(() => {
     checkVersion().then((res) => {
@@ -124,6 +136,25 @@ export default function Home() {
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <Library className="w-5.5 h-5.5" />
+              </button>
+            )}
+            {settings?.moduleConfig?.showSubscription && (
+              <button
+                onClick={() => router.push("/sub")}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <BadgeDollarSign className="w-5.5 h-5.5" />
+              </button>
+            )}
+            {settings?.moduleConfig?.showNotification && (
+              <button
+                onClick={() => router.push("/notification")}
+                className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <Bell className="w-5.5 h-5.5" />
+                {hasUnreadNotifications && (
+                  <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+                )}
               </button>
             )}
             <button

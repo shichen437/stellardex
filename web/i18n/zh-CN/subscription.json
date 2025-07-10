@@ -1,0 +1,106 @@
+{
+    "subscription": {
+        "title": "订阅",
+        "add": "添加订阅",
+        "edit": "编辑订阅",
+        "delete": "删除订阅",
+        "deleteMessage": "您确定要删除该订阅吗？",
+        "enable": "启用",
+        "disable": "禁用",
+        "nav": {
+            "overview": "概览",
+            "subscription": "订阅管理",
+            "currency": "币种管理"
+        },
+        "field": {
+            "title": "标题",
+            "amount": "金额",
+            "cycle": "周期",
+            "status": "状态",
+            "cycleNum": "周期数",
+            "cycleType": "周期类型",
+            "cycleDay": "周期天数",
+            "category": "分类",
+            "currency": "币种",
+            "startDate": "订阅日期",
+            "nextDate": "续费日期",
+            "site": "网站",
+            "selectCurrency": "选择币种"
+        },
+        "valid": {
+            "title": "标题长度为1-12",
+            "amount": "金额不能为负数",
+            "cycleNum": "周期数在1-99之间",
+            "cycleType": "周期类型不合法",
+            "cycleDay": "周期天数不合法",
+            "startDate": "订阅日期不能为空",
+            "currency": "币种不能为空",
+            "category": "分类最大长度为12",
+            "site": "无效的URL"
+        },
+        "cycle": {
+            "forever": "永久",
+            "week": "周",
+            "month": "月",
+            "quarter": "季",
+            "year": "年",
+            "yearly": "每年",
+            "quarterly": "每季",
+            "monthly": "每月",
+            "weekly": "每周",
+            "weeks": "周",
+            "months": "月",
+            "quarters": "季",
+            "years": "年",
+            "day": {
+                "naturalYear": "自然年",
+                "naturalQuarter": "自然季",
+                "naturalMonth": "自然月",
+                "372": "372天",
+                "360": "360天",
+                "93": "93天",
+                "90": "90天",
+                "31": "31天",
+                "30": "30天"
+            }
+        },
+        "empty": {
+            "sub": {
+                "title": "暂无订阅",
+                "description": "您还没有添加任何订阅"
+            },
+            "currency": {
+                "title": "暂无币种",
+                "description": "您还没有添加任何币种"
+            }
+        },
+        "currency": {
+            "title": "币种管理",
+            "add": "添加币种",
+            "edit": "编辑币种",
+            "delete": "删除币种",
+            "deleteMessage": "您确定要删除该币种吗？",
+            "setDefault": "设为默认",
+            "field": {
+                "code": "币种代码",
+                "symbol": "币种符号",
+                "rate": "汇率",
+                "isDefault": "是否默认",
+                "sort": "排序"
+            },
+            "valid": {
+                "code": "币种代码长度为1-5",
+                "symbol": "币种符号长度为1-5",
+                "rate": "汇率不能为负数",
+                "sort": "排序需要在0-99之间"
+            }
+        },
+        "overview": {
+            "totalNum": "总订阅数",
+            "activeNum": "活跃订阅数",
+            "perMonthCost": "月均支出",
+            "perYearCost": "年均支出",
+            "timeline": "时间轴"
+        }
+    }
+}

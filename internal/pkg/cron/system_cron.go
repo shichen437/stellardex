@@ -11,6 +11,8 @@ import (
 var (
 	unusedIconClean    = "unusedIconClean"
 	checkLatestVersion = "checkLatestVersion"
+	checkStorage       = "checkStorage"
+	subUpdateAndNotify = "subUpdateAndNotify"
 )
 
 func SystemCron(ctx context.Context) {
@@ -22,4 +24,12 @@ func SystemCron(ctx context.Context) {
 		g.Log().Info(ctx, "Add job - "+checkLatestVersion)
 		system.CheckVersion(ctx)
 	}, checkLatestVersion)
+	gcron.Add(ctx, "# 30 8-22 * * *", func(ctx context.Context) {
+		g.Log().Info(ctx, "Add job - "+checkStorage)
+		system.CheckStorage(ctx)
+	}, checkStorage)
+	gcron.Add(ctx, "@midnight", func(ctx context.Context) {
+		g.Log().Info(ctx, "Add job - "+subUpdateAndNotify)
+		system.SubUpdateAndNotify(ctx)
+	}, subUpdateAndNotify)
 }

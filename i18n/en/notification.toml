@@ -1,0 +1,6 @@
+"storage.notify.title"="Disk usage warning"
+"storage.notify.content"="The disk usage space has exceeded %.2f%%, please clean up the disk space"
+
+"subscription.notify.title"="Subscription expiration reminder"
+"subscription.notify.expired.1"="Your subscription [ %s ] will expire tomorrow, please renew it as soon as possible."
+"subscription.notify.expired.3"="Your subscription [ %s ] will expire in 3 days, please renew it as soon as possible."

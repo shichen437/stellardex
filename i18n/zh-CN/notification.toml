@@ -1,0 +1,6 @@
+"storage.notify.title"="磁盘空间预警"
+"storage.notify.content"="您的磁盘已使用 %.2f%%，请及时清理磁盘空间"
+
+"subscription.notify.title"="订阅到期提醒"
+"subscription.notify.expired.1"="您的订阅【 %s 】将于明日到期，请及时续费。"
+"subscription.notify.expired.3"="您的订阅【 %s 】将于三日后到期，到期时间：%s，请及时续费。"

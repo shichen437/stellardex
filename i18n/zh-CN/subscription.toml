@@ -1,0 +1,32 @@
+"sub.valid.IdEmpty" = "订阅ID不能为空"
+
+"sub.valid.titleEmpty" = "标题不能为空"
+"sub.valid.titleLength" = "标题长度为1-12"
+
+"sub.valid.amount" = "金额不能为负数"
+
+"sub.valid.cycleNum" = "周期数在 1-99 之间"
+
+"sub.valid.cycleType" = "无效的周期类型"
+
+"sub.valid.cycleDay" = "无效的周期天数类型"
+
+"sub.valid.startDate" = "订阅日期不能为空"
+
+"sub.valid.currency" = "币种不能为空"
+
+"sub.valid.categoryLength" = "分类最大长度为12"
+
+"sub.valid.site" = "无效的URL"
+
+"sub.currency.valid.IdEmpty" = "币种ID不能为空"
+
+"sub.currency.valid.codeLength" = "币种代码长度为1-5"
+
+"sub.currency.valid.symbolLength" = "币种符号长度为1-5"
+
+"sub.currency.valid.rate" = "汇率不能为负数"
+
+"sub.currency.valid.sort" = "排序需要在0-99之间"
+
+"sub.currency.error.isUsing" = "币种正在被使用，无法删除"

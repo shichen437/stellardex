@@ -18,14 +18,16 @@ type InterfaceConfig struct {
 }
 
 type ModuleConfig struct {
-	ShowMeteors    bool   `json:"showMeteors"`
-	ShowSearchBar  bool   `json:"showSearchBar"`
-	ShowCalendar   bool   `json:"showCalendar"`
-	ShowClock      bool   `json:"showClock"`
-	ShowMonitor    bool   `json:"showMonitor"`
-	CalendarFormat string `json:"calendarFormat"`
-	SearchEngine   string `json:"searchEngine"`
-	ShowBookmarks  bool   `json:"showBookmarks"`
+	ShowMeteors      bool   `json:"showMeteors"`
+	ShowSearchBar    bool   `json:"showSearchBar"`
+	ShowCalendar     bool   `json:"showCalendar"`
+	ShowClock        bool   `json:"showClock"`
+	ShowMonitor      bool   `json:"showMonitor"`
+	CalendarFormat   string `json:"calendarFormat"`
+	SearchEngine     string `json:"searchEngine"`
+	ShowBookmarks    bool   `json:"showBookmarks"`
+	ShowNotification bool   `json:"showNotification"`
+	ShowSubscription bool   `json:"showSubscription"`
 }
 
 type SiteConfig struct {

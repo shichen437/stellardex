@@ -109,7 +109,7 @@ export const ProfileModal = ({ userInfo }: ProfileModalProps) => {
           {t("profile.updateProfile")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-xs w-full rounded-xl shadow-2xl p-8 bg-popover dark:bg-popover">
+      <DialogContent className="max-w-xs w-full rounded-xl shadow-2xl p-8 bg-popover dark:bg-popover"  onOpenAutoFocus={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>{t("profile.updateProfile")}</DialogTitle>
         </DialogHeader>

@@ -1,0 +1,41 @@
+{
+    "notification": {
+        "title": "Notifications",
+        "allRead": "Mark all as read",
+        "allReadMessage": "Do you want to mark all as read?",
+        "delete": "Delete notification",
+        "deleteMessage": "Do you want to delete this notification?",
+        "deleteAll": "Delete all",
+        "deleteAllMessage": "Do you want to delete all notifications?",
+        "nav": {
+            "all": "All",
+            "unread": "Unread",
+            "read": "Read"
+        },
+        "empty": {
+            "all": {
+                "title": "No notifications",
+                "description": "You haven't received any notifications"
+            },
+            "unread": {
+                "title": "No unread notifications",
+                "description": "Congratulations, you've read all notifications"
+            },
+            "read": {
+                "title": "No read notifications",
+                "description": "You haven't read any notifications"
+            }
+        },
+        "type": {
+            "system": "System",
+            "renew": "Renew",
+            "sales": "Sales"
+        },
+        "table": {
+            "title": "Title",
+            "content": "Content",
+            "time": "Time",
+            "type": "Type"
+        }
+    }
+}

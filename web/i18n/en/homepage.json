@@ -20,6 +20,9 @@
         "empty": "No data",
         "minutes": "minutes",
         "developing": "Developing...",
+        "yes": "Yes",
+        "no": "No",
+        "dateFormat": "MM/DD/YYYY",
         "placeholder": {
             "search": "Please input search content"
         }
@@ -114,13 +117,17 @@
         }
     },
     "module": {
+        "homepage": "Homepage",
+        "features": "Features",
+        "showMeteors": "Show Meteors",
+        "showMonitor": "Show Monitor Info",
+        "showBookmarks": "Show Bookmarks",
+        "showNotification": "Show Notification",
+        "showSubscription": "Show Subscription",
+        "showSearchBar": "Show Search Bar",
         "showTime": "Show Time",
         "showCalendar": "Show Date",
-        "showSearchBar": "Show Search Bar",
-        "showMonitor": "Show Monitor Info",
         "dateFormat": "Date Format",
-        "showMeteors": "Show Meteors",
-        "showBookmarks": "Show Bookmarks",
         "placeholder": {
             "dateFormat": "Please select date format"
         }
