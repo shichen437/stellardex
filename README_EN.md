@@ -35,6 +35,8 @@ StellarDex is a navigation page application implemented with Golang + Next.js.
 
 - Bookmarks
 - Multi-user login
+- Notifications
+- Subscription management
 - Hardware monitoring
 - Multiple style icons
 - Multiple display modes
