@@ -4,6 +4,8 @@ import (
 	"time"
 
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
@@ -17,7 +19,10 @@ import (
 type MonitorHandler struct{}
 
 func (h *MonitorHandler) OnConnect(channel string) {
-	sse.StartAutoSend(channel, 2*time.Second, HardwareInfo)
+	if channel == consts.SSE_CHANNEL_MONITOR {
+		HardwareInfo()
+		sse.StartAutoSend(channel, 2*time.Second, HardwareInfo)
+	}
 }
 
 func (h *MonitorHandler) OnDisconnect(channel string) {
@@ -30,12 +35,12 @@ func init() {
 
 func HardwareInfo() {
 	cpuInfo, _ := cpu.Info()
-	percents, _ := cpu.Percent(1000*time.Millisecond, false)
 	var cpuData *entity.CpuInfo
 	if len(cpuInfo) > 0 {
 		gconv.Struct(cpuInfo[0], &cpuData)
-		if len(percents) > 0 {
-			cpuData.Percent = percents[0]
+		value, err := gcache.Get(gctx.GetInitCtx(), consts.CpuPercentCacheKey)
+		if err == nil {
+			cpuData.Percent = value.Float64()
 		}
 	}
 	var memData *entity.MemoryInfo

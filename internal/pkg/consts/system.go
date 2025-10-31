@@ -9,4 +9,6 @@ const (
 
 	Repository = "shichen437/stellardex"
 	VersionKey = "latestVersion"
+
+	CpuPercentCacheKey = "system:cpu:percent"
 )

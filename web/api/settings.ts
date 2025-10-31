@@ -56,10 +56,3 @@ export async function checkVersion() {
     method: "get",
   });
 }
-
-export async function initMonitor() {
-  return request({
-    url: `/settings/monitor`,
-    method: "get",
-  });
-}
