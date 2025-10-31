@@ -13,9 +13,13 @@ var (
 	checkLatestVersion = "checkLatestVersion"
 	checkStorage       = "checkStorage"
 	subUpdateAndNotify = "subUpdateAndNotify"
+	cpuPercent         = "cpuPercent"
 )
 
 func SystemCron(ctx context.Context) {
+	gcron.Add(ctx, "*/5 * * * * *", func(ctx context.Context) {
+		system.CpuPercent(ctx)
+	}, cpuPercent)
 	gcron.Add(ctx, "@weekly", func(ctx context.Context) {
 		g.Log().Info(ctx, "Add job - "+unusedIconClean)
 		system.CleanIcon(ctx)
