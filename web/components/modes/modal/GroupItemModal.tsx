@@ -163,8 +163,8 @@ export function GroupItemModal({
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm">
-      <div className="bg-popover dark:bg-popover rounded-lg shadow-xl w-full max-w-3xl p-6 m-4 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm">
+      <div className="bg-card border rounded-lg shadow-xl w-full max-w-3xl p-6 m-4 max-h-[90vh] overflow-y-auto">
         <h3 className="text-lg font-medium mb-4">
           {item ? t("groupItem.edit") : t("groupItem.add")}
         </h3>
@@ -214,7 +214,6 @@ export function GroupItemModal({
                       <Input
                         placeholder={t("groupItem.placeholder.title")}
                         {...field}
-                        className="dark:bg-popover dark:border-gray-600"
                       />
                     </FormControl>
                     <FormMessage />
@@ -233,7 +232,6 @@ export function GroupItemModal({
                           placeholder={t("groupItem.placeholder.desc")}
                           maxLength={30}
                           {...field}
-                          className="dark:bg-popover dark:border-gray-600"
                         />
                       </FormControl>
                       <div className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 dark:text-gray-400">
@@ -264,13 +262,14 @@ export function GroupItemModal({
                             form.clearErrors("url");
                           }
                         }}
-                        className="flex-1 dark:bg-popover dark:border-gray-600"
+                        className="flex-1"
                       />
                     </FormControl>
                     <Button
                       type="button"
+                      variant="outline"
                       onClick={handleGetFavicon}
-                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-popover dark:text-gray-300 dark:hover:bg-gray-600 rounded-md whitespace-nowrap"
+                      className="px-3 py-2 rounded-md whitespace-nowrap"
                       disabled={!watchedUrl?.trim()}
                     >
                       {t("groupItem.getIcon")}
@@ -292,7 +291,6 @@ export function GroupItemModal({
                       type="url"
                       placeholder={t("groupItem.placeholder.lanUrl")}
                       {...field}
-                      className="dark:bg-popover dark:border-gray-600"
                     />
                   </FormControl>
                   <FormMessage />
@@ -314,7 +312,7 @@ export function GroupItemModal({
                         if (newType === "text") {
                           form.setValue(
                             "iconUrl",
-                            form.getValues("title").slice(0, 2)
+                            form.getValues("title").slice(0, 2),
                           );
                         } else if (newType === "image") {
                           if (form.getValues("url").trim()) {
@@ -329,7 +327,7 @@ export function GroupItemModal({
                       value={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-full dark:bg-popover dark:border-gray-600">
+                        <SelectTrigger className="w-full">
                           <SelectValue
                             placeholder={t("groupItem.placeholder.iconType")}
                           />
@@ -362,14 +360,14 @@ export function GroupItemModal({
                     <Button
                       type="button"
                       onClick={() => setShowColorPicker(!showColorPicker)}
-                      className="w-10 h-10 rounded-md border dark:border-gray-600 overflow-hidden"
+                      className="w-10 h-10 rounded-md overflow-hidden"
                       style={{
                         backgroundColor: watchedBgColor,
                         opacity: watchedOpacity,
                       }}
                     />
                     {showColorPicker && (
-                      <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-3 z-20">
+                      <div className="absolute top-full left-0 mt-2 rounded-lg shadow-xl p-3 z-20">
                         <Sketch
                           color={watchedBgColor}
                           onChange={(colorResult) => {
@@ -378,7 +376,7 @@ export function GroupItemModal({
                               "opacity",
                               colorResult.rgba.a !== undefined
                                 ? Number(colorResult.rgba.a.toFixed(4))
-                                : 1
+                                : 1,
                             );
                           }}
                         />
@@ -394,18 +392,19 @@ export function GroupItemModal({
                           <Input
                             {...field}
                             placeholder="#ffffff"
-                            className="flex-1 dark:bg-popover dark:border-gray-600"
+                            className="flex-1"
                           />
                         </FormControl>
                       )}
                     />
                     <Button
                       type="button"
+                      variant="outline"
                       onClick={() => {
                         form.setValue("bgColor", "#ffffff");
                         form.setValue("opacity", 1);
                       }}
-                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-popover dark:text-gray-300 dark:hover:bg-gray-600 rounded-md whitespace-nowrap"
+                      className="px-3 py-2 rounded-md whitespace-nowrap"
                     >
                       {t("common.reset")}
                     </Button>
@@ -468,7 +467,7 @@ export function GroupItemModal({
                           <Input
                             value={field.value}
                             readOnly
-                            className="flex-1 dark:bg-popover dark:border-gray-600"
+                            className="flex-1"
                           />
                         </div>
                       ) : (
@@ -480,7 +479,6 @@ export function GroupItemModal({
                               : t("groupItem.placeholder.lucide")
                           }
                           {...field}
-                          className="dark:bg-popover dark:border-gray-600"
                           disabled={
                             watchedIconType === "image" &&
                             form.getValues("url")?.trim() !== "" &&
@@ -519,19 +517,10 @@ export function GroupItemModal({
             )}
 
             <div className="flex justify-end space-x-2 pt-4">
-              <Button
-                type="button"
-                onClick={onClose}
-                variant="outline"
-                className="px-4 py-2 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700"
-              >
+              <Button type="button" onClick={onClose} variant="outline">
                 {t("common.cancel")}
               </Button>
-              <Button
-                type="submit"
-                className="px-4 py-2 text-white rounded-md"
-                disabled={form.formState.isSubmitting}
-              >
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {t("common.confirm")}
               </Button>
             </div>

@@ -4,22 +4,83 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { ShineBorder } from "@/components/magicui/shine-border";
 import { Meteors } from "@/components/magicui/meteors";
 import { useUserStore } from "@/lib/store/user";
 import { toast } from "sonner";
 import { usePolyglot } from "@/providers/PolyglotProvider";
 import { getDefaultLang } from "@/api/settings";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { ShineBorder } from "@/components/magicui/shine-border";
+import { useIsMobile } from "@/hooks/useMobile";
+
+interface LoginFormProps {
+  handleLogin: (e: React.FormEvent) => Promise<void>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  error: string;
+  t: (key: string) => string;
+}
+
+function LoginForm({
+  handleLogin,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  error,
+  t,
+}: LoginFormProps) {
+  return (
+    <form className="p-6 md:p-8 w-full max-w-md" onSubmit={handleLogin}>
+      <FieldGroup>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">{t("login.title")}</h1>
+          <p className="text-muted-foreground text-balance">
+            {t("login.login_tip")}
+          </p>
+        </div>
+        <Field>
+          <FieldLabel htmlFor="username">{t("login.username")}</FieldLabel>
+          <Input
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder={t("login.placeholder.username")}
+            autoComplete="username"
+            inputMode="email"
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="password">{t("login.password")}</FieldLabel>
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={t("login.placeholder.password")}
+            autoComplete="current-password"
+          />
+        </Field>
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <Field>
+          <Button type="submit" className="w-full">
+            {t("login.title")}
+          </Button>
+        </Field>
+      </FieldGroup>
+    </form>
+  );
+}
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -29,6 +90,8 @@ export default function LoginPage() {
   const router = useRouter();
   const login = useUserStore((state) => state.login);
   const { t, setLanguage } = usePolyglot();
+  const isMobile = useIsMobile();
+
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.title = "Stellardex";
@@ -49,6 +112,32 @@ export default function LoginPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove("light");
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+    };
+
+    if (mediaQuery.matches) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    };
+  }, []);
 
   if (loading) return null;
 
@@ -75,65 +164,55 @@ export default function LoginPage() {
     }
   };
 
+  const loginFormProps = {
+    handleLogin,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    error,
+    t,
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black/30 relative overflow-hidden">
+    <div className="w-screen h-screen flex items-center justify-center bg-white dark:bg-black/30 relative overflow-hidden px-4">
       <Meteors number={20} minDuration={2.5} maxDuration={12} />
-      <div className="flex flex-col items-center gap-4 -translate-y-14">
-        {" "}
-        {/* 这个div整体在屏幕正中间 */}
-        <div className="flex flex-col items-center">
-          <Image
-            src="/logo/logo.png"
-            alt="Logo"
-            className="w-20 h-20 mb-2"
-            width={100}
-            height={100}
-          />
-          <AuroraText className="text-2xl font-bold md:text-3xl lg:text-4xl">
-            StellarDex
-          </AuroraText>
+
+      {isMobile ? (
+        <div className="w-full max-w-md -translate-y-4">
+          <Card className="overflow-hidden p-0 w-full">
+            <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+            <CardContent className="p-0">
+              <LoginForm {...loginFormProps} />
+            </CardContent>
+          </Card>
         </div>
-        <Card className="relative w-[350px] overflow-hidden">
-          <CardHeader className="text-xl">
-            <CardTitle>{t("login.title")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form id="loginForm" onSubmit={handleLogin}>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="username">{t("login.username")}</Label>
-                  <Input
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder={t("login.placeholder.username")}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="password">{t("login.password")}</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder={t("login.placeholder.password")}
-                  />
-                </div>
-                {error && <div className="text-red-500 text-sm">{error}</div>}
+      ) : (
+        <div className="flex flex-col items-center gap-4 -translate-y-6">
+          <Card
+            className="overflow-hidden p-0"
+            style={{ width: 900, height: 560 }}
+          >
+            <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+            <CardContent className="grid p-0 md:grid-cols-2 place-items-center h-full">
+              <div className="bg-muted relative hidden md:flex flex-col items-center justify-center p-6 md:p-8 h-full w-full">
+                <Image
+                  src="/logo/logo.png"
+                  alt="Logo"
+                  className="w-16 h-16 mb-2"
+                  width={100}
+                  height={100}
+                />
+                <AuroraText className="p-2 text-xl font-bold md:text-2xl lg:text-3xl">
+                  StellarDex
+                </AuroraText>
+                <FieldDescription>{t("login.project_desc")}</FieldDescription>
               </div>
-            </form>
-          </CardContent>
-          <CardFooter className="grid w-full">
-            <Button type="submit" form="loginForm">
-              {t("login.title")}
-            </Button>
-          </CardFooter>
-          <ShineBorder
-            duration={16}
-            shineColor={["#FF0080", "#7928CA", "#0070F3", "#38bdf8"]}
-          />
-        </Card>
-      </div>
+              <LoginForm {...loginFormProps} />
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
